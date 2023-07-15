@@ -110,7 +110,7 @@
           <item>
            <widget class="QLabel" name="biglogoLabel">
             <property name="text">
-             <string>ОБЩИЙ ЛОГОТИП</string>
+             <string>ЛОГО ОБЩЕЕ</string>
             </property>
            </widget>
           </item>
@@ -241,7 +241,7 @@
               <item>
                <widget class="QStackedWidget" name="stackedWidget3">
                 <property name="currentIndex">
-                 <number>0</number>
+                 <number>2</number>
                 </property>
                 <widget class="QWidget" name="protocolViewPage">
                  <layout class="QVBoxLayout" name="verticalLayout_9">
@@ -404,7 +404,7 @@
               <item>
                <widget class="QStackedWidget" name="stackedWidget4">
                 <property name="currentIndex">
-                 <number>1</number>
+                 <number>0</number>
                 </property>
                 <widget class="QWidget" name="championshipEditPage">
                  <layout class="QVBoxLayout" name="verticalLayout_11">
@@ -829,6 +829,8 @@
    </layout>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="Лого/Logo.qrc"/>
+ </resources>
  <connections/>
 </ui>
