@@ -28,11 +28,12 @@ class AppWindow(QMainWindow):
         password = self.ui.passLine.text()
 
 
-    
-
 if __name__ == '__main__':
     app = QApplication([])
     AppWindow = AppWindow()
     AppWindow.show()
     sys.exit(app.exec())
+
+if __name__ == '__main__':
+    main() 
     
