@@ -21,13 +21,21 @@ class AppWindow(QMainWindow):
         try: con.open()
         except: sys.exit(1)
 
-    def login():
-        self.ui.enterButton.clicked.connect(self.check_data())
-    def check_data():
+        
+
+        self.ui.enterButton.clicked.connect(self.check_data)
+    def check_data(self):
         login = self.ui.loginLine.text()
         password = self.ui.passLine.text()
+        try: login = int(login)
+        except: sys.exit('Error!')
         query = QSqlQuery()
-        query.exec('SELECT ')
+        query.exec(f'SELECT COUNT(role_id) FROM Users WHERE login = {login} AND password = {password}')
+        print(f'SELECT role_id FROM Users WHERE login = {login} AND password = {password}')
+        print(type(login))
+        print(type(password))
+        print(query.first())
+        print(query.value(0))
 
         
 
