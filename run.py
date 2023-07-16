@@ -25,8 +25,12 @@ class AppWindow(QMainWindow):
 
 
 
+def main():
+    app = QApplication([])
+    AppWindow = AppWindow()
+    AppWindow.show()
+    sys.exit(app.exec())
 
-app = QApplication([])
-AppWindow = AppWindow()
-AppWindow.show()
-sys.exit(app.exec())
+if __name__ == '__main__':
+    main() 
+    
