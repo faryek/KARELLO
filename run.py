@@ -21,11 +21,7 @@ class AppWindow(QMainWindow):
         try: con.open()
         except: sys.exit(1)
 
-    def login():
-        self.ui.enterButton.clicked.connect(self.check_data())
-    def check_data():
-        login = self.ui.loginLine.text()
-        password = self.ui.passLine.text()
+
 
 
 if __name__ == '__main__':
