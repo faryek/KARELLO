@@ -30,4 +30,7 @@ def main():
     AppWindow = AppWindow()
     AppWindow.show()
     sys.exit(app.exec())
+
+if __name__ == '__main__':
+    main() 
     
