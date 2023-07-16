@@ -8,7 +8,7 @@ from PyQt6.QtWidgets import (
     QTableWidget,
     QWidget
 )
-from PyQt6.QtSql import QSqlDatabase
+from PyQt6.QtSql import QSqlDatabase, QSqlQuery
 
 class AppWindow(QMainWindow):
     def __init__(self):
@@ -20,6 +20,16 @@ class AppWindow(QMainWindow):
         con.setDatabaseName('WS.db')
         try: con.open()
         except: sys.exit(1)
+
+    def login():
+        self.ui.enterButton.clicked.connect(self.check_data())
+    def check_data():
+        login = self.ui.loginLine.text()
+        password = self.ui.passLine.text()
+        query = QSqlQuery()
+        query.exec('SELECT ')
+
+        
 
 
 
