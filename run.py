@@ -9,7 +9,7 @@ from PyQt6.QtWidgets import (
     QWidget
 )
 from PyQt6.QtSql import QSqlDatabase
-
+#karelova
 class AppWindow(QMainWindow):
     def __init__(self):
         super(AppWindow, self).__init__()
