@@ -52,6 +52,12 @@ class AppWindow(QMainWindow):
         self.ui.stackedWidget.setCurrentIndex(1)
 
 
+<<<<<<< HEAD
+=======
+
+
+    
+>>>>>>> 682eccd01a7fb1b39686ec27a1d25c5007b732e7
 
 if __name__ == '__main__':
     app = QApplication([])
