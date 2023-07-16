@@ -22,7 +22,10 @@ class AppWindow(QMainWindow):
         except: sys.exit(1)
 
 
-if __name__ == '__main__':
+
+
+
+def main():
     app = QApplication([])
     AppWindow = AppWindow()
     AppWindow.show()
