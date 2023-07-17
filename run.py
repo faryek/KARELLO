@@ -28,7 +28,7 @@ class AppWindow(QMainWindow):
         self.ui.memberButton.clicked.connect(lambda: self.ui.stackedWidget.setCurrentIndex(1))
         self.ui.mainExpertButton.clicked.connect(lambda: self.ui.stackedWidget.setCurrentIndex(3))
         self.ui.protocolCButton.clicked.connect(lambda: self.ui.stackedWidget.setCurrentIndex(2))
-        self.ui.backToMainButton.clicked.connect(lambda: self.ui.stackedWidget_1.setCurrentIndex(0))
+        self.ui.backToMainButton.clicked.connect(self.reset_on_click_back)
         self.ui.logoutButton.clicked.connect(lambda: self.ui.stackedWidget_4.setCurrentIndex(3))
         self.ui.logoutButton_2.clicked.connect(lambda: self.ui.stackedWidget_4.setCurrentIndex(3))
         self.ui.memberButton_2.clicked.connect(lambda: self.ui.stackedWidget_3.setCurrentIndex(0))
@@ -43,6 +43,12 @@ class AppWindow(QMainWindow):
         self.ui.enterButton.clicked.connect(self.check_data)
         self.ui.memberEnterButton.clicked.connect(self.member_swap)
         self.ui.okButton.clicked.connect(self.check_member)
+
+
+    def reset_on_click_back(self):
+        self.ui.stackedWidget_1.setCurrentIndex(0)
+        self.ui.stackedWidget.setCurrentIndex(0)
+
         
     def check_data(self):
         login = self.ui.loginLine.text()
