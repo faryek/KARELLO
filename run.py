@@ -20,44 +20,26 @@ class AppWindow(QMainWindow):
         con.setDatabaseName('WS.db')
         try: con.open()
         except: sys.exit(1)
-        self.ui.enterButton.clicked.connect(self.login_success)
-        self.ui.addChampButton.clicked.connect(self.champinship_open_change)
-        self.ui.championshipEditButton.clicked.connect(self.champinship_settings)
-        self.ui.memberButton.clicked.connect(self.champinship_member_list)
-        self.ui.mainExpertButton.clicked.connect(self.champinship_settings)
-        self.ui.protocolCButton.clicked.connect(self.champinship_settings)
+        self.ui.stackedWidget_1.setCurrentIndex(0)
+        self.ui.enterButton.clicked.connect(lambda: self.ui.stackedWidget_4.setCurrentIndex(0)) #Kostil
+        self.ui.addChampButton.clicked.connect(lambda: self.ui.stackedWidget_1.setCurrentIndex(1)) 
+        self.ui.championshipEditButton.clicked.connect(lambda: self.ui.stackedWidget.setCurrentIndex(0))
+        self.ui.memberButton.clicked.connect(lambda: self.ui.stackedWidget.setCurrentIndex(1))
+        self.ui.mainExpertButton.clicked.connect(lambda: self.ui.stackedWidget.setCurrentIndex(3))
+        self.ui.protocolCButton.clicked.connect(lambda: self.ui.stackedWidget.setCurrentIndex(2))
+        self.ui.backToMainButton.clicked.connect(lambda: self.ui.stackedWidget_1.setCurrentIndex(0))
+        self.ui.okButton.clicked.connect(lambda: self.ui.stackedWidget_4.setCurrentIndex(1))
+        self.ui.logoutButton.clicked.connect(lambda: self.ui.stackedWidget_4.setCurrentIndex(3))
+        self.ui.okButton.clicked.connect(lambda: self.ui.stackedWidget_2.setCurrentIndex(1)) #Kostil
+        self.ui.logoutButton_2.clicked.connect(lambda: self.ui.stackedWidget_4.setCurrentIndex(3))
+        self.ui.memberButton_2.clicked.connect(lambda: self.ui.stackedWidget_3.setCurrentIndex(0))
+        self.ui.expertButton_2.clicked.connect(lambda: self.ui.stackedWidget_3.setCurrentIndex(1))
+        self.ui.protocolButton_2.clicked.connect(lambda: self.ui.stackedWidget_3.setCurrentIndex(2))
+        self.ui.championshipButton.clicked.connect(lambda: self.ui.stackedWidget3.setCurrentIndex(2))
+        self.ui.expertButton.clicked.connect(lambda: self.ui.stackedWidget3.setCurrentIndex(1))
+        self.ui.protocolButton.clicked.connect(lambda: self.ui.stackedWidget3.setCurrentIndex(0))
+        self.ui.exitButton.clicked.connect(lambda: self.ui.stackedWidget_2.setCurrentIndex(0))
 
-
-    def login_success(self):
-        self.ui.stackedWidget_4.setCurrentIndex(0)
-
-
-    def champinship_open_change(self):
-        self.ui.stackedWidget_1.setCurrentIndex(1)
-
-
-    def champinship_settings(self):
-        self.ui.stackedWidget.setCurrentIndex(0)
-
-
-    def champinship_member_list(self):
-        self.ui.stackedWidget.setCurrentIndex(1)
-
-
-    def champinship_expert_list(self):
-        self.ui.stackedWidget.setCurrentIndex(1)
-
-
-    def champinship_protocol_list(self):
-        self.ui.stackedWidget.setCurrentIndex(1)
-
-
-<<<<<<< HEAD
-=======
-
-
-    
->>>>>>> 682eccd01a7fb1b39686ec27a1d25c5007b732e7
 
 if __name__ == '__main__':
     app = QApplication([])
