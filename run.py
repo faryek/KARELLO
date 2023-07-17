@@ -26,6 +26,7 @@ class AppWindow(QMainWindow):
         self.ui.enterButton.clicked.connect(self.check_data)
         self.ui.memberEnterButton.clicked.connect(self.member_swap)
         self.ui.okButton.clicked.connect(self.check_member)
+        
     def check_data(self):
         login = self.ui.loginLine.text()
         password = self.ui.passLine.text()
