@@ -54,6 +54,13 @@
               <height>30</height>
              </size>
             </property>
+            <property name="font">
+             <font>
+              <family>Akrobat SemiBold</family>
+              <pointsize>14</pointsize>
+              <bold>true</bold>
+             </font>
+            </property>
             <property name="text">
              <string>Выход</string>
             </property>
@@ -175,7 +182,7 @@
              </sizepolicy>
             </property>
             <property name="currentIndex">
-             <number>1</number>
+             <number>0</number>
             </property>
             <widget class="QWidget" name="mainPage">
              <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -205,6 +212,13 @@
                     <height>50</height>
                    </size>
                   </property>
+                  <property name="font">
+                   <font>
+                    <family>Akrobat SemiBold</family>
+                    <pointsize>14</pointsize>
+                    <bold>true</bold>
+                   </font>
+                  </property>
                   <property name="text">
                    <string>Чемпионаты</string>
                   </property>
@@ -218,6 +232,13 @@
                     <height>50</height>
                    </size>
                   </property>
+                  <property name="font">
+                   <font>
+                    <family>Akrobat SemiBold</family>
+                    <pointsize>14</pointsize>
+                    <bold>true</bold>
+                   </font>
+                  </property>
                   <property name="text">
                    <string>Эксперты</string>
                   </property>
@@ -230,6 +251,13 @@
                     <width>250</width>
                     <height>50</height>
                    </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <family>Akrobat SemiBold</family>
+                    <pointsize>14</pointsize>
+                    <bold>true</bold>
+                   </font>
                   </property>
                   <property name="text">
                    <string>Протоколы</string>
@@ -304,6 +332,13 @@
                         <height>40</height>
                        </size>
                       </property>
+                      <property name="font">
+                       <font>
+                        <family>Akrobat SemiBold</family>
+                        <pointsize>14</pointsize>
+                        <bold>true</bold>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>Добавить чемпионат</string>
                       </property>
@@ -329,6 +364,13 @@
                     <height>50</height>
                    </size>
                   </property>
+                  <property name="font">
+                   <font>
+                    <family>Akrobat SemiBold</family>
+                    <pointsize>14</pointsize>
+                    <bold>true</bold>
+                   </font>
+                  </property>
                   <property name="text">
                    <string>Настройка чемпионата</string>
                   </property>
@@ -341,6 +383,13 @@
                     <width>250</width>
                     <height>50</height>
                    </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <family>Akrobat SemiBold</family>
+                    <pointsize>14</pointsize>
+                    <bold>true</bold>
+                   </font>
                   </property>
                   <property name="text">
                    <string>Список участников</string>
@@ -355,6 +404,13 @@
                     <height>50</height>
                    </size>
                   </property>
+                  <property name="font">
+                   <font>
+                    <family>Akrobat SemiBold</family>
+                    <pointsize>14</pointsize>
+                    <bold>true</bold>
+                   </font>
+                  </property>
                   <property name="text">
                    <string>Список главных экспертов</string>
                   </property>
@@ -368,6 +424,13 @@
                     <height>50</height>
                    </size>
                   </property>
+                  <property name="font">
+                   <font>
+                    <family>Akrobat SemiBold</family>
+                    <pointsize>14</pointsize>
+                    <bold>true</bold>
+                   </font>
+                  </property>
                   <property name="text">
                    <string>Список протоколов</string>
                   </property>
@@ -380,6 +443,13 @@
                     <width>250</width>
                     <height>50</height>
                    </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <family>Akrobat SemiBold</family>
+                    <pointsize>14</pointsize>
+                    <bold>true</bold>
+                   </font>
                   </property>
                   <property name="text">
                    <string>Список особых полномочий экспертов</string>
@@ -410,6 +480,13 @@
                     <height>30</height>
                    </size>
                   </property>
+                  <property name="font">
+                   <font>
+                    <family>Akrobat SemiBold</family>
+                    <pointsize>14</pointsize>
+                    <bold>true</bold>
+                   </font>
+                  </property>
                   <property name="text">
                    <string>Назад</string>
                   </property>
@@ -420,7 +497,7 @@
               <item>
                <widget class="QStackedWidget" name="stackedWidget">
                 <property name="currentIndex">
-                 <number>1</number>
+                 <number>0</number>
                 </property>
                 <widget class="QWidget" name="championshipEditPage">
                  <layout class="QVBoxLayout" name="verticalLayout_11">
@@ -438,6 +515,13 @@
                             <height>0</height>
                            </size>
                           </property>
+                          <property name="font">
+                           <font>
+                            <family>Akrobat SemiBold</family>
+                            <pointsize>14</pointsize>
+                            <bold>true</bold>
+                           </font>
+                          </property>
                          </widget>
                         </item>
                         <item>
@@ -447,6 +531,13 @@
                             <width>50</width>
                             <height>0</height>
                            </size>
+                          </property>
+                          <property name="font">
+                           <font>
+                            <family>Akrobat SemiBold</family>
+                            <pointsize>14</pointsize>
+                            <bold>true</bold>
+                           </font>
                           </property>
                          </widget>
                         </item>
@@ -459,6 +550,13 @@
                           <width>350</width>
                           <height>0</height>
                          </size>
+                        </property>
+                        <property name="font">
+                         <font>
+                          <family>Akrobat SemiBold</family>
+                          <pointsize>14</pointsize>
+                          <bold>true</bold>
+                         </font>
                         </property>
                        </widget>
                       </item>
@@ -511,6 +609,13 @@
                         <height>30</height>
                        </size>
                       </property>
+                      <property name="font">
+                       <font>
+                        <family>Akrobat SemiBold</family>
+                        <pointsize>14</pointsize>
+                        <bold>true</bold>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>Добавить компетенцию</string>
                       </property>
@@ -529,6 +634,13 @@
                         <width>100</width>
                         <height>30</height>
                        </size>
+                      </property>
+                      <property name="font">
+                       <font>
+                        <family>Akrobat SemiBold</family>
+                        <pointsize>14</pointsize>
+                        <bold>true</bold>
+                       </font>
                       </property>
                       <property name="text">
                        <string>Сохранить изменения</string>
@@ -587,6 +699,13 @@
                             <height>0</height>
                            </size>
                           </property>
+                          <property name="font">
+                           <font>
+                            <family>Akrobat SemiBold</family>
+                            <pointsize>14</pointsize>
+                            <bold>true</bold>
+                           </font>
+                          </property>
                           <property name="text">
                            <string>Компетениця</string>
                           </property>
@@ -608,6 +727,13 @@
                             <width>150</width>
                             <height>0</height>
                            </size>
+                          </property>
+                          <property name="font">
+                           <font>
+                            <family>Akrobat SemiBold</family>
+                            <pointsize>14</pointsize>
+                            <bold>true</bold>
+                           </font>
                           </property>
                          </widget>
                         </item>
@@ -642,6 +768,13 @@
                             <height>0</height>
                            </size>
                           </property>
+                          <property name="font">
+                           <font>
+                            <family>Akrobat SemiBold</family>
+                            <pointsize>14</pointsize>
+                            <bold>true</bold>
+                           </font>
+                          </property>
                           <property name="text">
                            <string>Роль</string>
                           </property>
@@ -663,6 +796,13 @@
                             <width>150</width>
                             <height>0</height>
                            </size>
+                          </property>
+                          <property name="font">
+                           <font>
+                            <family>Akrobat SemiBold</family>
+                            <pointsize>14</pointsize>
+                            <bold>true</bold>
+                           </font>
                           </property>
                          </widget>
                         </item>
@@ -690,6 +830,13 @@
                             <horstretch>0</horstretch>
                             <verstretch>0</verstretch>
                            </sizepolicy>
+                          </property>
+                          <property name="font">
+                           <font>
+                            <family>Akrobat SemiBold</family>
+                            <pointsize>14</pointsize>
+                            <bold>true</bold>
+                           </font>
                           </property>
                           <property name="text">
                            <string>Покаазать только не подтвержденных</string>
@@ -770,6 +917,13 @@
               </item>
               <item>
                <widget class="QLabel" name="label_3">
+                <property name="font">
+                 <font>
+                  <family>Akrobat SemiBold</family>
+                  <pointsize>14</pointsize>
+                  <bold>true</bold>
+                 </font>
+                </property>
                 <property name="text">
                  <string>Введите код доступа выданный главным экспертом</string>
                 </property>
@@ -780,6 +934,13 @@
               </item>
               <item>
                <widget class="QLabel" name="label_5">
+                <property name="font">
+                 <font>
+                  <family>Akrobat SemiBold</family>
+                  <pointsize>14</pointsize>
+                  <bold>true</bold>
+                 </font>
+                </property>
                 <property name="text">
                  <string>Помните, что код доступа действителен один день</string>
                 </property>
@@ -816,6 +977,13 @@
                     <width>200</width>
                     <height>0</height>
                    </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <family>Akrobat SemiBold</family>
+                    <pointsize>14</pointsize>
+                    <bold>true</bold>
+                   </font>
                   </property>
                  </widget>
                 </item>
@@ -862,6 +1030,13 @@
                     <width>100</width>
                     <height>30</height>
                    </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <family>Akrobat SemiBold</family>
+                    <pointsize>14</pointsize>
+                    <bold>true</bold>
+                   </font>
                   </property>
                   <property name="layoutDirection">
                    <enum>Qt::LeftToRight</enum>
@@ -949,6 +1124,13 @@
                   <width>100</width>
                   <height>30</height>
                  </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>Akrobat SemiBold</family>
+                  <pointsize>14</pointsize>
+                  <bold>true</bold>
+                 </font>
                 </property>
                 <property name="text">
                  <string>Выход</string>
@@ -1086,6 +1268,13 @@
                   <height>50</height>
                  </size>
                 </property>
+                <property name="font">
+                 <font>
+                  <family>Akrobat SemiBold</family>
+                  <pointsize>14</pointsize>
+                  <bold>true</bold>
+                 </font>
+                </property>
                 <property name="text">
                  <string>Список участников</string>
                 </property>
@@ -1134,6 +1323,13 @@
                   <width>300</width>
                   <height>50</height>
                  </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>Akrobat SemiBold</family>
+                  <pointsize>14</pointsize>
+                  <bold>true</bold>
+                 </font>
                 </property>
                 <property name="text">
                  <string>Список протоколов</string>
@@ -1207,6 +1403,13 @@
               <width>100</width>
               <height>30</height>
              </size>
+            </property>
+            <property name="font">
+             <font>
+              <family>Akrobat SemiBold</family>
+              <pointsize>14</pointsize>
+              <bold>true</bold>
+             </font>
             </property>
             <property name="text">
              <string>Выход</string>
@@ -1352,6 +1555,13 @@
                 <height>0</height>
                </size>
               </property>
+              <property name="font">
+               <font>
+                <family>Akrobat SemiBold</family>
+                <pointsize>14</pointsize>
+                <bold>true</bold>
+               </font>
+              </property>
               <property name="text">
                <string>Здарова, Имечко Фамилечко</string>
               </property>
@@ -1364,6 +1574,13 @@
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
+              </property>
+              <property name="font">
+               <font>
+                <family>Akrobat SemiBold</family>
+                <pointsize>14</pointsize>
+                <bold>true</bold>
+               </font>
               </property>
               <property name="text">
                <string>День 228</string>
@@ -1400,6 +1617,13 @@
                 <height>50</height>
                </size>
               </property>
+              <property name="font">
+               <font>
+                <family>Akrobat SemiBold</family>
+                <pointsize>14</pointsize>
+                <bold>true</bold>
+               </font>
+              </property>
               <property name="text">
                <string>Список участников</string>
               </property>
@@ -1413,6 +1637,13 @@
                 <height>50</height>
                </size>
               </property>
+              <property name="font">
+               <font>
+                <family>Akrobat SemiBold</family>
+                <pointsize>14</pointsize>
+                <bold>true</bold>
+               </font>
+              </property>
               <property name="text">
                <string>Список экспертов</string>
               </property>
@@ -1425,6 +1656,13 @@
                 <width>250</width>
                 <height>50</height>
                </size>
+              </property>
+              <property name="font">
+               <font>
+                <family>Akrobat SemiBold</family>
+                <pointsize>14</pointsize>
+                <bold>true</bold>
+               </font>
               </property>
               <property name="text">
                <string>Список протоколов</string>
@@ -1452,7 +1690,7 @@
           <item>
            <widget class="QStackedWidget" name="stackedWidget_3">
             <property name="currentIndex">
-             <number>2</number>
+             <number>1</number>
             </property>
             <widget class="QWidget" name="memberPage_2">
              <layout class="QVBoxLayout" name="verticalLayout_20">
@@ -1496,13 +1734,27 @@
           </item>
           <item>
            <widget class="QLabel" name="label">
+            <property name="font">
+             <font>
+              <family>Akrobat SemiBold</family>
+              <pointsize>14</pointsize>
+              <bold>true</bold>
+             </font>
+            </property>
             <property name="text">
-             <string>Вашк код доступа на сегодня:</string>
+             <string>Ваш код доступа на сегодня:</string>
             </property>
            </widget>
           </item>
           <item>
            <widget class="QLabel" name="codeLabel">
+            <property name="font">
+             <font>
+              <family>Akrobat SemiBold</family>
+              <pointsize>14</pointsize>
+              <bold>true</bold>
+             </font>
+            </property>
             <property name="text">
              <string>1337228</string>
             </property>
@@ -1634,6 +1886,32 @@
              </spacer>
             </item>
             <item>
+             <widget class="QPushButton" name="memberEnterButton">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>250</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <family>Akrobat SemiBold</family>
+                <pointsize>14</pointsize>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="text">
+               <string>Я участник!</string>
+              </property>
+             </widget>
+            </item>
+            <item>
              <widget class="QPushButton" name="enterButton">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -1692,25 +1970,6 @@
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="memberEnterButton">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>300</width>
-              <height>100</height>
-             </size>
-            </property>
-            <property name="text">
-             <string>Я участник!</string>
-            </property>
-           </widget>
-          </item>
-          <item>
            <spacer name="horizontalSpacer_34">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
@@ -1749,7 +2008,7 @@
   </widget>
  </widget>
  <resources>
-  <include location="Лого/Logo.qrc"/>
+  <include location="projectKarelova/KARELLO/Лого/Logo.qrc"/>
  </resources>
  <connections/>
 </ui>

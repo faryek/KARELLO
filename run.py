@@ -20,9 +20,9 @@ class AppWindow(QMainWindow):
         con.setDatabaseName('WS.db')
         try: con.open()
         except: sys.exit(1)
+        self.ui.stackedWidget_4.setCurrentIndex(3)
 
 
-        self.ui.stackedWidget_1.setCurrentIndex(0)
         self.ui.addChampButton.clicked.connect(lambda: self.ui.stackedWidget_1.setCurrentIndex(1)) 
         self.ui.championshipEditButton.clicked.connect(lambda: self.ui.stackedWidget.setCurrentIndex(0))
         self.ui.memberButton.clicked.connect(lambda: self.ui.stackedWidget.setCurrentIndex(1))
@@ -71,6 +71,8 @@ class AppWindow(QMainWindow):
         self.ui.stackedWidget_4.setCurrentIndex(1)
 
     def mpage_swap(self, role, name):
+        self.ui.stackedWidget_1.setCurrentIndex(0)
+        self.ui.stackedWidget.setCurrentIndex(0)
         if role in range(2, 6):
             self.welcome(role, name)
             self.ui.stackedWidget_4.setCurrentIndex(2)
