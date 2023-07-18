@@ -6,9 +6,12 @@ from PyQt6.QtWidgets import (
     QMessageBox,
     QStackedWidget,
     QTableWidget,
-    QWidget
+    QWidget,
+    QFileDialog
 )
 from PyQt6.QtSql import QSqlDatabase, QSqlQuery
+from PyQt6.QtGui import QPixmap
+from PyQt6 import QtCore
 
 class AppWindow(QMainWindow):
     def __init__(self):
@@ -46,6 +49,7 @@ class AppWindow(QMainWindow):
         self.ui.backToMainButton_2.clicked.connect(lambda: self.ui.stackedWidget_2.setCurrentIndex(1))
         self.ui.exitButton_2.clicked.connect(self.exit_on_main_page)
         self.ui.exitButton_3.clicked.connect(self.exit_on_main_page)
+        self.ui.pushButton.clicked.connect(self.Open_main_file_btn)
         
 
         self.ui.enterButton.clicked.connect(self.check_data)
@@ -53,10 +57,16 @@ class AppWindow(QMainWindow):
         self.ui.okButton.clicked.connect(self.check_member)
 
 
+    def Open_main_file_btn(self):
+        res = QFileDialog.getOpenFileName(self, 'Open File', '','PNG file (*.png)')
+        pixmap = QPixmap(res[0])
+        smaller_pixmap = pixmap.scaled(QtCore.QSize(200, 100))
+        self.ui.logoLabel.setPixmap(smaller_pixmap)
+
+
     def exit_on_main_page(self):
         self.ui.stackedWidget_2.setCurrentIndex(1)
         self.ui.stackedWidget_2.setCurrentIndex(0)
-
 
 
     def reset_on_click_back(self):
