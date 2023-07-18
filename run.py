@@ -67,14 +67,15 @@ class AppWindow(QMainWindow):
     def check_data(self):
         login = self.ui.loginLine.text()
         password = self.ui.passLine.text()
-        try: login = int(login)
-        except: sys.exit(2)
         
         query = QSqlQuery()
         try: query.exec(f'SELECT role_id, name FROM Users WHERE login = {login} AND password = {password}')
-        except: sys.exit(3)
+        except:
+            self.showError()
+            return
         if not query.next():
-            sys.exit(3)
+            self.showError()
+            return
         role = query.record().indexOf('role_id')
         role = query.value(role)
         name = query.record().indexOf('name')
@@ -85,6 +86,18 @@ class AppWindow(QMainWindow):
 
     def check_member(self):
         code = self.ui.memberCodeLine.text()
+        query = QSqlQuery()
+        try:
+            query.exec(f'SELECT name FROM Users WHERE login = "{code}" AND role_id = 1')
+        except:
+            self.showMemberError()
+            return
+        if not query.next():
+            self.showMemberError()
+            return
+        else:
+            self.ui.stackedWidget_2.setCurrentIndex(1)
+        query.finish()
         
 
     def member_swap(self):
@@ -99,12 +112,20 @@ class AppWindow(QMainWindow):
         elif role == 6:
             self.welcome(role, name)
             self.ui.stackedWidget_4.setCurrentIndex(0)
+        elif role == 1:
+            pass
             
     def welcome(self, role, name):
         if role in range(2, 6):
             self.ui.welcomeExpertLabel.setText(f'Здравствуйте, {name}')
         elif role == 6:
             self.ui.welcomeLabel.setText(f'Здравствуйте, {name}')
+
+    def showError(self):
+       QMessageBox.about(self, "Ошибка", "Неверный логин или пароль!")
+
+    def showMemberError(self):
+        QMessageBox.about(self, "Ошибка", "Неверный код!")
 
             
 if __name__ == '__main__':
