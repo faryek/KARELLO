@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1067</width>
-    <height>736</height>
+    <width>1186</width>
+    <height>814</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -188,7 +188,7 @@
              </sizepolicy>
             </property>
             <property name="currentIndex">
-             <number>1</number>
+             <number>0</number>
             </property>
             <widget class="QWidget" name="mainPage">
              <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -310,7 +310,45 @@
                 <widget class="QWidget" name="championshipViewPage">
                  <layout class="QVBoxLayout" name="verticalLayout_7">
                   <item>
-                   <widget class="QTableWidget" name="championshipTable"/>
+                   <widget class="QTableWidget" name="championshipTable">
+                    <property name="contextMenuPolicy">
+                     <enum>Qt::PreventContextMenu</enum>
+                    </property>
+                    <property name="layoutDirection">
+                     <enum>Qt::LeftToRight</enum>
+                    </property>
+                    <property name="autoFillBackground">
+                     <bool>false</bool>
+                    </property>
+                    <property name="editTriggers">
+                     <set>QAbstractItemView::NoEditTriggers</set>
+                    </property>
+                    <column>
+                     <property name="text">
+                      <string>Название</string>
+                     </property>
+                    </column>
+                    <column>
+                     <property name="text">
+                      <string>Дата начала</string>
+                     </property>
+                    </column>
+                    <column>
+                     <property name="text">
+                      <string>Дата конца</string>
+                     </property>
+                    </column>
+                    <column>
+                     <property name="text">
+                      <string>Город</string>
+                     </property>
+                    </column>
+                    <column>
+                     <property name="text">
+                      <string>Информация</string>
+                     </property>
+                    </column>
+                   </widget>
                   </item>
                   <item>
                    <layout class="QHBoxLayout" name="horizontalLayout_9">
@@ -2483,7 +2521,7 @@
   </widget>
  </widget>
  <resources>
-  <include location="projectKarelova/KARELLO/Лого/Logo.qrc"/>
+  <include location="Лого/Logo.qrc"/>
   <include location="Лого/Logo.qrc"/>
  </resources>
  <connections/>
