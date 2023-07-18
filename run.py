@@ -11,9 +11,9 @@ from PyQt6.QtWidgets import (
     QFileDialog,
     QHeaderView
 )
-
 from PyQt6.QtGui import QPixmap
 from PyQt6.QtSql import QSqlDatabase, QSqlQuery, QSqlTableModel, QSqlQueryModel
+
 
 
 class AppWindow(QMainWindow):
@@ -26,6 +26,7 @@ class AppWindow(QMainWindow):
         con.setDatabaseName('WS.db')
         try: con.open()
         except: sys.exit(1)
+
 
         d = 0
 
@@ -60,18 +61,18 @@ class AppWindow(QMainWindow):
         tables_ = [self.ui.tableWidget, self.ui.expertTable,self.ui.expertTable_2,self.ui.expertTable,
                    self.ui.memberTable,self.ui.memberTable_2,self.ui.protocolTable,self.ui.protocolTable_2,self.ui.protocolTable,
                    self.ui.mainExpertTable,self.ui.competitionTable,self.ui.championshipTable]
-        
+
         for i in range(len(tables_)):
             tables_[d].horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode(1))
             tables_[d].resizeRowsToContents()
             d+=1
+
 
         self.ui.enterButton.clicked.connect(self.check_data)
         self.ui.memberEnterButton.clicked.connect(self.member_swap)
         self.ui.okButton.clicked.connect(self.check_member)
 
 
-        
         self.BD()
 
 
@@ -94,6 +95,11 @@ class AppWindow(QMainWindow):
         
 
     def BD(self):
+        self.BD_Championship()
+        self.BD_Expert()
+        self.BD_Protokols()
+
+    def BD_Championship(self):
         query = QSqlQuery()
         query.exec(f'SELECT * FROM Competitions')
         title = query.record().indexOf('title')
@@ -119,6 +125,79 @@ class AppWindow(QMainWindow):
             self.ui.championshipTable.setItem(Tablerow, 4, QtWidgets.QTableWidgetItem(str(query.value(desc))))
             Tablerow+=1
             row+=1
+
+    def BD_Expert(self):
+        query = QSqlQuery()
+        query.exec(f'SELECT * FROM Users WHERE role_id = 2')
+        Name = query.record().indexOf('name')
+        Mail = query.record().indexOf('phone')
+        Phone = query.record().indexOf('email')
+        Com_id = query.record().indexOf('comp_skill_id')
+
+        Tablerow = 0
+        row = 1
+        while query.next():
+            self.ui.expertTable.setRowCount(row)
+            
+            self.ui.expertTable.setItem(Tablerow, 0, QtWidgets.QTableWidgetItem(str(query.value(Name))))
+
+            query1 = QSqlQuery()
+            query1.exec(f'SELECT * FROM Competition_skills WHERE id = {query.value(Com_id)}')
+            competit_id = query1.record().indexOf('competition_id')
+            skill_id = query1.record().indexOf('skill_id')
+            query1.next()
+
+            query2 = QSqlQuery()
+            query2.exec(f'SELECT * FROM Competitions WHERE id = {query1.value(competit_id)}')
+            title = query2.record().indexOf('title')
+            query2.next()
+            self.ui.expertTable.setItem(Tablerow, 1, QtWidgets.QTableWidgetItem(str(query2.value(title))))
+
+            query3 = QSqlQuery()
+            query3.exec(f'SELECT * FROM Skills WHERE id = {query1.value(skill_id)}')
+            title = query3.record().indexOf('title')
+            query3.next()
+            self.ui.expertTable.setItem(Tablerow, 2, QtWidgets.QTableWidgetItem(str(query3.value(title))))
+
+            self.ui.expertTable.setItem(Tablerow, 4, QtWidgets.QTableWidgetItem(str(query.value(Phone))))
+            self.ui.expertTable.setItem(Tablerow, 3, QtWidgets.QTableWidgetItem(str(query.value(Mail))))
+
+            Tablerow+=1
+            row+=1
+
+    def BD_Protokols(self):
+        query = QSqlQuery()
+        query.exec(f'SELECT * FROM Protocols')
+        title = query.record().indexOf('title')
+        desc = query.record().indexOf('desc')
+        query.next()
+
+        Tablerow = 0
+        row = 1
+        while query.next():
+            self.ui.expertTable.setRowCount(row)
+            
+            self.ui.expertTable.setItem(Tablerow, 0, QtWidgets.QTableWidgetItem(str(query.value(title))))
+            self.ui.expertTable.setItem(Tablerow, 1, QtWidgets.QTableWidgetItem(str(query.value(desc))))
+            Tablerow+=1
+            row+=1
+
+    def Open_main_file_btn(self):
+        res = QFileDialog.getOpenFileName(self, 'Open File', '','PNG file (*.png)')
+        pixmap = QPixmap(res[0])
+        smaller_pixmap = pixmap.scaled(QtCore.QSize(200, 100))
+        self.ui.logoLabel.setPixmap(smaller_pixmap)
+
+
+    def exit_on_main_page(self):
+        self.ui.stackedWidget_2.setCurrentIndex(1)
+        self.ui.stackedWidget_2.setCurrentIndex(0)
+
+
+    def reset_on_click_back(self):
+        self.ui.stackedWidget_1.setCurrentIndex(0)
+        self.ui.stackedWidget.setCurrentIndex(0)
+
 
     def check_data(self):
         login = self.ui.loginLine.text()
