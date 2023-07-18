@@ -18,7 +18,7 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget_4">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="organizationMPage">
        <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -132,8 +132,14 @@
           </item>
           <item>
            <widget class="QLabel" name="biglogoLabel">
+            <property name="styleSheet">
+             <string notr="true"/>
+            </property>
             <property name="text">
-             <string>ЛОГО ОБЩЕЕ</string>
+             <string/>
+            </property>
+            <property name="pixmap">
+             <pixmap resource="Лого/Logo.qrc">:/Logos/DS.png</pixmap>
             </property>
            </widget>
           </item>
@@ -563,17 +569,35 @@
                      </layout>
                     </item>
                     <item>
-                     <widget class="QLabel" name="logoLabel">
-                      <property name="minimumSize">
-                       <size>
-                        <width>200</width>
-                        <height>100</height>
-                       </size>
-                      </property>
-                      <property name="text">
-                       <string>ЛОГО</string>
-                      </property>
-                     </widget>
+                     <layout class="QVBoxLayout" name="verticalLayout_30">
+                      <item>
+                       <widget class="QLabel" name="logoLabel">
+                        <property name="minimumSize">
+                         <size>
+                          <width>200</width>
+                          <height>100</height>
+                         </size>
+                        </property>
+                        <property name="text">
+                         <string>ЛОГО</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QPushButton" name="pushButton">
+                        <property name="font">
+                         <font>
+                          <family>Akrobat SemiBold</family>
+                          <pointsize>14</pointsize>
+                          <bold>true</bold>
+                         </font>
+                        </property>
+                        <property name="text">
+                         <string>Выбрать логотип</string>
+                        </property>
+                       </widget>
+                      </item>
+                     </layout>
                     </item>
                    </layout>
                   </item>
@@ -883,7 +907,7 @@
         <item>
          <widget class="QStackedWidget" name="stackedWidget_2">
           <property name="currentIndex">
-           <number>0</number>
+           <number>1</number>
           </property>
           <widget class="QWidget" name="authorizeMemberPage">
            <layout class="QHBoxLayout" name="horizontalLayout_20">
@@ -1263,7 +1287,10 @@
               <item>
                <widget class="QLabel" name="biglogoLabel_3">
                 <property name="text">
-                 <string>ЛОГО ОБЩЕЕ</string>
+                 <string/>
+                </property>
+                <property name="pixmap">
+                 <pixmap resource="Лого/Logo.qrc">:/Logos/DS.png</pixmap>
                 </property>
                </widget>
               </item>
@@ -1538,7 +1565,10 @@
               <item>
                <widget class="QLabel" name="biglogoLabel_4">
                 <property name="text">
-                 <string>ЛОГО ОБЩЕЕ</string>
+                 <string/>
+                </property>
+                <property name="pixmap">
+                 <pixmap resource="Лого/Logo.qrc">:/Logos/DS.png</pixmap>
                 </property>
                </widget>
               </item>
@@ -1728,7 +1758,10 @@
               <item>
                <widget class="QLabel" name="biglogoLabel_5">
                 <property name="text">
-                 <string>ЛОГО ОБЩЕЕ</string>
+                 <string/>
+                </property>
+                <property name="pixmap">
+                 <pixmap resource="Лого/Logo.qrc">:/Logos/DS.png</pixmap>
                 </property>
                </widget>
               </item>
@@ -1922,7 +1955,10 @@
           <item>
            <widget class="QLabel" name="biglogoLabel_2">
             <property name="text">
-             <string>ЛОГО ОБЩЕЕ</string>
+             <string/>
+            </property>
+            <property name="pixmap">
+             <pixmap resource="Лого/Logo.qrc">:/Logos/DS.png</pixmap>
             </property>
            </widget>
           </item>
@@ -2448,6 +2484,7 @@
  </widget>
  <resources>
   <include location="projectKarelova/KARELLO/Лого/Logo.qrc"/>
+  <include location="Лого/Logo.qrc"/>
  </resources>
  <connections/>
 </ui>

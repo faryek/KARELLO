@@ -23,6 +23,7 @@ class AppWindow(QMainWindow):
         self.ui.stackedWidget_4.setCurrentIndex(3)
 
 
+        self.ui.stackedWidget_2.setCurrentIndex(0)
         self.ui.addChampButton.clicked.connect(lambda: self.ui.stackedWidget_1.setCurrentIndex(1)) 
         self.ui.championshipEditButton.clicked.connect(lambda: self.ui.stackedWidget.setCurrentIndex(0))
         self.ui.memberButton.clicked.connect(lambda: self.ui.stackedWidget.setCurrentIndex(1))
@@ -43,13 +44,19 @@ class AppWindow(QMainWindow):
         self.ui.protocolButton_3.clicked.connect(lambda: self.ui.stackedWidget_2.setCurrentIndex(3))
         self.ui.backToMainButton_3.clicked.connect(lambda: self.ui.stackedWidget_2.setCurrentIndex(1))
         self.ui.backToMainButton_2.clicked.connect(lambda: self.ui.stackedWidget_2.setCurrentIndex(1))
-        self.ui.exitButton_2.clicked.connect(lambda: self.ui.stackedWidget_2.setCurrentIndex(0))
-        self.ui.exitButton_3.clicked.connect(lambda: self.ui.stackedWidget_2.setCurrentIndex(0))
+        self.ui.exitButton_2.clicked.connect(self.exit_on_main_page)
+        self.ui.exitButton_3.clicked.connect(self.exit_on_main_page)
         
 
         self.ui.enterButton.clicked.connect(self.check_data)
         self.ui.memberEnterButton.clicked.connect(self.member_swap)
         self.ui.okButton.clicked.connect(self.check_member)
+
+
+    def exit_on_main_page(self):
+        self.ui.stackedWidget_2.setCurrentIndex(1)
+        self.ui.stackedWidget_2.setCurrentIndex(0)
+
 
 
     def reset_on_click_back(self):
