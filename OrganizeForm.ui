@@ -18,7 +18,7 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget_4">
       <property name="currentIndex">
-       <number>0</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="organizationMPage">
        <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -188,7 +188,7 @@
              </sizepolicy>
             </property>
             <property name="currentIndex">
-             <number>0</number>
+             <number>1</number>
             </property>
             <widget class="QWidget" name="mainPage">
              <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -566,6 +566,9 @@
                             <bold>true</bold>
                            </font>
                           </property>
+                          <property name="text">
+                           <string>Дата начала</string>
+                          </property>
                          </widget>
                         </item>
                         <item>
@@ -582,6 +585,9 @@
                             <pointsize>14</pointsize>
                             <bold>true</bold>
                            </font>
+                          </property>
+                          <property name="text">
+                           <string>Дата окончания</string>
                           </property>
                          </widget>
                         </item>
@@ -601,6 +607,9 @@
                           <pointsize>14</pointsize>
                           <bold>true</bold>
                          </font>
+                        </property>
+                        <property name="text">
+                         <string>Название чемпионата</string>
                         </property>
                        </widget>
                       </item>
