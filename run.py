@@ -27,6 +27,8 @@ class AppWindow(QMainWindow):
         try: con.open()
         except: sys.exit(1)
 
+        d = 0
+
         self.ui.stackedWidget_4.setCurrentIndex(3)
 
 
@@ -54,8 +56,15 @@ class AppWindow(QMainWindow):
         self.ui.exitButton_2.clicked.connect(self.exit_on_main_page)
         self.ui.exitButton_3.clicked.connect(self.exit_on_main_page)
         self.ui.pushButton.clicked.connect(self.Open_main_file_btn)
-        self.ui.championshipTable.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode(1))
-        self.ui.championshipTable.resizeRowsToContents()
+
+        tables_ = [self.ui.tableWidget, self.ui.expertTable,self.ui.expertTable_2,self.ui.expertTable,
+                   self.ui.memberTable,self.ui.memberTable_2,self.ui.protocolTable,self.ui.protocolTable_2,self.ui.protocolTable,
+                   self.ui.mainExpertTable,self.ui.competitionTable,self.ui.championshipTable]
+        
+        for i in range(len(tables_)):
+            tables_[d].horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode(1))
+            tables_[d].resizeRowsToContents()
+            d+=1
 
         self.ui.enterButton.clicked.connect(self.check_data)
         self.ui.memberEnterButton.clicked.connect(self.member_swap)
