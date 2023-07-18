@@ -18,7 +18,7 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget_4">
       <property name="currentIndex">
-       <number>3</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="organizationMPage">
        <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -132,8 +132,14 @@
           </item>
           <item>
            <widget class="QLabel" name="biglogoLabel">
+            <property name="styleSheet">
+             <string notr="true"/>
+            </property>
             <property name="text">
-             <string>ЛОГО ОБЩЕЕ</string>
+             <string/>
+            </property>
+            <property name="pixmap">
+             <pixmap resource="Лого/Logo.qrc">:/Logos/DS.png</pixmap>
             </property>
            </widget>
           </item>
@@ -182,7 +188,7 @@
              </sizepolicy>
             </property>
             <property name="currentIndex">
-             <number>0</number>
+             <number>1</number>
             </property>
             <widget class="QWidget" name="mainPage">
              <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -563,17 +569,35 @@
                      </layout>
                     </item>
                     <item>
-                     <widget class="QLabel" name="logoLabel">
-                      <property name="minimumSize">
-                       <size>
-                        <width>200</width>
-                        <height>100</height>
-                       </size>
-                      </property>
-                      <property name="text">
-                       <string>ЛОГО</string>
-                      </property>
-                     </widget>
+                     <layout class="QVBoxLayout" name="verticalLayout_30">
+                      <item>
+                       <widget class="QLabel" name="logoLabel">
+                        <property name="minimumSize">
+                         <size>
+                          <width>200</width>
+                          <height>100</height>
+                         </size>
+                        </property>
+                        <property name="text">
+                         <string>ЛОГО</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QPushButton" name="pushButton">
+                        <property name="font">
+                         <font>
+                          <family>Akrobat SemiBold</family>
+                          <pointsize>14</pointsize>
+                          <bold>true</bold>
+                         </font>
+                        </property>
+                        <property name="text">
+                         <string>Выбрать логотип</string>
+                        </property>
+                       </widget>
+                      </item>
+                     </layout>
                     </item>
                    </layout>
                   </item>
@@ -883,7 +907,7 @@
         <item>
          <widget class="QStackedWidget" name="stackedWidget_2">
           <property name="currentIndex">
-           <number>0</number>
+           <number>1</number>
           </property>
           <widget class="QWidget" name="authorizeMemberPage">
            <layout class="QHBoxLayout" name="horizontalLayout_20">
@@ -1062,6 +1086,65 @@
                </layout>
               </item>
               <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_31">
+                <item>
+                 <spacer name="horizontalSpacer_43">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="okButton_2">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>100</width>
+                    <height>30</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <family>Akrobat SemiBold</family>
+                    <pointsize>14</pointsize>
+                    <bold>true</bold>
+                   </font>
+                  </property>
+                  <property name="layoutDirection">
+                   <enum>Qt::LeftToRight</enum>
+                  </property>
+                  <property name="text">
+                   <string>Отмена</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="horizontalSpacer_44">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+               </layout>
+              </item>
+              <item>
                <spacer name="verticalSpacer_11">
                 <property name="orientation">
                  <enum>Qt::Vertical</enum>
@@ -1204,7 +1287,10 @@
               <item>
                <widget class="QLabel" name="biglogoLabel_3">
                 <property name="text">
-                 <string>ЛОГО ОБЩЕЕ</string>
+                 <string/>
+                </property>
+                <property name="pixmap">
+                 <pixmap resource="Лого/Logo.qrc">:/Logos/DS.png</pixmap>
                 </property>
                </widget>
               </item>
@@ -1366,6 +1452,392 @@
             </item>
            </layout>
           </widget>
+          <widget class="QWidget" name="page">
+           <layout class="QVBoxLayout" name="verticalLayout_27">
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_27">
+              <item>
+               <spacer name="horizontalSpacer_35">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Fixed</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>5</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QPushButton" name="exitButton_2">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>100</width>
+                  <height>30</height>
+                 </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>Akrobat SemiBold</family>
+                  <pointsize>14</pointsize>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Выход</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_36">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Fixed</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>100</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <layout class="QVBoxLayout" name="verticalLayout_26">
+                <item>
+                 <widget class="QLabel" name="champTitleLabel_3">
+                  <property name="font">
+                   <font>
+                    <family>Akrobat Bold</family>
+                    <pointsize>16</pointsize>
+                    <bold>true</bold>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>Чемпионат такой-то</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="compTitleLabel_3">
+                  <property name="font">
+                   <font>
+                    <family>Akrobat Bold</family>
+                    <pointsize>16</pointsize>
+                    <bold>true</bold>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>Компетенция такая-то</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_37">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::MinimumExpanding</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>60</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QLabel" name="biglogoLabel_4">
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="pixmap">
+                 <pixmap resource="Лого/Logo.qrc">:/Logos/DS.png</pixmap>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_38">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Fixed</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>100</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_28">
+              <item>
+               <widget class="QLabel" name="champTitleLabel_4">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>Akrobat Bold</family>
+                  <pointsize>16</pointsize>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Список участников</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QTableWidget" name="MembersPage_MembersList"/>
+            </item>
+            <item>
+             <widget class="QPushButton" name="backToMainButton_2">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>150</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <family>Akrobat SemiBold</family>
+                <pointsize>14</pointsize>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="text">
+               <string>Назад</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="page_2">
+           <layout class="QVBoxLayout" name="verticalLayout_29">
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_29">
+              <item>
+               <spacer name="horizontalSpacer_39">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Fixed</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>5</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QPushButton" name="exitButton_3">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>100</width>
+                  <height>30</height>
+                 </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>Akrobat SemiBold</family>
+                  <pointsize>14</pointsize>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Выход</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_40">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Fixed</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>100</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <layout class="QVBoxLayout" name="verticalLayout_28">
+                <item>
+                 <widget class="QLabel" name="champTitleLabel_5">
+                  <property name="font">
+                   <font>
+                    <family>Akrobat Bold</family>
+                    <pointsize>16</pointsize>
+                    <bold>true</bold>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>Чемпионат такой-то</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="compTitleLabel_4">
+                  <property name="font">
+                   <font>
+                    <family>Akrobat Bold</family>
+                    <pointsize>16</pointsize>
+                    <bold>true</bold>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>Компетенция такая-то</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_41">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::MinimumExpanding</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>60</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QLabel" name="biglogoLabel_5">
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="pixmap">
+                 <pixmap resource="Лого/Logo.qrc">:/Logos/DS.png</pixmap>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_42">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Fixed</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>100</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_30">
+              <item>
+               <widget class="QLabel" name="champTitleLabel_6">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>Akrobat Bold</family>
+                  <pointsize>16</pointsize>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Список протоколов</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QTableWidget" name="MembersPage_ProtocolsPage"/>
+            </item>
+            <item>
+             <widget class="QPushButton" name="backToMainButton_3">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>150</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <family>Akrobat SemiBold</family>
+                <pointsize>14</pointsize>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="text">
+               <string>Назад</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
          </widget>
         </item>
        </layout>
@@ -1483,7 +1955,10 @@
           <item>
            <widget class="QLabel" name="biglogoLabel_2">
             <property name="text">
-             <string>ЛОГО ОБЩЕЕ</string>
+             <string/>
+            </property>
+            <property name="pixmap">
+             <pixmap resource="Лого/Logo.qrc">:/Logos/DS.png</pixmap>
             </property>
            </widget>
           </item>
@@ -2009,6 +2484,7 @@
  </widget>
  <resources>
   <include location="projectKarelova/KARELLO/Лого/Logo.qrc"/>
+  <include location="Лого/Logo.qrc"/>
  </resources>
  <connections/>
 </ui>

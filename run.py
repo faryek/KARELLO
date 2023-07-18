@@ -6,9 +6,12 @@ from PyQt6.QtWidgets import (
     QMessageBox,
     QStackedWidget,
     QTableWidget,
-    QWidget
+    QWidget,
+    QFileDialog
 )
 from PyQt6.QtSql import QSqlDatabase, QSqlQuery
+from PyQt6.QtGui import QPixmap
+from PyQt6 import QtCore
 
 class AppWindow(QMainWindow):
     def __init__(self):
@@ -23,12 +26,13 @@ class AppWindow(QMainWindow):
         self.ui.stackedWidget_4.setCurrentIndex(3)
 
 
+        self.ui.stackedWidget_2.setCurrentIndex(0)
         self.ui.addChampButton.clicked.connect(lambda: self.ui.stackedWidget_1.setCurrentIndex(1)) 
         self.ui.championshipEditButton.clicked.connect(lambda: self.ui.stackedWidget.setCurrentIndex(0))
         self.ui.memberButton.clicked.connect(lambda: self.ui.stackedWidget.setCurrentIndex(1))
         self.ui.mainExpertButton.clicked.connect(lambda: self.ui.stackedWidget.setCurrentIndex(3))
         self.ui.protocolCButton.clicked.connect(lambda: self.ui.stackedWidget.setCurrentIndex(2))
-        self.ui.backToMainButton.clicked.connect(lambda: self.ui.stackedWidget_1.setCurrentIndex(0))
+        self.ui.backToMainButton.clicked.connect(self.reset_on_click_back)
         self.ui.logoutButton.clicked.connect(lambda: self.ui.stackedWidget_4.setCurrentIndex(3))
         self.ui.logoutButton_2.clicked.connect(lambda: self.ui.stackedWidget_4.setCurrentIndex(3))
         self.ui.memberButton_2.clicked.connect(lambda: self.ui.stackedWidget_3.setCurrentIndex(0))
@@ -38,23 +42,50 @@ class AppWindow(QMainWindow):
         self.ui.expertButton.clicked.connect(lambda: self.ui.stackedWidget3.setCurrentIndex(1))
         self.ui.protocolButton.clicked.connect(lambda: self.ui.stackedWidget3.setCurrentIndex(0))
         self.ui.exitButton.clicked.connect(lambda: self.ui.stackedWidget_2.setCurrentIndex(0))
+        self.ui.okButton_2.clicked.connect(lambda: self.ui.stackedWidget_4.setCurrentIndex(3))
+        self.ui.memberButton_3.clicked.connect(lambda: self.ui.stackedWidget_2.setCurrentIndex(2))
+        self.ui.protocolButton_3.clicked.connect(lambda: self.ui.stackedWidget_2.setCurrentIndex(3))
+        self.ui.backToMainButton_3.clicked.connect(lambda: self.ui.stackedWidget_2.setCurrentIndex(1))
+        self.ui.backToMainButton_2.clicked.connect(lambda: self.ui.stackedWidget_2.setCurrentIndex(1))
+        self.ui.exitButton_2.clicked.connect(self.exit_on_main_page)
+        self.ui.exitButton_3.clicked.connect(self.exit_on_main_page)
+        self.ui.pushButton.clicked.connect(self.Open_main_file_btn)
         
 
         self.ui.enterButton.clicked.connect(self.check_data)
         self.ui.memberEnterButton.clicked.connect(self.member_swap)
         self.ui.okButton.clicked.connect(self.check_member)
+
+
+    def Open_main_file_btn(self):
+        res = QFileDialog.getOpenFileName(self, 'Open File', '','PNG file (*.png)')
+        pixmap = QPixmap(res[0])
+        smaller_pixmap = pixmap.scaled(QtCore.QSize(200, 100))
+        self.ui.logoLabel.setPixmap(smaller_pixmap)
+
+
+    def exit_on_main_page(self):
+        self.ui.stackedWidget_2.setCurrentIndex(1)
+        self.ui.stackedWidget_2.setCurrentIndex(0)
+
+
+    def reset_on_click_back(self):
+        self.ui.stackedWidget_1.setCurrentIndex(0)
+        self.ui.stackedWidget.setCurrentIndex(0)
+
         
     def check_data(self):
         login = self.ui.loginLine.text()
         password = self.ui.passLine.text()
-        try: login = int(login)
-        except: sys.exit(2)
         
         query = QSqlQuery()
         try: query.exec(f'SELECT role_id, name FROM Users WHERE login = {login} AND password = {password}')
-        except: sys.exit(3)
+        except:
+            self.showError()
+            return
         if not query.next():
-            sys.exit(3)
+            self.showError()
+            return
         role = query.record().indexOf('role_id')
         role = query.value(role)
         name = query.record().indexOf('name')
@@ -65,6 +96,18 @@ class AppWindow(QMainWindow):
 
     def check_member(self):
         code = self.ui.memberCodeLine.text()
+        query = QSqlQuery()
+        try:
+            query.exec(f'SELECT name FROM Users WHERE login = "{code}" AND role_id = 1')
+        except:
+            self.showMemberError()
+            return
+        if not query.next():
+            self.showMemberError()
+            return
+        else:
+            self.ui.stackedWidget_2.setCurrentIndex(1)
+        query.finish()
         
 
     def member_swap(self):
@@ -79,12 +122,20 @@ class AppWindow(QMainWindow):
         elif role == 6:
             self.welcome(role, name)
             self.ui.stackedWidget_4.setCurrentIndex(0)
+        elif role == 1:
+            pass
             
     def welcome(self, role, name):
         if role in range(2, 6):
             self.ui.welcomeExpertLabel.setText(f'Здравствуйте, {name}')
         elif role == 6:
             self.ui.welcomeLabel.setText(f'Здравствуйте, {name}')
+
+    def showError(self):
+       QMessageBox.about(self, "Ошибка", "Неверный логин или пароль!")
+
+    def showMemberError(self):
+        QMessageBox.about(self, "Ошибка", "Неверный код!")
 
             
 if __name__ == '__main__':
