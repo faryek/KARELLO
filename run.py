@@ -8,7 +8,8 @@ from PyQt6.QtWidgets import (
     QStackedWidget,
     QTableWidget,
     QWidget,
-    QFileDialog
+    QFileDialog,
+    QHeaderView
 )
 
 from PyQt6.QtGui import QPixmap
@@ -53,6 +54,8 @@ class AppWindow(QMainWindow):
         self.ui.exitButton_2.clicked.connect(self.exit_on_main_page)
         self.ui.exitButton_3.clicked.connect(self.exit_on_main_page)
         self.ui.pushButton.clicked.connect(self.Open_main_file_btn)
+        self.ui.championshipTable.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode(1))
+        self.ui.championshipTable.resizeRowsToContents()
 
         self.ui.enterButton.clicked.connect(self.check_data)
         self.ui.memberEnterButton.clicked.connect(self.member_swap)
