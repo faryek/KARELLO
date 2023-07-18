@@ -188,7 +188,7 @@
              </sizepolicy>
             </property>
             <property name="currentIndex">
-             <number>1</number>
+             <number>0</number>
             </property>
             <widget class="QWidget" name="mainPage">
              <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -291,19 +291,77 @@
               <item>
                <widget class="QStackedWidget" name="stackedWidget3">
                 <property name="currentIndex">
-                 <number>2</number>
+                 <number>0</number>
                 </property>
                 <widget class="QWidget" name="protocolViewPage">
                  <layout class="QVBoxLayout" name="verticalLayout_9">
                   <item>
-                   <widget class="QTableWidget" name="protocolTable"/>
+                   <widget class="QTableWidget" name="protocolTable">
+                    <column>
+                     <property name="text">
+                      <string>Название</string>
+                     </property>
+                     <property name="textAlignment">
+                      <set>AlignCenter</set>
+                     </property>
+                    </column>
+                    <column>
+                     <property name="text">
+                      <string>Описание</string>
+                     </property>
+                     <property name="textAlignment">
+                      <set>AlignCenter</set>
+                     </property>
+                    </column>
+                   </widget>
                   </item>
                  </layout>
                 </widget>
                 <widget class="QWidget" name="expertViewPage">
                  <layout class="QVBoxLayout" name="verticalLayout_8">
                   <item>
-                   <widget class="QTableWidget" name="expertTable"/>
+                   <widget class="QTableWidget" name="expertTable">
+                    <column>
+                     <property name="text">
+                      <string>Имя</string>
+                     </property>
+                     <property name="textAlignment">
+                      <set>AlignCenter</set>
+                     </property>
+                    </column>
+                    <column>
+                     <property name="text">
+                      <string>Чемпионат</string>
+                     </property>
+                     <property name="textAlignment">
+                      <set>AlignCenter</set>
+                     </property>
+                    </column>
+                    <column>
+                     <property name="text">
+                      <string>Компетенция</string>
+                     </property>
+                     <property name="textAlignment">
+                      <set>AlignCenter</set>
+                     </property>
+                    </column>
+                    <column>
+                     <property name="text">
+                      <string>Почта</string>
+                     </property>
+                     <property name="textAlignment">
+                      <set>AlignCenter</set>
+                     </property>
+                    </column>
+                    <column>
+                     <property name="text">
+                      <string>Телефон</string>
+                     </property>
+                     <property name="textAlignment">
+                      <set>AlignCenter</set>
+                     </property>
+                    </column>
+                   </widget>
                   </item>
                  </layout>
                 </widget>
@@ -636,6 +694,7 @@
                          <font>
                           <family>Akrobat SemiBold</family>
                           <pointsize>14</pointsize>
+                          <weight>75</weight>
                           <bold>true</bold>
                          </font>
                         </property>
@@ -954,7 +1013,7 @@
         <item>
          <widget class="QStackedWidget" name="stackedWidget_2">
           <property name="currentIndex">
-           <number>1</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="authorizeMemberPage">
            <layout class="QHBoxLayout" name="horizontalLayout_20">
@@ -1165,6 +1224,7 @@
                    <font>
                     <family>Akrobat SemiBold</family>
                     <pointsize>14</pointsize>
+                    <weight>75</weight>
                     <bold>true</bold>
                    </font>
                   </property>
@@ -1537,6 +1597,7 @@
                  <font>
                   <family>Akrobat SemiBold</family>
                   <pointsize>14</pointsize>
+                  <weight>75</weight>
                   <bold>true</bold>
                  </font>
                 </property>
@@ -1569,6 +1630,7 @@
                    <font>
                     <family>Akrobat Bold</family>
                     <pointsize>16</pointsize>
+                    <weight>75</weight>
                     <bold>true</bold>
                    </font>
                   </property>
@@ -1583,6 +1645,7 @@
                    <font>
                     <family>Akrobat Bold</family>
                     <pointsize>16</pointsize>
+                    <weight>75</weight>
                     <bold>true</bold>
                    </font>
                   </property>
@@ -1651,6 +1714,7 @@
                  <font>
                   <family>Akrobat Bold</family>
                   <pointsize>16</pointsize>
+                  <weight>75</weight>
                   <bold>true</bold>
                  </font>
                 </property>
@@ -1682,6 +1746,7 @@
                <font>
                 <family>Akrobat SemiBold</family>
                 <pointsize>14</pointsize>
+                <weight>75</weight>
                 <bold>true</bold>
                </font>
               </property>
@@ -1730,6 +1795,7 @@
                  <font>
                   <family>Akrobat SemiBold</family>
                   <pointsize>14</pointsize>
+                  <weight>75</weight>
                   <bold>true</bold>
                  </font>
                 </property>
@@ -1762,6 +1828,7 @@
                    <font>
                     <family>Akrobat Bold</family>
                     <pointsize>16</pointsize>
+                    <weight>75</weight>
                     <bold>true</bold>
                    </font>
                   </property>
@@ -1776,6 +1843,7 @@
                    <font>
                     <family>Akrobat Bold</family>
                     <pointsize>16</pointsize>
+                    <weight>75</weight>
                     <bold>true</bold>
                    </font>
                   </property>
@@ -1844,6 +1912,7 @@
                  <font>
                   <family>Akrobat Bold</family>
                   <pointsize>16</pointsize>
+                  <weight>75</weight>
                   <bold>true</bold>
                  </font>
                 </property>
@@ -1875,6 +1944,7 @@
                <font>
                 <family>Akrobat SemiBold</family>
                 <pointsize>14</pointsize>
+                <weight>75</weight>
                 <bold>true</bold>
                </font>
               </property>
@@ -2212,7 +2282,7 @@
           <item>
            <widget class="QStackedWidget" name="stackedWidget_3">
             <property name="currentIndex">
-             <number>1</number>
+             <number>0</number>
             </property>
             <widget class="QWidget" name="memberPage_2">
              <layout class="QVBoxLayout" name="verticalLayout_20">
