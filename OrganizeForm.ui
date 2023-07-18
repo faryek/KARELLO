@@ -58,7 +58,6 @@
              <font>
               <family>Akrobat SemiBold</family>
               <pointsize>14</pointsize>
-              <weight>75</weight>
               <bold>true</bold>
              </font>
             </property>
@@ -91,7 +90,6 @@
                <font>
                 <family>Akrobat Bold</family>
                 <pointsize>16</pointsize>
-                <weight>75</weight>
                 <bold>true</bold>
                </font>
               </property>
@@ -106,7 +104,6 @@
                <font>
                 <family>Akrobat ExtraBold</family>
                 <pointsize>20</pointsize>
-                <weight>75</weight>
                 <bold>true</bold>
                </font>
               </property>
@@ -191,7 +188,7 @@
              </sizepolicy>
             </property>
             <property name="currentIndex">
-             <number>1</number>
+             <number>0</number>
             </property>
             <widget class="QWidget" name="mainPage">
              <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -225,7 +222,6 @@
                    <font>
                     <family>Akrobat SemiBold</family>
                     <pointsize>14</pointsize>
-                    <weight>75</weight>
                     <bold>true</bold>
                    </font>
                   </property>
@@ -246,7 +242,6 @@
                    <font>
                     <family>Akrobat SemiBold</family>
                     <pointsize>14</pointsize>
-                    <weight>75</weight>
                     <bold>true</bold>
                    </font>
                   </property>
@@ -267,7 +262,6 @@
                    <font>
                     <family>Akrobat SemiBold</family>
                     <pointsize>14</pointsize>
-                    <weight>75</weight>
                     <bold>true</bold>
                    </font>
                   </property>
@@ -333,40 +327,25 @@
                      <property name="text">
                       <string>Название</string>
                      </property>
-                     <property name="textAlignment">
-                      <set>AlignCenter</set>
-                     </property>
                     </column>
                     <column>
                      <property name="text">
                       <string>Дата начала</string>
-                     </property>
-                     <property name="textAlignment">
-                      <set>AlignCenter</set>
                      </property>
                     </column>
                     <column>
                      <property name="text">
                       <string>Дата конца</string>
                      </property>
-                     <property name="textAlignment">
-                      <set>AlignCenter</set>
-                     </property>
                     </column>
                     <column>
                      <property name="text">
                       <string>Город</string>
                      </property>
-                     <property name="textAlignment">
-                      <set>AlignCenter</set>
-                     </property>
                     </column>
                     <column>
                      <property name="text">
                       <string>Информация</string>
-                     </property>
-                     <property name="textAlignment">
-                      <set>AlignCenter</set>
                      </property>
                     </column>
                    </widget>
@@ -401,7 +380,6 @@
                        <font>
                         <family>Akrobat SemiBold</family>
                         <pointsize>14</pointsize>
-                        <weight>75</weight>
                         <bold>true</bold>
                        </font>
                       </property>
@@ -434,7 +412,6 @@
                    <font>
                     <family>Akrobat SemiBold</family>
                     <pointsize>14</pointsize>
-                    <weight>75</weight>
                     <bold>true</bold>
                    </font>
                   </property>
@@ -455,7 +432,6 @@
                    <font>
                     <family>Akrobat SemiBold</family>
                     <pointsize>14</pointsize>
-                    <weight>75</weight>
                     <bold>true</bold>
                    </font>
                   </property>
@@ -476,7 +452,6 @@
                    <font>
                     <family>Akrobat SemiBold</family>
                     <pointsize>14</pointsize>
-                    <weight>75</weight>
                     <bold>true</bold>
                    </font>
                   </property>
@@ -497,7 +472,6 @@
                    <font>
                     <family>Akrobat SemiBold</family>
                     <pointsize>14</pointsize>
-                    <weight>75</weight>
                     <bold>true</bold>
                    </font>
                   </property>
@@ -518,7 +492,6 @@
                    <font>
                     <family>Akrobat SemiBold</family>
                     <pointsize>14</pointsize>
-                    <weight>75</weight>
                     <bold>true</bold>
                    </font>
                   </property>
@@ -555,7 +528,6 @@
                    <font>
                     <family>Akrobat SemiBold</family>
                     <pointsize>14</pointsize>
-                    <weight>75</weight>
                     <bold>true</bold>
                    </font>
                   </property>
@@ -591,7 +563,6 @@
                            <font>
                             <family>Akrobat SemiBold</family>
                             <pointsize>14</pointsize>
-                            <weight>75</weight>
                             <bold>true</bold>
                            </font>
                           </property>
@@ -609,7 +580,6 @@
                            <font>
                             <family>Akrobat SemiBold</family>
                             <pointsize>14</pointsize>
-                            <weight>75</weight>
                             <bold>true</bold>
                            </font>
                           </property>
@@ -629,7 +599,6 @@
                          <font>
                           <family>Akrobat SemiBold</family>
                           <pointsize>14</pointsize>
-                          <weight>75</weight>
                           <bold>true</bold>
                          </font>
                         </property>
@@ -706,7 +675,6 @@
                        <font>
                         <family>Akrobat SemiBold</family>
                         <pointsize>14</pointsize>
-                        <weight>75</weight>
                         <bold>true</bold>
                        </font>
                       </property>
@@ -733,7 +701,6 @@
                        <font>
                         <family>Akrobat SemiBold</family>
                         <pointsize>14</pointsize>
-                        <weight>75</weight>
                         <bold>true</bold>
                        </font>
                       </property>
@@ -798,7 +765,6 @@
                            <font>
                             <family>Akrobat SemiBold</family>
                             <pointsize>14</pointsize>
-                            <weight>75</weight>
                             <bold>true</bold>
                            </font>
                           </property>
@@ -828,7 +794,6 @@
                            <font>
                             <family>Akrobat SemiBold</family>
                             <pointsize>14</pointsize>
-                            <weight>75</weight>
                             <bold>true</bold>
                            </font>
                           </property>
@@ -869,7 +834,6 @@
                            <font>
                             <family>Akrobat SemiBold</family>
                             <pointsize>14</pointsize>
-                            <weight>75</weight>
                             <bold>true</bold>
                            </font>
                           </property>
@@ -899,7 +863,6 @@
                            <font>
                             <family>Akrobat SemiBold</family>
                             <pointsize>14</pointsize>
-                            <weight>75</weight>
                             <bold>true</bold>
                            </font>
                           </property>
@@ -934,7 +897,6 @@
                            <font>
                             <family>Akrobat SemiBold</family>
                             <pointsize>14</pointsize>
-                            <weight>75</weight>
                             <bold>true</bold>
                            </font>
                           </property>
@@ -1021,7 +983,6 @@
                  <font>
                   <family>Akrobat SemiBold</family>
                   <pointsize>14</pointsize>
-                  <weight>75</weight>
                   <bold>true</bold>
                  </font>
                 </property>
@@ -1039,7 +1000,6 @@
                  <font>
                   <family>Akrobat SemiBold</family>
                   <pointsize>14</pointsize>
-                  <weight>75</weight>
                   <bold>true</bold>
                  </font>
                 </property>
@@ -1084,7 +1044,6 @@
                    <font>
                     <family>Akrobat SemiBold</family>
                     <pointsize>14</pointsize>
-                    <weight>75</weight>
                     <bold>true</bold>
                    </font>
                   </property>
@@ -1138,7 +1097,6 @@
                    <font>
                     <family>Akrobat SemiBold</family>
                     <pointsize>14</pointsize>
-                    <weight>75</weight>
                     <bold>true</bold>
                    </font>
                   </property>
@@ -1292,7 +1250,6 @@
                  <font>
                   <family>Akrobat SemiBold</family>
                   <pointsize>14</pointsize>
-                  <weight>75</weight>
                   <bold>true</bold>
                  </font>
                 </property>
@@ -1325,7 +1282,6 @@
                    <font>
                     <family>Akrobat Bold</family>
                     <pointsize>16</pointsize>
-                    <weight>75</weight>
                     <bold>true</bold>
                    </font>
                   </property>
@@ -1340,7 +1296,6 @@
                    <font>
                     <family>Akrobat Bold</family>
                     <pointsize>16</pointsize>
-                    <weight>75</weight>
                     <bold>true</bold>
                    </font>
                   </property>
@@ -1441,7 +1396,6 @@
                  <font>
                   <family>Akrobat SemiBold</family>
                   <pointsize>14</pointsize>
-                  <weight>75</weight>
                   <bold>true</bold>
                  </font>
                 </property>
@@ -1498,7 +1452,6 @@
                  <font>
                   <family>Akrobat SemiBold</family>
                   <pointsize>14</pointsize>
-                  <weight>75</weight>
                   <bold>true</bold>
                  </font>
                 </property>
@@ -1965,7 +1918,6 @@
              <font>
               <family>Akrobat SemiBold</family>
               <pointsize>14</pointsize>
-              <weight>75</weight>
               <bold>true</bold>
              </font>
             </property>
@@ -1998,7 +1950,6 @@
                <font>
                 <family>Akrobat Bold</family>
                 <pointsize>16</pointsize>
-                <weight>75</weight>
                 <bold>true</bold>
                </font>
               </property>
@@ -2013,7 +1964,6 @@
                <font>
                 <family>Akrobat Bold</family>
                 <pointsize>16</pointsize>
-                <weight>75</weight>
                 <bold>true</bold>
                </font>
               </property>
@@ -2122,7 +2072,6 @@
                <font>
                 <family>Akrobat SemiBold</family>
                 <pointsize>14</pointsize>
-                <weight>75</weight>
                 <bold>true</bold>
                </font>
               </property>
@@ -2143,7 +2092,6 @@
                <font>
                 <family>Akrobat SemiBold</family>
                 <pointsize>14</pointsize>
-                <weight>75</weight>
                 <bold>true</bold>
                </font>
               </property>
@@ -2186,7 +2134,6 @@
                <font>
                 <family>Akrobat SemiBold</family>
                 <pointsize>14</pointsize>
-                <weight>75</weight>
                 <bold>true</bold>
                </font>
               </property>
@@ -2207,7 +2154,6 @@
                <font>
                 <family>Akrobat SemiBold</family>
                 <pointsize>14</pointsize>
-                <weight>75</weight>
                 <bold>true</bold>
                </font>
               </property>
@@ -2228,7 +2174,6 @@
                <font>
                 <family>Akrobat SemiBold</family>
                 <pointsize>14</pointsize>
-                <weight>75</weight>
                 <bold>true</bold>
                </font>
               </property>
@@ -2306,7 +2251,6 @@
              <font>
               <family>Akrobat SemiBold</family>
               <pointsize>14</pointsize>
-              <weight>75</weight>
               <bold>true</bold>
              </font>
             </property>
@@ -2321,7 +2265,6 @@
              <font>
               <family>Akrobat SemiBold</family>
               <pointsize>14</pointsize>
-              <weight>75</weight>
               <bold>true</bold>
              </font>
             </property>
@@ -2370,7 +2313,6 @@
              <font>
               <family>Akrobat Black</family>
               <pointsize>20</pointsize>
-              <weight>75</weight>
               <bold>true</bold>
              </font>
             </property>
@@ -2387,7 +2329,6 @@
                <font>
                 <family>Akrobat SemiBold</family>
                 <pointsize>20</pointsize>
-                <weight>75</weight>
                 <bold>true</bold>
                </font>
               </property>
@@ -2415,7 +2356,6 @@
                <font>
                 <family>Akrobat SemiBold</family>
                 <pointsize>20</pointsize>
-                <weight>75</weight>
                 <bold>true</bold>
                </font>
               </property>
@@ -2437,7 +2377,6 @@
                <font>
                 <family>Akrobat SemiBold</family>
                 <pointsize>14</pointsize>
-                <weight>75</weight>
                 <bold>true</bold>
                </font>
               </property>
@@ -2477,7 +2416,6 @@
                <font>
                 <family>Akrobat SemiBold</family>
                 <pointsize>14</pointsize>
-                <weight>75</weight>
                 <bold>true</bold>
                </font>
               </property>
@@ -2504,7 +2442,6 @@
                <font>
                 <family>Akrobat SemiBold</family>
                 <pointsize>14</pointsize>
-                <weight>75</weight>
                 <bold>true</bold>
                </font>
               </property>
@@ -2584,7 +2521,7 @@
   </widget>
  </widget>
  <resources>
-  <include location="projectKarelova/KARELLO/Лого/Logo.qrc"/>
+  <include location="Лого/Logo.qrc"/>
   <include location="Лого/Logo.qrc"/>
  </resources>
  <connections/>

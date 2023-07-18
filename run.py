@@ -57,7 +57,8 @@ class AppWindow(QMainWindow):
         self.ui.enterButton.clicked.connect(self.check_data)
         self.ui.memberEnterButton.clicked.connect(self.member_swap)
         self.ui.okButton.clicked.connect(self.check_member)
-        
+
+
         
         self.BD()
 
@@ -153,6 +154,8 @@ class AppWindow(QMainWindow):
         elif role == 6:
             self.welcome(role, name)
             self.ui.stackedWidget_4.setCurrentIndex(0)
+            self.ui.stackedWidget_1.setCurrentIndex(0)
+            self.ui.stackedWidget3.setCurrentIndex(2)
         elif role == 1:
             pass
             
