@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'OrganizeForm.ui'
+# Form implementation generated from reading ui file 'organizeform.ui'
 #
 # Created by: PyQt6 UI code generator 6.4.2
 #
@@ -7,13 +7,12 @@
 
 
 from PyQt6 import QtCore, QtGui, QtWidgets
-import logorc
 
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1067, 736)
+        MainWindow.resize(1186, 814)
         self.centralwidget = QtWidgets.QWidget(parent=MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.centralwidget)
@@ -150,9 +149,23 @@ class Ui_MainWindow(object):
         self.verticalLayout_7 = QtWidgets.QVBoxLayout(self.championshipViewPage)
         self.verticalLayout_7.setObjectName("verticalLayout_7")
         self.championshipTable = QtWidgets.QTableWidget(parent=self.championshipViewPage)
+        self.championshipTable.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.PreventContextMenu)
+        self.championshipTable.setLayoutDirection(QtCore.Qt.LayoutDirection.LeftToRight)
+        self.championshipTable.setAutoFillBackground(False)
+        self.championshipTable.setEditTriggers(QtWidgets.QAbstractItemView.EditTrigger.NoEditTriggers)
         self.championshipTable.setObjectName("championshipTable")
-        self.championshipTable.setColumnCount(0)
+        self.championshipTable.setColumnCount(5)
         self.championshipTable.setRowCount(0)
+        item = QtWidgets.QTableWidgetItem()
+        self.championshipTable.setHorizontalHeaderItem(0, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.championshipTable.setHorizontalHeaderItem(1, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.championshipTable.setHorizontalHeaderItem(2, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.championshipTable.setHorizontalHeaderItem(3, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.championshipTable.setHorizontalHeaderItem(4, item)
         self.verticalLayout_7.addWidget(self.championshipTable)
         self.horizontalLayout_9 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_9.setObjectName("horizontalLayout_9")
@@ -1132,7 +1145,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         self.stackedWidget_4.setCurrentIndex(0)
-        self.stackedWidget_1.setCurrentIndex(1)
+        self.stackedWidget_1.setCurrentIndex(0)
         self.stackedWidget3.setCurrentIndex(2)
         self.stackedWidget.setCurrentIndex(0)
         self.stackedWidget_2.setCurrentIndex(1)
@@ -1148,6 +1161,16 @@ class Ui_MainWindow(object):
         self.championshipButton.setText(_translate("MainWindow", "Чемпионаты"))
         self.expertButton.setText(_translate("MainWindow", "Эксперты"))
         self.protocolButton.setText(_translate("MainWindow", "Протоколы"))
+        item = self.championshipTable.horizontalHeaderItem(0)
+        item.setText(_translate("MainWindow", "Название"))
+        item = self.championshipTable.horizontalHeaderItem(1)
+        item.setText(_translate("MainWindow", "Дата начала"))
+        item = self.championshipTable.horizontalHeaderItem(2)
+        item.setText(_translate("MainWindow", "Дата конца"))
+        item = self.championshipTable.horizontalHeaderItem(3)
+        item.setText(_translate("MainWindow", "Город"))
+        item = self.championshipTable.horizontalHeaderItem(4)
+        item.setText(_translate("MainWindow", "Информация"))
         self.addChampButton.setText(_translate("MainWindow", "Добавить чемпионат"))
         self.championshipEditButton.setText(_translate("MainWindow", "Настройка чемпионата"))
         self.memberButton.setText(_translate("MainWindow", "Список участников"))
@@ -1197,3 +1220,13 @@ class Ui_MainWindow(object):
         self.rememberCheck.setText(_translate("MainWindow", "Запомнить меня"))
         self.memberEnterButton.setText(_translate("MainWindow", "Я участник!"))
         self.enterButton.setText(_translate("MainWindow", "Войти"))
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
+    sys.exit(app.exec())
