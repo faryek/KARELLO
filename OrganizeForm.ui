@@ -142,7 +142,7 @@
              <string/>
             </property>
             <property name="pixmap">
-             <pixmap resource="Лого/Logo.qrc">:/Logos/DS.png</pixmap>
+             <pixmap resource="Лого/Logo.qrc">:/Logos/trash1.png</pixmap>
             </property>
            </widget>
           </item>
@@ -297,7 +297,7 @@
               <item>
                <widget class="QStackedWidget" name="stackedWidget3">
                 <property name="currentIndex">
-                 <number>0</number>
+                 <number>2</number>
                 </property>
                 <widget class="QWidget" name="protocolViewPage">
                  <layout class="QVBoxLayout" name="verticalLayout_9">
@@ -389,6 +389,14 @@
                     </property>
                     <column>
                      <property name="text">
+                      <string>Ид</string>
+                     </property>
+                     <property name="textAlignment">
+                      <set>AlignCenter</set>
+                     </property>
+                    </column>
+                    <column>
+                     <property name="text">
                       <string>Название</string>
                      </property>
                      <property name="textAlignment">
@@ -422,6 +430,22 @@
                     <column>
                      <property name="text">
                       <string>Информация</string>
+                     </property>
+                     <property name="textAlignment">
+                      <set>AlignCenter</set>
+                     </property>
+                    </column>
+                    <column>
+                     <property name="text">
+                      <string>Изменить</string>
+                     </property>
+                     <property name="textAlignment">
+                      <set>AlignCenter</set>
+                     </property>
+                    </column>
+                    <column>
+                     <property name="text">
+                      <string>Удалить</string>
                      </property>
                      <property name="textAlignment">
                       <set>AlignCenter</set>

@@ -58,11 +58,12 @@ class AppWindow(QMainWindow):
         self.ui.okButton.clicked.connect(self.check_member)
         self.BD_Championship()
         self.BD_Expert()
-        # self.BD_Protokols()
+        self.BD_Protokols()
 
     def BD_Championship(self):
         query = QSqlQuery()
         query.exec(f'SELECT * FROM Competitions')
+        id = query.record().indexOf('id')
         title = query.record().indexOf('title')
         date_start = query.record().indexOf('date_start')
         date_end = query.record().indexOf('date_end')
@@ -73,19 +74,53 @@ class AppWindow(QMainWindow):
         row = 1
         while query.next():
             self.ui.championshipTable.setRowCount(row)
-            self.ui.championshipTable.setItem(Tablerow, 0, QtWidgets.QTableWidgetItem(str(query.value(title))))
-            self.ui.championshipTable.setItem(Tablerow, 1, QtWidgets.QTableWidgetItem(str(query.value(date_start))))
-            self.ui.championshipTable.setItem(Tablerow, 2, QtWidgets.QTableWidgetItem(str(query.value(date_end))))
+            self.ui.championshipTable.setItem(Tablerow, 0, QtWidgets.QTableWidgetItem(str(query.value(id))))
+            self.ui.championshipTable.setItem(Tablerow, 1, QtWidgets.QTableWidgetItem(str(query.value(title))))
+            self.ui.championshipTable.setItem(Tablerow, 2, QtWidgets.QTableWidgetItem(str(query.value(date_start))))
+            self.ui.championshipTable.setItem(Tablerow, 3, QtWidgets.QTableWidgetItem(str(query.value(date_end))))
 
             query1 = QSqlQuery()
             query1.exec(f'SELECT title FROM Cities WHERE id = {query.value(city_id)}')
             City = query1.record().indexOf('title')
             query1.next()
-            self.ui.championshipTable.setItem(Tablerow, 3, QtWidgets.QTableWidgetItem(str(query1.value(City))))
+            self.ui.championshipTable.setItem(Tablerow, 4, QtWidgets.QTableWidgetItem(str(query1.value(City))))
 
-            self.ui.championshipTable.setItem(Tablerow, 4, QtWidgets.QTableWidgetItem(str(query.value(desc))))
+            self.ui.championshipTable.setItem(Tablerow, 5, QtWidgets.QTableWidgetItem(str(query.value(desc))))
+
+            pushButton = QtWidgets.QPushButton()
+            pushButton.clicked.connect(self.changeClick)
+            # pushButton.setStyleSheet('image: url(:Logo/trash1.png);')
+            self.ui.championshipTable.setCellWidget(Tablerow, 6, pushButton)
+            pushButton1 = QtWidgets.QPushButton()
+            pushButton1.clicked.connect(self.deleteClicked)
+            # pushButton1.setStyleSheet('image: url(:Logo/galka.png);')
+            self.ui.championshipTable.setCellWidget(Tablerow, 7, pushButton1)
+
             Tablerow+=1
             row+=1
+
+    def deleteClicked(self):
+        button = self.sender()
+        if button:
+            row = self.ui.championshipTable.indexAt(button.pos()).row() # type: ignore
+            id = self.ui.championshipTable.item(row,0).text()
+            self.ui.championshipTable.removeRow(row)
+            query = QSqlQuery()
+            query.exec(f'DELETE FROM Competitions WHERE id = {id}')
+            query.next()
+    
+    def changeClick(self):
+        self.ui.stackedWidget_1.setCurrentIndex(1)
+        button = self.sender()
+        if button:
+            row = self.ui.championshipTable.indexAt(button.pos()).row() # type: ignore
+            Data_start = self.ui.championshipTable.item(row,2).text()
+            Data_end = self.ui.championshipTable.item(row,3).text()
+            title = self.ui.championshipTable.item(row,1).text()
+            self.ui.startDateLine.setText(Data_start)
+            self.ui.endDateLine.setText(Data_end)
+            self.ui.titleLine.setText(title)
+
 
     def BD_Expert(self):
         query = QSqlQuery()
@@ -136,10 +171,10 @@ class AppWindow(QMainWindow):
         Tablerow = 0
         row = 1
         while query.next():
-            self.ui.expertTable.setRowCount(row)
+            self.ui.protocolTable.setRowCount(row)
             
-            self.ui.expertTable.setItem(Tablerow, 0, QtWidgets.QTableWidgetItem(str(query.value(title))))
-            self.ui.expertTable.setItem(Tablerow, 1, QtWidgets.QTableWidgetItem(str(query.value(desc))))
+            self.ui.protocolTable.setItem(Tablerow, 0, QtWidgets.QTableWidgetItem(str(query.value(title))))
+            self.ui.protocolTable.setItem(Tablerow, 1, QtWidgets.QTableWidgetItem(str(query.value(desc))))
             Tablerow+=1
             row+=1
 
