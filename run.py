@@ -27,9 +27,6 @@ class AppWindow(QMainWindow):
         try: con.open()
         except: sys.exit(1)
 
-
-        d = 0
-
         self.ui.stackedWidget_4.setCurrentIndex(3)
 
 
@@ -60,8 +57,9 @@ class AppWindow(QMainWindow):
 
         tables_ = [self.ui.tableWidget, self.ui.expertTable,self.ui.expertTable_2,self.ui.expertTable,
                    self.ui.memberTable,self.ui.memberTable_2,self.ui.protocolTable,self.ui.protocolTable_2,self.ui.protocolTable,
-                   self.ui.mainExpertTable,self.ui.competitionTable,self.ui.championshipTable]
+                   self.ui.mainExpertTable,self.ui.competitionTable,self.ui.championshipTable,self.ui.MembersPage_MembersList,self.ui.MembersPage_ProtocolsPage]
 
+        d = 0
         for i in range(len(tables_)):
             tables_[d].horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode(1))
             tables_[d].resizeRowsToContents()
@@ -98,6 +96,11 @@ class AppWindow(QMainWindow):
         self.BD_Championship()
         self.BD_Expert()
         self.BD_Protokols()
+        self.BD_Members_for_member()
+        self.BD_Protokols_for_member()
+        self.BD_Members_for_expert()
+        self.BD_Experts_for_expert()
+        self.BD_Protokols_for_expert()
 
     def BD_Championship(self):
         query = QSqlQuery()
@@ -112,6 +115,7 @@ class AppWindow(QMainWindow):
         row = 1
         while query.next():
             self.ui.championshipTable.setRowCount(row)
+            
             self.ui.championshipTable.setItem(Tablerow, 0, QtWidgets.QTableWidgetItem(str(query.value(title))))
             self.ui.championshipTable.setItem(Tablerow, 1, QtWidgets.QTableWidgetItem(str(query.value(date_start))))
             self.ui.championshipTable.setItem(Tablerow, 2, QtWidgets.QTableWidgetItem(str(query.value(date_end))))
@@ -125,6 +129,7 @@ class AppWindow(QMainWindow):
             self.ui.championshipTable.setItem(Tablerow, 4, QtWidgets.QTableWidgetItem(str(query.value(desc))))
             Tablerow+=1
             row+=1
+        query.finish()
 
     def BD_Expert(self):
         query = QSqlQuery()
@@ -164,23 +169,178 @@ class AppWindow(QMainWindow):
 
             Tablerow+=1
             row+=1
+        query.finish()
 
     def BD_Protokols(self):
         query = QSqlQuery()
         query.exec(f'SELECT * FROM Protocols')
         title = query.record().indexOf('title')
         desc = query.record().indexOf('desc')
-        query.next()
 
         Tablerow = 0
         row = 1
         while query.next():
-            self.ui.expertTable.setRowCount(row)
+            self.ui.protocolTable.setRowCount(row)
             
-            self.ui.expertTable.setItem(Tablerow, 0, QtWidgets.QTableWidgetItem(str(query.value(title))))
-            self.ui.expertTable.setItem(Tablerow, 1, QtWidgets.QTableWidgetItem(str(query.value(desc))))
+            self.ui.protocolTable.setItem(Tablerow, 0, QtWidgets.QTableWidgetItem(str(query.value(title))))
+            self.ui.protocolTable.setItem(Tablerow, 1, QtWidgets.QTableWidgetItem(str(query.value(desc))))
+            
             Tablerow+=1
             row+=1
+        query.finish()
+
+    def BD_Members_for_member(self):
+        query = QSqlQuery()
+        query.exec(f'SELECT * FROM Users WHERE role_id = 1')
+        Name = query.record().indexOf('name')
+        Com_id = query.record().indexOf('comp_skill_id')
+
+        Tablerow = 0
+        row = 1
+        while query.next():
+            self.ui.MembersPage_MembersList.setRowCount(row)
+            
+            self.ui.MembersPage_MembersList.setItem(Tablerow, 0, QtWidgets.QTableWidgetItem(str(query.value(Name))))
+
+            query1 = QSqlQuery()
+            query1.exec(f'SELECT * FROM Competition_skills WHERE id = {query.value(Com_id)}')
+            competit_id = query1.record().indexOf('competition_id')
+            skill_id = query1.record().indexOf('skill_id')
+            query1.next()
+
+            query2 = QSqlQuery()
+            query2.exec(f'SELECT * FROM Competitions WHERE id = {query1.value(competit_id)}')
+            title = query2.record().indexOf('title')
+            query2.next()
+            self.ui.MembersPage_MembersList.setItem(Tablerow, 1, QtWidgets.QTableWidgetItem(str(query2.value(title))))
+
+            query3 = QSqlQuery()
+            query3.exec(f'SELECT * FROM Skills WHERE id = {query1.value(skill_id)}')
+            title = query3.record().indexOf('title')
+            query3.next()
+            self.ui.MembersPage_MembersList.setItem(Tablerow, 2, QtWidgets.QTableWidgetItem(str(query3.value(title))))
+
+            Tablerow+=1
+            row+=1
+        query.finish()
+
+    def BD_Protokols_for_member(self):
+        query = QSqlQuery()
+        query.exec(f'SELECT * FROM Protocols')
+        title = query.record().indexOf('title')
+        desc = query.record().indexOf('desc')
+
+        Tablerow = 0
+        row = 1
+        while query.next():
+            self.ui.MembersPage_ProtocolsPage.setRowCount(row)
+            
+            self.ui.MembersPage_ProtocolsPage.setItem(Tablerow, 0, QtWidgets.QTableWidgetItem(str(query.value(title))))
+            self.ui.MembersPage_ProtocolsPage.setItem(Tablerow, 1, QtWidgets.QTableWidgetItem(str(query.value(desc))))
+            
+            Tablerow+=1
+            row+=1
+        query.finish()
+
+    def BD_Members_for_expert(self):
+        query = QSqlQuery()
+        query.exec(f'SELECT * FROM Users WHERE role_id = 1')
+        Name = query.record().indexOf('name')
+        Com_id = query.record().indexOf('comp_skill_id')
+        Mail = query.record().indexOf('phone')
+        Phone = query.record().indexOf('email')
+
+        Tablerow = 0
+        row = 1
+        while query.next():
+            self.ui.memberTable_2.setRowCount(row)
+            
+            self.ui.memberTable_2.setItem(Tablerow, 0, QtWidgets.QTableWidgetItem(str(query.value(Name))))
+
+            query1 = QSqlQuery()
+            query1.exec(f'SELECT * FROM Competition_skills WHERE id = {query.value(Com_id)}')
+            competit_id = query1.record().indexOf('competition_id')
+            skill_id = query1.record().indexOf('skill_id')
+            query1.next()
+
+            query2 = QSqlQuery()
+            query2.exec(f'SELECT * FROM Competitions WHERE id = {query1.value(competit_id)}')
+            title = query2.record().indexOf('title')
+            query2.next()
+            self.ui.memberTable_2.setItem(Tablerow, 1, QtWidgets.QTableWidgetItem(str(query2.value(title))))
+
+            query3 = QSqlQuery()
+            query3.exec(f'SELECT * FROM Skills WHERE id = {query1.value(skill_id)}')
+            title = query3.record().indexOf('title')
+            query3.next()
+            self.ui.memberTable_2.setItem(Tablerow, 2, QtWidgets.QTableWidgetItem(str(query3.value(title))))
+
+            self.ui.memberTable_2.setItem(Tablerow, 3, QtWidgets.QTableWidgetItem(str(query.value(Mail))))
+            self.ui.memberTable_2.setItem(Tablerow, 4, QtWidgets.QTableWidgetItem(str(query.value(Phone))))
+
+            Tablerow+=1
+            row+=1
+        query.finish()
+
+    def BD_Experts_for_expert(self):
+        query = QSqlQuery()
+        query.exec(f'SELECT * FROM Users WHERE role_id = 2 OR role_id = 4 OR role_id = 5')
+        Name = query.record().indexOf('name')
+        Com_id = query.record().indexOf('comp_skill_id')
+        Mail = query.record().indexOf('phone')
+        Phone = query.record().indexOf('email')
+
+        Tablerow = 0
+        row = 1
+        while query.next():
+            self.ui.expertTable_2.setRowCount(row)
+            
+            self.ui.expertTable_2.setItem(Tablerow, 0, QtWidgets.QTableWidgetItem(str(query.value(Name))))
+
+            query1 = QSqlQuery()
+            query1.exec(f'SELECT * FROM Competition_skills WHERE id = {query.value(Com_id)}')
+            competit_id = query1.record().indexOf('competition_id')
+            skill_id = query1.record().indexOf('skill_id')
+            query1.next()
+
+            query2 = QSqlQuery()
+            query2.exec(f'SELECT * FROM Competitions WHERE id = {query1.value(competit_id)}')
+            title = query2.record().indexOf('title')
+            query2.next()
+            self.ui.expertTable_2.setItem(Tablerow, 1, QtWidgets.QTableWidgetItem(str(query2.value(title))))
+
+            query3 = QSqlQuery()
+            query3.exec(f'SELECT * FROM Skills WHERE id = {query1.value(skill_id)}')
+            title = query3.record().indexOf('title')
+            query3.next()
+            self.ui.expertTable_2.setItem(Tablerow, 2, QtWidgets.QTableWidgetItem(str(query3.value(title))))
+
+            self.ui.expertTable_2.setItem(Tablerow, 3, QtWidgets.QTableWidgetItem(str(query.value(Mail))))
+            self.ui.expertTable_2.setItem(Tablerow, 4, QtWidgets.QTableWidgetItem(str(query.value(Phone))))
+
+            Tablerow+=1
+            row+=1
+        query.finish()
+
+    def BD_Protokols_for_expert(self):
+        query = QSqlQuery()
+        query.exec(f'SELECT * FROM Protocols')
+        title = query.record().indexOf('title')
+        desc = query.record().indexOf('desc')
+
+        Tablerow = 0
+        row = 1
+        while query.next():
+            self.ui.protocolTable_2.setRowCount(row)
+            
+            self.ui.protocolTable_2.setItem(Tablerow, 0, QtWidgets.QTableWidgetItem(str(query.value(title))))
+            self.ui.protocolTable_2.setItem(Tablerow, 1, QtWidgets.QTableWidgetItem(str(query.value(desc))))
+            
+            Tablerow+=1
+            row+=1
+        query.finish()
+
+    
 
     def Open_main_file_btn(self):
         res = QFileDialog.getOpenFileName(self, 'Open File', '','PNG file (*.png)')
