@@ -71,8 +71,40 @@ class AppWindow(QMainWindow):
         self.ui.okButton.clicked.connect(self.check_member)
 
 
-        
+        combo1_array = []
+        combo2_array = []
         self.BD()
+        query_combo1 = QSqlQuery()
+        query_combo1.exec(f'SELECT title FROM Skills')
+        query_combo2 = QSqlQuery()
+        title = query_combo1.record().indexOf('title')
+        while query_combo1.next():
+            combo1_array.append(query_combo1.value(title))
+        self.ui.competitionCombo.addItem('Любая')
+        self.ui.competitionCombo.addItems(combo1_array)
+        query_combo2.exec(f'SELECT role FROM Roles')
+        role = query_combo2.record().indexOf('role')
+        while query_combo2.next():
+            combo2_array.append(query_combo2.value(role))
+        self.ui.roleCombo.addItem('Любая')
+        self.ui.roleCombo.addItems(combo2_array)
+
+
+    def combo_competitions_sort(self):
+        query = QSqlQuery()
+        query.exec(f'SELECT * FROM Users')
+        role = query.record().indexOf('role')
+        name = query.record().indexOf('name')
+        phone = query.record().indexOf('phone')
+        gender = query.record().indexOf('gender')
+        email = query.record().indexOf('email')
+        region = query.record().indexOf('region')
+        comp = query.record().indexOf('comp_skill_id')
+        region = query.record().indexOf('region')
+
+        Tablerow = 0
+        row = 1
+        
 
 
     def Open_main_file_btn(self):
