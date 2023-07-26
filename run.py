@@ -364,7 +364,7 @@ class AppWindow(QMainWindow):
         password = self.ui.passLine.text()
         
         query = QSqlQuery()
-        try: query.exec(f'SELECT role_id, name FROM Users WHERE login = {login} AND password = {password}')
+        try: query.exec(f'SELECT role_id, name, comp_skill_id FROM Users WHERE login = {login} AND password = {password}')
         except:
             self.showError()
             return
@@ -375,24 +375,93 @@ class AppWindow(QMainWindow):
         role = query.value(role)
         name = query.record().indexOf('name')
         name = query.value(name)
-        query.finish()
+        cs_id = query.record().indexOf('comp_skill_id')
+        cs_id = query.value(cs_id)
+
+        try: query.exec(f'SELECT competition_id, skill_id FROM Competition_skills WHERE id = {cs_id}')
+        except:
+            pass
+        if not query.next():
+            pass
         
+        c_id = query.record().indexOf('competition_id')
+        c_id = query.value(c_id)
+
+        s_id = query.record().indexOf('skill_id')
+        s_id = query.value(s_id)
+        
+        query.finish()
+
+        query2 = QSqlQuery()
+        query2.exec(f'SELECT title FROM Competitions WHERE id = {c_id}')
+        c_title = query2.record().indexOf('title')
+        query2.next()
+        c_title = query2.value(c_title)
+        query2.finish()
+
+        query3 = QSqlQuery()
+        query3.exec(f'SELECT title FROM Skills WHERE id = {s_id}')
+        s_title = query3.record().indexOf('title')
+        query3.next()
+        s_title = query3.value(s_title)
+        query3.finish()
+
+        
+            
+        self.set_titles(c_title, s_title)
         self.mpage_swap(role, name)
 
     def check_member(self):
         code = self.ui.memberCodeLine.text()
         query = QSqlQuery()
         try:
-            query.exec(f'SELECT name FROM Users WHERE login = "{code}" AND role_id = 1')
+            query.exec(f'SELECT comp_skill_id FROM Users WHERE login = "{code}" AND role_id = 1')
+        except:
+            self.showMemberError()
+            return
+
+        if not query.next():
+            self.showMemberError()
+            return
+        
+        cs_id = query.record().indexOf('comp_skill_id')
+        cs_id = query.value(cs_id)
+
+        try: query.exec(f'SELECT competition_id, skill_id FROM Competition_skills WHERE id = {cs_id}')
         except:
             self.showMemberError()
             return
         if not query.next():
             self.showMemberError()
             return
-        else:
-            self.ui.stackedWidget_2.setCurrentIndex(1)
+        
+        c_id = query.record().indexOf('competition_id')
+        c_id = query.value(c_id)
+
+        s_id = query.record().indexOf('skill_id')
+        s_id = query.value(s_id)
+
         query.finish()
+
+        query2 = QSqlQuery()
+        query2.exec(f'SELECT title FROM Competitions WHERE id = {c_id}')
+        c_title = query2.record().indexOf('title')
+        query2.next()
+        c_title = query2.value(c_title)
+        query2.finish()
+
+        query3 = QSqlQuery()
+        query3.exec(f'SELECT title FROM Skills WHERE id = {s_id}')
+        s_title = query3.record().indexOf('title')
+        query3.next()
+        s_title = query3.value(s_title)
+        query3.finish()
+
+        
+            
+        self.set_titles(c_title, s_title)
+        
+        self.ui.stackedWidget_2.setCurrentIndex(1)
         
 
     def member_swap(self):
@@ -415,6 +484,16 @@ class AppWindow(QMainWindow):
             self.ui.welcomeExpertLabel.setText(f'Здравствуйте, {name}')
         elif role == 6:
             self.ui.welcomeLabel.setText(f'Здравствуйте, {name}')
+
+    def set_titles(self, comp, skill):
+        self.ui.champTitleLabel.setText(comp)
+        self.ui.compTitleLabel.setText(skill)
+        self.ui.champTitleLabel_2.setText(comp)
+        self.ui.compTitleLabel_2.setText(skill)
+        self.ui.champTitleLabel_3.setText(comp)
+        self.ui.compTitleLabel_3.setText(skill)
+        self.ui.champTitleLabel_5.setText(comp)
+        self.ui.compTitleLabel_4.setText(skill)
 
 
     def showError(self):

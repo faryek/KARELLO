@@ -1198,7 +1198,7 @@ class Ui_MainWindow(object):
         self.stackedWidget_1.setCurrentIndex(1)
         self.stackedWidget3.setCurrentIndex(1)
         self.stackedWidget.setCurrentIndex(0)
-        self.stackedWidget_2.setCurrentIndex(3)
+        self.stackedWidget_2.setCurrentIndex(0)
         self.stackedWidget_3.setCurrentIndex(2)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
