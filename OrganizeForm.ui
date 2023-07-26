@@ -188,7 +188,7 @@
              </sizepolicy>
             </property>
             <property name="currentIndex">
-             <number>0</number>
+             <number>1</number>
             </property>
             <widget class="QWidget" name="mainPage">
              <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -291,7 +291,7 @@
               <item>
                <widget class="QStackedWidget" name="stackedWidget3">
                 <property name="currentIndex">
-                 <number>0</number>
+                 <number>1</number>
                 </property>
                 <widget class="QWidget" name="protocolViewPage">
                  <layout class="QVBoxLayout" name="verticalLayout_9">
@@ -301,16 +301,10 @@
                      <property name="text">
                       <string>Название</string>
                      </property>
-                     <property name="textAlignment">
-                      <set>AlignCenter</set>
-                     </property>
                     </column>
                     <column>
                      <property name="text">
                       <string>Описание</string>
-                     </property>
-                     <property name="textAlignment">
-                      <set>AlignCenter</set>
                      </property>
                     </column>
                    </widget>
@@ -325,40 +319,25 @@
                      <property name="text">
                       <string>Имя</string>
                      </property>
-                     <property name="textAlignment">
-                      <set>AlignCenter</set>
-                     </property>
                     </column>
                     <column>
                      <property name="text">
                       <string>Чемпионат</string>
-                     </property>
-                     <property name="textAlignment">
-                      <set>AlignCenter</set>
                      </property>
                     </column>
                     <column>
                      <property name="text">
                       <string>Компетенция</string>
                      </property>
-                     <property name="textAlignment">
-                      <set>AlignCenter</set>
-                     </property>
                     </column>
                     <column>
                      <property name="text">
                       <string>Почта</string>
                      </property>
-                     <property name="textAlignment">
-                      <set>AlignCenter</set>
-                     </property>
                     </column>
                     <column>
                      <property name="text">
                       <string>Телефон</string>
-                     </property>
-                     <property name="textAlignment">
-                      <set>AlignCenter</set>
                      </property>
                     </column>
                    </widget>
@@ -694,7 +673,6 @@
                          <font>
                           <family>Akrobat SemiBold</family>
                           <pointsize>14</pointsize>
-                          <weight>75</weight>
                           <bold>true</bold>
                          </font>
                         </property>
@@ -1224,7 +1202,6 @@
                    <font>
                     <family>Akrobat SemiBold</family>
                     <pointsize>14</pointsize>
-                    <weight>75</weight>
                     <bold>true</bold>
                    </font>
                   </property>
@@ -1597,7 +1574,6 @@
                  <font>
                   <family>Akrobat SemiBold</family>
                   <pointsize>14</pointsize>
-                  <weight>75</weight>
                   <bold>true</bold>
                  </font>
                 </property>
@@ -1630,7 +1606,6 @@
                    <font>
                     <family>Akrobat Bold</family>
                     <pointsize>16</pointsize>
-                    <weight>75</weight>
                     <bold>true</bold>
                    </font>
                   </property>
@@ -1645,7 +1620,6 @@
                    <font>
                     <family>Akrobat Bold</family>
                     <pointsize>16</pointsize>
-                    <weight>75</weight>
                     <bold>true</bold>
                    </font>
                   </property>
@@ -1714,7 +1688,6 @@
                  <font>
                   <family>Akrobat Bold</family>
                   <pointsize>16</pointsize>
-                  <weight>75</weight>
                   <bold>true</bold>
                  </font>
                 </property>
@@ -1726,7 +1699,23 @@
              </layout>
             </item>
             <item>
-             <widget class="QTableWidget" name="MembersPage_MembersList"/>
+             <widget class="QTableWidget" name="MembersPage_MembersList">
+              <column>
+               <property name="text">
+                <string>Имя</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Чемпионат</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Компетенция</string>
+               </property>
+              </column>
+             </widget>
             </item>
             <item>
              <widget class="QPushButton" name="backToMainButton_2">
@@ -1746,7 +1735,6 @@
                <font>
                 <family>Akrobat SemiBold</family>
                 <pointsize>14</pointsize>
-                <weight>75</weight>
                 <bold>true</bold>
                </font>
               </property>
@@ -1795,7 +1783,6 @@
                  <font>
                   <family>Akrobat SemiBold</family>
                   <pointsize>14</pointsize>
-                  <weight>75</weight>
                   <bold>true</bold>
                  </font>
                 </property>
@@ -1828,7 +1815,6 @@
                    <font>
                     <family>Akrobat Bold</family>
                     <pointsize>16</pointsize>
-                    <weight>75</weight>
                     <bold>true</bold>
                    </font>
                   </property>
@@ -1843,7 +1829,6 @@
                    <font>
                     <family>Akrobat Bold</family>
                     <pointsize>16</pointsize>
-                    <weight>75</weight>
                     <bold>true</bold>
                    </font>
                   </property>
@@ -1912,7 +1897,6 @@
                  <font>
                   <family>Akrobat Bold</family>
                   <pointsize>16</pointsize>
-                  <weight>75</weight>
                   <bold>true</bold>
                  </font>
                 </property>
@@ -1924,7 +1908,23 @@
              </layout>
             </item>
             <item>
-             <widget class="QTableWidget" name="MembersPage_ProtocolsPage"/>
+             <widget class="QTableWidget" name="MembersPage_ProtocolsPage">
+              <column>
+               <property name="text">
+                <string>Название</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Описание</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Подпись</string>
+               </property>
+              </column>
+             </widget>
             </item>
             <item>
              <widget class="QPushButton" name="backToMainButton_3">
@@ -1944,7 +1944,6 @@
                <font>
                 <family>Akrobat SemiBold</family>
                 <pointsize>14</pointsize>
-                <weight>75</weight>
                 <bold>true</bold>
                </font>
               </property>
@@ -2282,26 +2281,89 @@
           <item>
            <widget class="QStackedWidget" name="stackedWidget_3">
             <property name="currentIndex">
-             <number>0</number>
+             <number>2</number>
             </property>
             <widget class="QWidget" name="memberPage_2">
              <layout class="QVBoxLayout" name="verticalLayout_20">
               <item>
-               <widget class="QTableWidget" name="memberTable_2"/>
+               <widget class="QTableWidget" name="memberTable_2">
+                <column>
+                 <property name="text">
+                  <string>Имя</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Чемпионат</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Компетенция</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Эл. почта</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Телефон</string>
+                 </property>
+                </column>
+               </widget>
               </item>
              </layout>
             </widget>
             <widget class="QWidget" name="expertPage_2">
              <layout class="QVBoxLayout" name="verticalLayout_21">
               <item>
-               <widget class="QTableWidget" name="expertTable_2"/>
+               <widget class="QTableWidget" name="expertTable_2">
+                <column>
+                 <property name="text">
+                  <string>Имя</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Чемпионат</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Компетенция</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Эл. почта</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Телефон</string>
+                 </property>
+                </column>
+               </widget>
               </item>
              </layout>
             </widget>
             <widget class="QWidget" name="protocolPage_2">
              <layout class="QVBoxLayout" name="verticalLayout_22">
               <item>
-               <widget class="QTableWidget" name="protocolTable_2"/>
+               <widget class="QTableWidget" name="protocolTable_2">
+                <column>
+                 <property name="text">
+                  <string>Название</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Описание</string>
+                 </property>
+                </column>
+               </widget>
               </item>
              </layout>
             </widget>
