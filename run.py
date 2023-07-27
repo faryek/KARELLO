@@ -134,7 +134,6 @@ class AppWindow(QMainWindow):
             sql_query = sql_query + f' AND Skills.title = "{self.ui.competitionCombo.currentText()}"'
         if self.ui.showUnknownCheck.isChecked() == True:
             sql_query = sql_query + f' AND Statuses.id != 1'
-        print(self.ui.roleCombo.currentText())
         query.exec(sql_query)
         if not query.next():
             while self.ui.memberTable.rowCount() > 0:
