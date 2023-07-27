@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1067</width>
-    <height>736</height>
+    <width>1186</width>
+    <height>814</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -291,7 +291,7 @@
               <item>
                <widget class="QStackedWidget" name="stackedWidget3">
                 <property name="currentIndex">
-                 <number>2</number>
+                 <number>1</number>
                 </property>
                 <widget class="QWidget" name="protocolViewPage">
                  <layout class="QVBoxLayout" name="verticalLayout_9">
@@ -310,7 +310,45 @@
                 <widget class="QWidget" name="championshipViewPage">
                  <layout class="QVBoxLayout" name="verticalLayout_7">
                   <item>
-                   <widget class="QTableWidget" name="championshipTable"/>
+                   <widget class="QTableWidget" name="championshipTable">
+                    <property name="contextMenuPolicy">
+                     <enum>Qt::PreventContextMenu</enum>
+                    </property>
+                    <property name="layoutDirection">
+                     <enum>Qt::LeftToRight</enum>
+                    </property>
+                    <property name="autoFillBackground">
+                     <bool>false</bool>
+                    </property>
+                    <property name="editTriggers">
+                     <set>QAbstractItemView::NoEditTriggers</set>
+                    </property>
+                    <column>
+                     <property name="text">
+                      <string>Название</string>
+                     </property>
+                    </column>
+                    <column>
+                     <property name="text">
+                      <string>Дата начала</string>
+                     </property>
+                    </column>
+                    <column>
+                     <property name="text">
+                      <string>Дата конца</string>
+                     </property>
+                    </column>
+                    <column>
+                     <property name="text">
+                      <string>Город</string>
+                     </property>
+                    </column>
+                    <column>
+                     <property name="text">
+                      <string>Информация</string>
+                     </property>
+                    </column>
+                   </widget>
                   </item>
                   <item>
                    <layout class="QHBoxLayout" name="horizontalLayout_9">
@@ -503,7 +541,7 @@
               <item>
                <widget class="QStackedWidget" name="stackedWidget">
                 <property name="currentIndex">
-                 <number>0</number>
+                 <number>1</number>
                 </property>
                 <widget class="QWidget" name="championshipEditPage">
                  <layout class="QVBoxLayout" name="verticalLayout_11">
@@ -848,13 +886,7 @@
                          </spacer>
                         </item>
                         <item>
-                         <widget class="QCheckBox" name="showUnknownCheck">
-                          <property name="sizePolicy">
-                           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                            <horstretch>0</horstretch>
-                            <verstretch>0</verstretch>
-                           </sizepolicy>
-                          </property>
+                         <widget class="QRadioButton" name="showUnknownCheck">
                           <property name="font">
                            <font>
                             <family>Akrobat SemiBold</family>
@@ -863,7 +895,7 @@
                            </font>
                           </property>
                           <property name="text">
-                           <string>Покаазать только не подтвержденных</string>
+                           <string>Показывать только не согласованных</string>
                           </property>
                          </widget>
                         </item>
@@ -874,7 +906,48 @@
                    </layout>
                   </item>
                   <item>
-                   <widget class="QTableWidget" name="memberTable"/>
+                   <widget class="QTableWidget" name="memberTable">
+                    <column>
+                     <property name="text">
+                      <string>Роль</string>
+                     </property>
+                    </column>
+                    <column>
+                     <property name="text">
+                      <string>ФИО</string>
+                     </property>
+                    </column>
+                    <column>
+                     <property name="text">
+                      <string>Тел. номер</string>
+                     </property>
+                    </column>
+                    <column>
+                     <property name="text">
+                      <string>Пол</string>
+                     </property>
+                    </column>
+                    <column>
+                     <property name="text">
+                      <string>Эл. почта</string>
+                     </property>
+                    </column>
+                    <column>
+                     <property name="text">
+                      <string>Регион</string>
+                     </property>
+                    </column>
+                    <column>
+                     <property name="text">
+                      <string>Компетенция</string>
+                     </property>
+                    </column>
+                    <column>
+                     <property name="text">
+                      <string>Статус</string>
+                     </property>
+                    </column>
+                   </widget>
                   </item>
                  </layout>
                 </widget>
@@ -2483,7 +2556,7 @@
   </widget>
  </widget>
  <resources>
-  <include location="projectKarelova/KARELLO/Лого/Logo.qrc"/>
+  <include location="Лого/Logo.qrc"/>
   <include location="Лого/Logo.qrc"/>
  </resources>
  <connections/>
