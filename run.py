@@ -128,18 +128,21 @@ class AppWindow(QMainWindow):
     def sort_users(self):
         query = QSqlQuery()
         sql_query = f'SELECT * FROM Users JOIN Competition_skills ON Users.comp_skill_id = Competition_skills.id JOIN Skills ON Skills.id = Competition_skills.skill_id JOIN Roles ON Roles.id = Users.role_id JOIN Regions on Regions.id = Users.region_id JOIN Statuses ON Statuses.id = Users.status_id WHERE Roles.role != "Организатор"'
-        if self.ui.roleCombo.currentIndex()!= 0:
+        if self.ui.roleCombo.currentIndex() != 0:
             sql_query = sql_query + f' AND Roles.role = "{self.ui.roleCombo.currentText()}"'
         if self.ui.competitionCombo.currentIndex() != 0:
             sql_query = sql_query + f' AND Skills.title = "{self.ui.competitionCombo.currentText()}"'
         if self.ui.showUnknownCheck.isChecked() == True:
             sql_query = sql_query + f' AND Statuses.id != 1'
-
+        print(self.ui.roleCombo.currentText())
         query.exec(sql_query)
         if not query.next():
             while self.ui.memberTable.rowCount() > 0:
                 self.ui.memberTable.removeRow(0)
             return
+        else:
+            query.finish()
+            query.exec(sql_query)
         role = query.record().indexOf('Roles.role')
         name = query.record().indexOf('Users.name')
         phone = query.record().indexOf('Users.phone')
