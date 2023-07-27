@@ -1247,3 +1247,4 @@ class Ui_MainWindow(object):
         self.rememberCheck.setText(_translate("MainWindow", "Запомнить меня"))
         self.memberEnterButton.setText(_translate("MainWindow", "Я участник!"))
         self.enterButton.setText(_translate("MainWindow", "Войти"))
+import logorc
