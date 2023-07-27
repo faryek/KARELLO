@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'organizeform.ui'
+# Form implementation generated from reading ui file 'OrganizeForm.ui'
 #
 # Created by: PyQt6 UI code generator 6.4.2
 #
@@ -439,12 +439,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_14.setObjectName("horizontalLayout_14")
         spacerItem13 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
         self.horizontalLayout_14.addItem(spacerItem13)
-        self.showUnknownCheck = QtWidgets.QCheckBox(parent=self.memberPage)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Fixed, QtWidgets.QSizePolicy.Policy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.showUnknownCheck.sizePolicy().hasHeightForWidth())
-        self.showUnknownCheck.setSizePolicy(sizePolicy)
+        self.showUnknownCheck = QtWidgets.QRadioButton(parent=self.memberPage)
         font = QtGui.QFont()
         font.setFamily("Akrobat SemiBold")
         font.setPointSize(14)
@@ -457,8 +452,24 @@ class Ui_MainWindow(object):
         self.verticalLayout_13.addLayout(self.horizontalLayout_15)
         self.memberTable = QtWidgets.QTableWidget(parent=self.memberPage)
         self.memberTable.setObjectName("memberTable")
-        self.memberTable.setColumnCount(0)
+        self.memberTable.setColumnCount(8)
         self.memberTable.setRowCount(0)
+        item = QtWidgets.QTableWidgetItem()
+        self.memberTable.setHorizontalHeaderItem(0, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.memberTable.setHorizontalHeaderItem(1, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.memberTable.setHorizontalHeaderItem(2, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.memberTable.setHorizontalHeaderItem(3, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.memberTable.setHorizontalHeaderItem(4, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.memberTable.setHorizontalHeaderItem(5, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.memberTable.setHorizontalHeaderItem(6, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.memberTable.setHorizontalHeaderItem(7, item)
         self.verticalLayout_13.addWidget(self.memberTable)
         self.stackedWidget.addWidget(self.memberPage)
         self.protocolPage = QtWidgets.QWidget()
@@ -1200,6 +1211,7 @@ class Ui_MainWindow(object):
         self.stackedWidget.setCurrentIndex(0)
         self.stackedWidget_2.setCurrentIndex(0)
         self.stackedWidget_3.setCurrentIndex(2)
+
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -1251,7 +1263,23 @@ class Ui_MainWindow(object):
         self.saveCompetitionButton.setText(_translate("MainWindow", "Сохранить изменения"))
         self.competitionLabel.setText(_translate("MainWindow", "Компетениця"))
         self.roleLabel.setText(_translate("MainWindow", "Роль"))
-        self.showUnknownCheck.setText(_translate("MainWindow", "Покаазать только не подтвержденных"))
+        self.showUnknownCheck.setText(_translate("MainWindow", "Показывать только не согласованных"))
+        item = self.memberTable.horizontalHeaderItem(0)
+        item.setText(_translate("MainWindow", "Роль"))
+        item = self.memberTable.horizontalHeaderItem(1)
+        item.setText(_translate("MainWindow", "ФИО"))
+        item = self.memberTable.horizontalHeaderItem(2)
+        item.setText(_translate("MainWindow", "Тел. номер"))
+        item = self.memberTable.horizontalHeaderItem(3)
+        item.setText(_translate("MainWindow", "Пол"))
+        item = self.memberTable.horizontalHeaderItem(4)
+        item.setText(_translate("MainWindow", "Эл. почта"))
+        item = self.memberTable.horizontalHeaderItem(5)
+        item.setText(_translate("MainWindow", "Регион"))
+        item = self.memberTable.horizontalHeaderItem(6)
+        item.setText(_translate("MainWindow", "Компетенция"))
+        item = self.memberTable.horizontalHeaderItem(7)
+        item.setText(_translate("MainWindow", "Статус"))
         self.label_3.setText(_translate("MainWindow", "Введите код доступа выданный главным экспертом"))
         self.label_5.setText(_translate("MainWindow", "Помните, что код доступа действителен один день"))
         self.okButton.setText(_translate("MainWindow", "ОК"))
@@ -1323,13 +1351,3 @@ class Ui_MainWindow(object):
         self.rememberCheck.setText(_translate("MainWindow", "Запомнить меня"))
         self.memberEnterButton.setText(_translate("MainWindow", "Я участник!"))
         self.enterButton.setText(_translate("MainWindow", "Войти"))
-
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
-    sys.exit(app.exec())

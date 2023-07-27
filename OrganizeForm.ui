@@ -578,7 +578,7 @@
               <item>
                <widget class="QStackedWidget" name="stackedWidget">
                 <property name="currentIndex">
-                 <number>0</number>
+                 <number>1</number>
                 </property>
                 <widget class="QWidget" name="championshipEditPage">
                  <layout class="QVBoxLayout" name="verticalLayout_11">
@@ -932,13 +932,7 @@
                          </spacer>
                         </item>
                         <item>
-                         <widget class="QCheckBox" name="showUnknownCheck">
-                          <property name="sizePolicy">
-                           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                            <horstretch>0</horstretch>
-                            <verstretch>0</verstretch>
-                           </sizepolicy>
-                          </property>
+                         <widget class="QRadioButton" name="showUnknownCheck">
                           <property name="font">
                            <font>
                             <family>Akrobat SemiBold</family>
@@ -947,7 +941,7 @@
                            </font>
                           </property>
                           <property name="text">
-                           <string>Покаазать только не подтвержденных</string>
+                           <string>Показывать только не согласованных</string>
                           </property>
                          </widget>
                         </item>
@@ -958,7 +952,48 @@
                    </layout>
                   </item>
                   <item>
-                   <widget class="QTableWidget" name="memberTable"/>
+                   <widget class="QTableWidget" name="memberTable">
+                    <column>
+                     <property name="text">
+                      <string>Роль</string>
+                     </property>
+                    </column>
+                    <column>
+                     <property name="text">
+                      <string>ФИО</string>
+                     </property>
+                    </column>
+                    <column>
+                     <property name="text">
+                      <string>Тел. номер</string>
+                     </property>
+                    </column>
+                    <column>
+                     <property name="text">
+                      <string>Пол</string>
+                     </property>
+                    </column>
+                    <column>
+                     <property name="text">
+                      <string>Эл. почта</string>
+                     </property>
+                    </column>
+                    <column>
+                     <property name="text">
+                      <string>Регион</string>
+                     </property>
+                    </column>
+                    <column>
+                     <property name="text">
+                      <string>Компетенция</string>
+                     </property>
+                    </column>
+                    <column>
+                     <property name="text">
+                      <string>Статус</string>
+                     </property>
+                    </column>
+                   </widget>
                   </item>
                  </layout>
                 </widget>
