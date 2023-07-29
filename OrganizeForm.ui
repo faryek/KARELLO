@@ -291,7 +291,7 @@
               <item>
                <widget class="QStackedWidget" name="stackedWidget3">
                 <property name="currentIndex">
-                 <number>1</number>
+                 <number>0</number>
                 </property>
                 <widget class="QWidget" name="protocolViewPage">
                  <layout class="QVBoxLayout" name="verticalLayout_9">
@@ -604,6 +604,9 @@
                            </font>
                           </property>
                           <property name="text">
+                           <string/>
+                          </property>
+                          <property name="placeholderText">
                            <string>Дата начала</string>
                           </property>
                          </widget>
@@ -624,6 +627,9 @@
                            </font>
                           </property>
                           <property name="text">
+                           <string/>
+                          </property>
+                          <property name="placeholderText">
                            <string>Дата окончания</string>
                           </property>
                          </widget>
@@ -646,6 +652,9 @@
                          </font>
                         </property>
                         <property name="text">
+                         <string/>
+                        </property>
+                        <property name="placeholderText">
                          <string>Название чемпионата</string>
                         </property>
                        </widget>
@@ -1000,14 +1009,51 @@
                 <widget class="QWidget" name="protocolPage">
                  <layout class="QVBoxLayout" name="verticalLayout_25">
                   <item>
-                   <widget class="QTableWidget" name="tableWidget"/>
+                   <widget class="QTableWidget" name="tableWidget">
+                    <column>
+                     <property name="text">
+                      <string>Название</string>
+                     </property>
+                    </column>
+                    <column>
+                     <property name="text">
+                      <string>Описание</string>
+                     </property>
+                    </column>
+                   </widget>
                   </item>
                  </layout>
                 </widget>
                 <widget class="QWidget" name="expertPage">
                  <layout class="QVBoxLayout" name="verticalLayout_14">
                   <item>
-                   <widget class="QTableWidget" name="mainExpertTable"/>
+                   <widget class="QTableWidget" name="mainExpertTable">
+                    <column>
+                     <property name="text">
+                      <string>Имя</string>
+                     </property>
+                    </column>
+                    <column>
+                     <property name="text">
+                      <string>Тел. номер</string>
+                     </property>
+                    </column>
+                    <column>
+                     <property name="text">
+                      <string>Эл. почта</string>
+                     </property>
+                    </column>
+                    <column>
+                     <property name="text">
+                      <string>Регион</string>
+                     </property>
+                    </column>
+                    <column>
+                     <property name="text">
+                      <string>Пол</string>
+                     </property>
+                    </column>
+                   </widget>
                   </item>
                  </layout>
                 </widget>
@@ -1026,7 +1072,7 @@
         <item>
          <widget class="QStackedWidget" name="stackedWidget_2">
           <property name="currentIndex">
-           <number>0</number>
+           <number>3</number>
           </property>
           <widget class="QWidget" name="authorizeMemberPage">
            <layout class="QHBoxLayout" name="horizontalLayout_20">
@@ -2316,7 +2362,7 @@
           <item>
            <widget class="QStackedWidget" name="stackedWidget_3">
             <property name="currentIndex">
-             <number>2</number>
+             <number>0</number>
             </property>
             <widget class="QWidget" name="memberPage_2">
              <layout class="QVBoxLayout" name="verticalLayout_20">
