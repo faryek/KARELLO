@@ -190,11 +190,15 @@ class AppWindow(QMainWindow):
         self.BD_Championship()
         self.BD_Expert()
         self.BD_Protokols()
-        self.BD_Members_for_member()
-        self.BD_Protokols_for_member()
-        self.BD_Members_for_expert()
-        self.BD_Experts_for_expert()
-        self.BD_Protokols_for_expert()
+
+    def BD_members(self, c_id, s_id):
+        self.BD_Members_for_member(c_id, s_id)
+        self.BD_Protokols_for_member(c_id, s_id)
+
+    def BD_experts(self, c_id, s_id):
+        self.BD_Members_for_expert(c_id, s_id)
+        self.BD_Experts_for_expert(c_id, s_id)
+        self.BD_Protokols_for_expert(c_id, s_id)
 
     def BD_Championship(self):
         query = QSqlQuery()
@@ -283,7 +287,7 @@ class AppWindow(QMainWindow):
             row+=1
         query.finish()
 
-    def BD_Members_for_member(self):
+    def BD_Members_for_member(self, c_id, s_id):
         query = QSqlQuery()
         query.exec(f'SELECT * FROM Users WHERE role_id = 1')
         Name = query.record().indexOf('name')
@@ -318,7 +322,7 @@ class AppWindow(QMainWindow):
             row+=1
         query.finish()
 
-    def BD_Protokols_for_member(self):
+    def BD_Protokols_for_member(self, c_id, s_id):
         query = QSqlQuery()
         query.exec(f'SELECT * FROM Protocols')
         title = query.record().indexOf('title')
@@ -336,7 +340,7 @@ class AppWindow(QMainWindow):
             row+=1
         query.finish()
 
-    def BD_Members_for_expert(self):
+    def BD_Members_for_expert(self, c_id, s_id):
         query = QSqlQuery()
         query.exec(f'SELECT * FROM Users WHERE role_id = 1')
         Name = query.record().indexOf('name')
@@ -376,7 +380,7 @@ class AppWindow(QMainWindow):
             row+=1
         query.finish()
 
-    def BD_Experts_for_expert(self):
+    def BD_Experts_for_expert(self, c_id, s_id):
         query = QSqlQuery()
         query.exec(f'SELECT * FROM Users WHERE role_id = 2 OR role_id = 4 OR role_id = 5')
         Name = query.record().indexOf('name')
@@ -416,7 +420,7 @@ class AppWindow(QMainWindow):
             row+=1
         query.finish()
 
-    def BD_Protokols_for_expert(self):
+    def BD_Protokols_for_expert(self, c_id, s_id):
         query = QSqlQuery()
         query.exec(f'SELECT * FROM Protocols')
         title = query.record().indexOf('title')
@@ -501,7 +505,8 @@ class AppWindow(QMainWindow):
         query3.finish()
 
         
-            
+        BD_members(c_id, s_id)
+        BD_experts(c_id, s_id)
         self.set_titles(c_title, s_title)
         self.mpage_swap(role, name)
 
