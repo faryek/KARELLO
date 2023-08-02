@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="Logos">
+    <file>galka.png</file>
+    <file>trash1.png</file>
     <file>DS.png</file>
   </qresource>
 </RCC>

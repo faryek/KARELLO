@@ -48,6 +48,8 @@ class AppWindow(QMainWindow):
         self.ui.protocolButton_3.clicked.connect(lambda: self.ui.stackedWidget_2.setCurrentIndex(3))
         self.ui.backToMainButton_3.clicked.connect(lambda: self.ui.stackedWidget_2.setCurrentIndex(1))
         self.ui.backToMainButton_2.clicked.connect(lambda: self.ui.stackedWidget_2.setCurrentIndex(1))
+        self.ui.addCompetitionButton.clicked.connect(self.add_Competitions_Table)
+        self.ui.saveCompetitionButton.clicked.connect(self.Save_Champions)
         self.ui.exitButton_2.clicked.connect(self.exit_on_main_page)
         self.ui.exitButton_3.clicked.connect(self.exit_on_main_page)
         self.ui.pushButton.clicked.connect(self.Open_main_file_btn)
@@ -58,11 +60,12 @@ class AppWindow(QMainWindow):
         self.ui.okButton.clicked.connect(self.check_member)
         self.BD_Championship()
         self.BD_Expert()
-        # self.BD_Protokols()
+        self.BD_Protokols()
 
     def BD_Championship(self):
         query = QSqlQuery()
         query.exec(f'SELECT * FROM Competitions')
+        id = query.record().indexOf('id')
         title = query.record().indexOf('title')
         date_start = query.record().indexOf('date_start')
         date_end = query.record().indexOf('date_end')
@@ -73,19 +76,195 @@ class AppWindow(QMainWindow):
         row = 1
         while query.next():
             self.ui.championshipTable.setRowCount(row)
-            self.ui.championshipTable.setItem(Tablerow, 0, QtWidgets.QTableWidgetItem(str(query.value(title))))
-            self.ui.championshipTable.setItem(Tablerow, 1, QtWidgets.QTableWidgetItem(str(query.value(date_start))))
-            self.ui.championshipTable.setItem(Tablerow, 2, QtWidgets.QTableWidgetItem(str(query.value(date_end))))
+            self.ui.championshipTable.setItem(Tablerow, 0, QtWidgets.QTableWidgetItem(str(query.value(id))))
+            self.ui.championshipTable.setItem(Tablerow, 1, QtWidgets.QTableWidgetItem(str(query.value(title))))
+            self.ui.championshipTable.setItem(Tablerow, 2, QtWidgets.QTableWidgetItem(str(query.value(date_start))))
+            self.ui.championshipTable.setItem(Tablerow, 3, QtWidgets.QTableWidgetItem(str(query.value(date_end))))
 
             query1 = QSqlQuery()
             query1.exec(f'SELECT title FROM Cities WHERE id = {query.value(city_id)}')
             City = query1.record().indexOf('title')
             query1.next()
-            self.ui.championshipTable.setItem(Tablerow, 3, QtWidgets.QTableWidgetItem(str(query1.value(City))))
+            self.ui.championshipTable.setItem(Tablerow, 4, QtWidgets.QTableWidgetItem(str(query1.value(City))))
 
-            self.ui.championshipTable.setItem(Tablerow, 4, QtWidgets.QTableWidgetItem(str(query.value(desc))))
+            self.ui.championshipTable.setItem(Tablerow, 5, QtWidgets.QTableWidgetItem(str(query.value(desc))))
+
+            pushButton = QtWidgets.QPushButton()
+            pushButton.clicked.connect(self.changeClick)
+            # pushButton.setStyleSheet('image: url(:Logo/trash1.png);')
+            self.ui.championshipTable.setCellWidget(Tablerow, 6, pushButton)
+            pushButton1 = QtWidgets.QPushButton()
+            pushButton1.clicked.connect(self.deleteClicked)
+            # pushButton1.setStyleSheet('image: url(:Logo/galka.png);')
+            self.ui.championshipTable.setCellWidget(Tablerow, 7, pushButton1)
+
             Tablerow+=1
             row+=1
+
+    def deleteClicked(self):
+        button = self.sender()
+        if button:
+            row = self.ui.championshipTable.indexAt(button.pos()).row() # type: ignore
+            id = self.ui.championshipTable.item(row,0).text()
+            self.ui.championshipTable.removeRow(row)
+            query = QSqlQuery()
+            query.exec(f'DELETE FROM Competitions WHERE id = {id}')
+            id = query.record().indexOf('main_expert')
+            query.next()
+    
+    def add_Competitions_Table(self):
+        maxRow = -1
+        for row in range(self.ui.competitionTable.rowCount()):
+            for col in range(self.ui.competitionTable.columnCount()):
+                item = self.ui.competitionTable.item(row, col)
+                if not item or not item.text():
+                    continue
+                maxRow = row
+        row = maxRow + 1
+        Tablerow = maxRow + 1
+        self.ui.competitionTable.setRowCount(row+1)
+
+        query1 = QSqlQuery()
+        query1.exec(f'SELECT * FROM Users')
+        name_expert = query1.record().indexOf('name')
+        valueExpert = 1
+        combobox = QtWidgets.QComboBox()
+        combobox.addItem(" ")
+        while query1.next():
+            combobox.addItem(str(query1.value(name_expert)))
+            valueExpert+=1
+        self.ui.competitionTable.setCellWidget(Tablerow, 0, combobox)
+
+        query5 = QSqlQuery()
+        query5.exec(f'SELECT * FROM Skills')
+        title_Komp = query5.record().indexOf('title')
+        valueExpert = 1
+        combobox1 = QtWidgets.QComboBox()
+        combobox1.addItem(" ")
+        while query5.next():
+            combobox1.addItem(str(query5.value(title_Komp)))
+            valueExpert+=1
+        self.ui.competitionTable.setCellWidget(Tablerow, 1, combobox1)
+
+    def changeClick(self):
+        self.ui.stackedWidget_1.setCurrentIndex(1)
+        button = self.sender()
+        if button:
+            row = self.ui.championshipTable.indexAt(button.pos()).row() # type: ignore
+            Data_start = self.ui.championshipTable.item(row,2).text()
+            Data_end = self.ui.championshipTable.item(row,3).text()
+            title = self.ui.championshipTable.item(row,1).text()
+            self.ui.startDateLine.setText(Data_start)
+            self.ui.endDateLine.setText(Data_end)
+            self.ui.titleLine.setText(title)
+            id = self.ui.championshipTable.item(row,0).text()
+            query = QSqlQuery()
+            query.exec(f'SELECT * FROM Competition_skills WHERE competition_id = {id}')
+            member_count = query.record().indexOf('member_count')
+            expert_count = query.record().indexOf('expert_count')
+            main_expert = query.record().indexOf('main_expert')
+            skill_id = query.record().indexOf('skill_id')
+            id_skill = query.record().indexOf('id')
+            Tablerow = 0
+            row = 1
+            self.ui.Nomer.setText(id)
+            while query.next():
+                self.ui.competitionTable.setRowCount(row)
+                
+                query4 = QSqlQuery()
+                query4.exec(f'SELECT * FROM Users WHERE id = {str(query.value(main_expert))}')
+                name_expert = query4.record().indexOf('name')
+                query4.next()
+
+                query1 = QSqlQuery()
+                query1.exec(f'SELECT * FROM Users')
+                name_expert = query1.record().indexOf('name')
+                valueExpert = 1
+                combobox = QtWidgets.QComboBox()
+                combobox.addItem(" ")
+                while query1.next():
+                    combobox.addItem(str(query1.value(name_expert)))
+                    if str(query1.value(name_expert)) ==  str(query4.value(name_expert)):
+                        combobox.setCurrentIndex(valueExpert)
+                    valueExpert+=1
+                self.ui.competitionTable.setCellWidget(Tablerow, 0, combobox)
+
+                query2 = QSqlQuery()
+                query2.exec(f'SELECT * FROM Skills WHERE id = {str(query.value(skill_id))}')
+                title_Komp = query2.record().indexOf('title')
+                query2.next()
+
+                query5 = QSqlQuery()
+                query5.exec(f'SELECT * FROM Skills')
+                title_Komp = query5.record().indexOf('title')
+                valueExpert = 1
+                combobox1 = QtWidgets.QComboBox()
+                combobox1.addItem(" ")
+                while query5.next():
+                    combobox1.addItem(str(query5.value(title_Komp)))
+                    if str(query5.value(title_Komp)) ==  str(query2.value(title_Komp)):
+                        combobox1.setCurrentIndex(valueExpert)
+                    valueExpert+=1
+                self.ui.competitionTable.setCellWidget(Tablerow, 1, combobox1)
+
+                self.ui.competitionTable.setItem(Tablerow, 2, QtWidgets.QTableWidgetItem(str(query.value(expert_count))))
+
+                self.ui.competitionTable.setItem(Tablerow, 3, QtWidgets.QTableWidgetItem(str(query.value(member_count))))
+
+                Tablerow+=1
+                row+=1
+
+    def Save_Champions(self):
+        id = self.ui.Nomer.text()
+        query = QSqlQuery()
+        query.exec(f'DELETE FROM Competition_skills WHERE competition_id = {id}')
+        query.next()
+
+        maxRow = -1
+        for row in range(self.ui.competitionTable.rowCount()):
+            for col in range(self.ui.competitionTable.columnCount()):
+                item = self.ui.competitionTable.item(row, col)
+                if not item or not item.text():
+                    continue
+                maxRow = row
+        row = maxRow + 1
+        for row1 in range(row):
+            Main_expert = ""
+            Competiton = ""
+            id_expert_str = ""
+            id_competition_str = ""
+            Main_expert_str = self.ui.competitionTable.cellWidget(row1, 0)
+            if isinstance(Main_expert_str, QtWidgets.QComboBox):
+                Main_expert = Main_expert_str.currentText()
+
+            Competiton_str = self.ui.competitionTable.cellWidget(row1, 1)
+            if isinstance(Competiton_str, QtWidgets.QComboBox):
+                Competiton = Competiton_str.currentText()
+
+            CountEx = self.ui.competitionTable.item(row1, 2).text()
+            CountUs = self.ui.competitionTable.item(row1, 3).text()
+
+            query2 = QSqlQuery()
+            query2.exec(f'SELECT * FROM Users') 
+            id_expert = query2.record().indexOf('id')
+            Name_expert = query2.record().indexOf('name')
+            while query2.next():
+                if (Main_expert == str(query2.value(Name_expert))):
+                    id_expert_str = str(query2.value(id_expert))
+
+            query3 = QSqlQuery()
+            query3.exec(f'SELECT * FROM Skills')
+            id_Competiton = query3.record().indexOf('id')
+            title_Competition = query3.record().indexOf('title')
+            while query3.next():
+                if (Competiton == str(query3.value(title_Competition))):
+                    id_competition_str = str(query3.value(id_Competiton))
+            
+            com_id = self.ui.Nomer.text()
+
+            query1 = QSqlQuery()
+            query1.exec(f"INSERT INTO Competition_skills (competition_id, main_expert, skill_id, expert_count, member_count)" f"VALUES ({com_id}, {id_expert_str}, {id_competition_str}, {CountEx}, {CountUs})")
+            query1.next()
 
     def BD_Expert(self):
         query = QSqlQuery()
@@ -136,10 +315,10 @@ class AppWindow(QMainWindow):
         Tablerow = 0
         row = 1
         while query.next():
-            self.ui.expertTable.setRowCount(row)
+            self.ui.protocolTable.setRowCount(row)
             
-            self.ui.expertTable.setItem(Tablerow, 0, QtWidgets.QTableWidgetItem(str(query.value(title))))
-            self.ui.expertTable.setItem(Tablerow, 1, QtWidgets.QTableWidgetItem(str(query.value(desc))))
+            self.ui.protocolTable.setItem(Tablerow, 0, QtWidgets.QTableWidgetItem(str(query.value(title))))
+            self.ui.protocolTable.setItem(Tablerow, 1, QtWidgets.QTableWidgetItem(str(query.value(desc))))
             Tablerow+=1
             row+=1
 

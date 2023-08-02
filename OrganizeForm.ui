@@ -142,7 +142,7 @@
              <string/>
             </property>
             <property name="pixmap">
-             <pixmap resource="Лого/Logo.qrc">:/Logos/DS.png</pixmap>
+             <pixmap resource="Лого/Logo.qrc">:/Logos/trash1.png</pixmap>
             </property>
            </widget>
           </item>
@@ -191,7 +191,7 @@
              </sizepolicy>
             </property>
             <property name="currentIndex">
-             <number>0</number>
+             <number>1</number>
             </property>
             <widget class="QWidget" name="mainPage">
              <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -297,7 +297,7 @@
               <item>
                <widget class="QStackedWidget" name="stackedWidget3">
                 <property name="currentIndex">
-                 <number>0</number>
+                 <number>2</number>
                 </property>
                 <widget class="QWidget" name="protocolViewPage">
                  <layout class="QVBoxLayout" name="verticalLayout_9">
@@ -389,6 +389,14 @@
                     </property>
                     <column>
                      <property name="text">
+                      <string>Ид</string>
+                     </property>
+                     <property name="textAlignment">
+                      <set>AlignCenter</set>
+                     </property>
+                    </column>
+                    <column>
+                     <property name="text">
                       <string>Название</string>
                      </property>
                      <property name="textAlignment">
@@ -422,6 +430,22 @@
                     <column>
                      <property name="text">
                       <string>Информация</string>
+                     </property>
+                     <property name="textAlignment">
+                      <set>AlignCenter</set>
+                     </property>
+                    </column>
+                    <column>
+                     <property name="text">
+                      <string>Изменить</string>
+                     </property>
+                     <property name="textAlignment">
+                      <set>AlignCenter</set>
+                     </property>
+                    </column>
+                    <column>
+                     <property name="text">
+                      <string>Удалить</string>
                      </property>
                      <property name="textAlignment">
                       <set>AlignCenter</set>
@@ -636,6 +660,24 @@
                     <item>
                      <layout class="QVBoxLayout" name="verticalLayout_10">
                       <item>
+                       <layout class="QHBoxLayout" name="horizontalLayout_34">
+                        <item>
+                         <widget class="QLabel" name="label_2">
+                          <property name="text">
+                           <string>№</string>
+                          </property>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QLabel" name="Nomer">
+                          <property name="text">
+                           <string/>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </item>
+                      <item>
                        <layout class="QHBoxLayout" name="horizontalLayout_11">
                         <item>
                          <widget class="QLineEdit" name="startDateLine">
@@ -730,7 +772,40 @@
                    </layout>
                   </item>
                   <item>
-                   <widget class="QTableWidget" name="competitionTable"/>
+                   <widget class="QTableWidget" name="competitionTable">
+                    <column>
+                     <property name="text">
+                      <string>Главный эксперт</string>
+                     </property>
+                     <property name="textAlignment">
+                      <set>AlignCenter</set>
+                     </property>
+                    </column>
+                    <column>
+                     <property name="text">
+                      <string>Компетенция</string>
+                     </property>
+                     <property name="textAlignment">
+                      <set>AlignCenter</set>
+                     </property>
+                    </column>
+                    <column>
+                     <property name="text">
+                      <string>Количество экспертов</string>
+                     </property>
+                     <property name="textAlignment">
+                      <set>AlignCenter</set>
+                     </property>
+                    </column>
+                    <column>
+                     <property name="text">
+                      <string>Кол-во уч</string>
+                     </property>
+                     <property name="textAlignment">
+                      <set>AlignCenter</set>
+                     </property>
+                    </column>
+                   </widget>
                   </item>
                   <item>
                    <layout class="QHBoxLayout" name="horizontalLayout_16">
