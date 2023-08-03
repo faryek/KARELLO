@@ -194,14 +194,14 @@ class AppWindow(QMainWindow):
         self.BD_Protokols()
 
 
-    def BD_members(self, c_id, s_id):
-        self.BD_Members_for_member(c_id, s_id)
-        self.BD_Protokols_for_member(c_id, s_id)
-
-    def BD_experts(self, c_id, s_id):
-        self.BD_Members_for_expert(c_id, s_id)
-        self.BD_Experts_for_expert(c_id, s_id)
-        self.BD_Protokols_for_expert(c_id, s_id)
+##    def BD_members(self, c_id, s_id):
+##        self.BD_Members_for_member(c_id, s_id)
+##        self.BD_Protokols_for_member(c_id, s_id)
+##
+##    def BD_experts(self, c_id, s_id):
+##        self.BD_Members_for_expert(c_id, s_id)
+##        self.BD_Experts_for_expert(c_id, s_id)
+##        self.BD_Protokols_for_expert(c_id, s_id)
 
 
     def BD_Championship(self):
@@ -687,8 +687,8 @@ class AppWindow(QMainWindow):
         query3.finish()
 
         
-        BD_members(c_id, s_id)
-        BD_experts(c_id, s_id)
+##        BD_members(c_id, s_id)
+##        BD_experts(c_id, s_id)
         self.set_titles(c_title, s_title)
         self.mpage_swap(role, name)
 
