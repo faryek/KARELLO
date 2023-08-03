@@ -216,6 +216,22 @@ class AppWindow(QMainWindow):
 
     def Save_Champions(self):
         id = self.ui.Nomer.text()
+        if (id == ""):
+            query4 = QSqlQuery()
+            data_start = self.ui.startDateLine.text()
+            data_end = self.ui.endDateLine.text()
+            titleLine = self.ui.titleLine.text()
+            query4.exec(f"INSERT INTO Competitions (title, date_start, date_end)" f"VALUES ('{titleLine}', '{data_start}', '{data_end}')")
+            query4.next()
+
+            query5 = QSqlQuery()
+            query5.exec(f'SELECT * FROM Competitions') 
+            id_com = query5.record().indexOf('id')
+            titile = query5.record().indexOf('title')
+            while query5.next():
+                if (titleLine == str(query5.value(titile))):
+                    id = str(query5.value(id_com))
+        print("Номер позиции -"+id)
         query = QSqlQuery()
         query.exec(f'DELETE FROM Competition_skills WHERE competition_id = {id}')
         query.next()
@@ -260,8 +276,8 @@ class AppWindow(QMainWindow):
                 if (Competiton == str(query3.value(title_Competition))):
                     id_competition_str = str(query3.value(id_Competiton))
             
-            com_id = self.ui.Nomer.text()
-
+            com_id = id
+            print({com_id}, {id_expert_str}, {id_competition_str}, {CountEx}, {CountUs})
             query1 = QSqlQuery()
             query1.exec(f"INSERT INTO Competition_skills (competition_id, main_expert, skill_id, expert_count, member_count)" f"VALUES ({com_id}, {id_expert_str}, {id_competition_str}, {CountEx}, {CountUs})")
             query1.next()
