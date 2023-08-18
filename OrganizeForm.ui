@@ -188,7 +188,7 @@
              </sizepolicy>
             </property>
             <property name="currentIndex">
-             <number>2</number>
+             <number>1</number>
             </property>
             <widget class="QWidget" name="mainPage">
              <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -311,9 +311,7 @@
               <item>
                <widget class="QStackedWidget" name="stackedWidget3">
                 <property name="currentIndex">
-
                  <number>1</number>
-				 
                 </property>
                 <widget class="QWidget" name="protocolViewPage">
                  <layout class="QVBoxLayout" name="verticalLayout_9">
@@ -386,9 +384,6 @@
                      <property name="text">
                       <string>Ид</string>
                      </property>
-                     <property name="textAlignment">
-                      <set>AlignCenter</set>
-                     </property>
                     </column>
                     <column>
                      <property name="text">
@@ -419,16 +414,10 @@
                      <property name="text">
                       <string>Изменить</string>
                      </property>
-                     <property name="textAlignment">
-                      <set>AlignCenter</set>
-                     </property>
                     </column>
                     <column>
                      <property name="text">
                       <string>Удалить</string>
-                     </property>
-                     <property name="textAlignment">
-                      <set>AlignCenter</set>
                      </property>
                     </column>
                    </widget>
@@ -624,7 +613,7 @@
               <item>
                <widget class="QStackedWidget" name="stackedWidget">
                 <property name="currentIndex">
-                 <number>1</number>
+                 <number>0</number>
                 </property>
                 <widget class="QWidget" name="championshipEditPage">
                  <layout class="QVBoxLayout" name="verticalLayout_11">
@@ -764,32 +753,20 @@
                      <property name="text">
                       <string>Главный эксперт</string>
                      </property>
-                     <property name="textAlignment">
-                      <set>AlignCenter</set>
-                     </property>
                     </column>
                     <column>
                      <property name="text">
                       <string>Компетенция</string>
-                     </property>
-                     <property name="textAlignment">
-                      <set>AlignCenter</set>
                      </property>
                     </column>
                     <column>
                      <property name="text">
                       <string>Количество экспертов</string>
                      </property>
-                     <property name="textAlignment">
-                      <set>AlignCenter</set>
-                     </property>
                     </column>
                     <column>
                      <property name="text">
                       <string>Кол-во уч</string>
-                     </property>
-                     <property name="textAlignment">
-                      <set>AlignCenter</set>
                      </property>
                     </column>
                    </widget>
@@ -1170,7 +1147,7 @@
         <item>
          <widget class="QStackedWidget" name="stackedWidget_2">
           <property name="currentIndex">
-           <number>3</number>
+           <number>1</number>
           </property>
           <widget class="QWidget" name="authorizeMemberPage">
            <layout class="QHBoxLayout" name="horizontalLayout_20">
@@ -2460,7 +2437,7 @@
           <item>
            <widget class="QStackedWidget" name="stackedWidget_3">
             <property name="currentIndex">
-             <number>0</number>
+             <number>2</number>
             </property>
             <widget class="QWidget" name="memberPage_2">
              <layout class="QVBoxLayout" name="verticalLayout_20">
@@ -2540,6 +2517,11 @@
                 <column>
                  <property name="text">
                   <string>Описание</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Подпись</string>
                  </property>
                 </column>
                </widget>

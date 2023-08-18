@@ -95,8 +95,6 @@ class AppWindow(QMainWindow):
         self.ui.roleCombo.currentTextChanged.connect(self.sort_users)
         self.ui.competitionCombo.currentTextChanged.connect(self.sort_users)
         self.ui.showUnknownCheck.toggled.connect(self.sort_users)
-        
-
 
 
     def users_table(self):
@@ -669,6 +667,7 @@ class AppWindow(QMainWindow):
             return
         role = query.record().indexOf('role_id')
         role = query.value(role)
+        global name
         name = query.record().indexOf('name')
         name = query.value(name)
         cs_id = query.record().indexOf('comp_skill_id')
@@ -707,6 +706,7 @@ class AppWindow(QMainWindow):
 ##        BD_experts(c_id, s_id)
         self.set_titles(c_title, s_title)
         self.mpage_swap(role, name)
+        self.protocol_tables_experts(name)
 
     def check_member(self):
         code = self.ui.memberCodeLine.text()
@@ -775,6 +775,55 @@ class AppWindow(QMainWindow):
             self.ui.stackedWidget3.setCurrentIndex(2)
         elif role == 1:
             pass
+
+
+    def protocol_tables_experts(self, name):
+        query = QSqlQuery()
+        query.exec(f'SELECT * FROM Protocols WHERE Protocols.role = "Эксперт" AND users NOT LIKE "%{name}"')
+        if not query.next():
+            while self.ui.protocolTable_2.rowCount() > 0:
+                self.ui.protocolTable_2.removeRow(0)
+            return
+        else:
+            query.finish()
+            query.exec(f'SELECT * FROM Protocols WHERE Protocols.role = "Эксперт" AND users NOT LIKE "%{name}"')
+        title = query.record().indexOf('Protocols.title')
+        desc = query.record().indexOf('Protocols.desc')
+        tr1 = 0
+        row = 1
+        while query.next():
+            print(query.value(title))
+            self.ui.protocolTable_2.setRowCount(row)
+            self.ui.protocolTable_2.setItem(tr1,0,QtWidgets.QTableWidgetItem(str(query.value(title))))
+            self.ui.protocolTable_2.setItem(tr1,1,QtWidgets.QTableWidgetItem(str(query.value(desc))))
+            pushbutton = QtWidgets.QPushButton()
+            pushbutton.clicked.connect(self.protocols_expert_complete)
+            self.ui.protocolTable_2.setCellWidget(tr1,2,pushbutton)
+            tr1+=1
+            row+=1
+
+
+    def protocols_expert_complete(self):
+        global name
+        query = QSqlQuery()
+        query.exec(f'SELECT * FROM Protocols WHERE Protocols.role = "Эксперт" AND users NOT LIKE "%{name}"')
+        users = query.record().indexOf('Protocols.users')
+        competition = query.record().indexOf('Protocols.title')
+        button = self.sender()
+        if button:
+            row = self.ui.protocolTable_2.indexAt(button.pos()).row()
+        for i in range(row+1):
+            query.next() == True
+        
+        str_experts_complete = query.value(competition)
+
+        zapyataya = ', '
+        query2 = QSqlQuery()
+        query2.exec(f'UPDATE Protocols SET users = "{query.value(users) + zapyataya + name}" WHERE title = "{str_experts_complete}" AND users NOT LIKE "%{name}"')
+
+        print(query.value(users))
+        self.protocol_tables_experts(name)
+
             
     def welcome(self, role, name):
         if role in range(2, 6):
