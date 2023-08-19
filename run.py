@@ -72,10 +72,14 @@ class AppWindow(QMainWindow):
         self.ui.memberEnterButton.clicked.connect(self.member_swap)
         self.ui.okButton.clicked.connect(self.check_member)
 
-        combo1_array = []
-        combo2_array = []
 
         self.BD()
+        self.users_find()
+
+    def users_find(self):
+        combo1_array = []
+        combo2_array = []
+        
         query_combo1 = QSqlQuery()
         query_combo1.exec(f'SELECT title FROM Skills')
         query_combo2 = QSqlQuery()
@@ -95,10 +99,8 @@ class AppWindow(QMainWindow):
         self.ui.roleCombo.currentTextChanged.connect(self.sort_users)
         self.ui.competitionCombo.currentTextChanged.connect(self.sort_users)
         self.ui.showUnknownCheck.toggled.connect(self.sort_users)
+
         
-
-
-
     def users_table(self):
         query = QSqlQuery()
         query.exec(f'SELECT * FROM Users JOIN Competition_skills ON Users.comp_skill_id = Competition_skills.id JOIN Skills ON Skills.id = Competition_skills.skill_id JOIN Roles ON Roles.id = Users.role_id JOIN Regions on Regions.id = Users.region_id JOIN Statuses ON Statuses.id = Users.status_id WHERE Roles.role != "Организатор"')
@@ -127,7 +129,7 @@ class AppWindow(QMainWindow):
             row+=1
             
 
-    def sort_users(self):
+    def sort_users(self, c_id = 1):
         query = QSqlQuery()
         sql_query = f'SELECT * FROM Users JOIN Competition_skills ON Users.comp_skill_id = Competition_skills.id JOIN Skills ON Skills.id = Competition_skills.skill_id JOIN Roles ON Roles.id = Users.role_id JOIN Regions on Regions.id = Users.region_id JOIN Statuses ON Statuses.id = Users.status_id WHERE Roles.role != "Организатор"'
         if self.ui.roleCombo.currentIndex() != 0:
