@@ -125,7 +125,7 @@ class AppWindow(QMainWindow):
         self.ui.competitionTable.setRowCount(row+1)
 
         query1 = QSqlQuery()
-        query1.exec(f'SELECT * FROM Users')
+        query1.exec(f'SELECT * FROM Users WHERE role_id = 2')
         name_expert = query1.record().indexOf('name')
         valueExpert = 1
         combobox = QtWidgets.QComboBox()
@@ -177,7 +177,7 @@ class AppWindow(QMainWindow):
                 query4.next()
 
                 query1 = QSqlQuery()
-                query1.exec(f'SELECT * FROM Users')
+                query1.exec(f'SELECT * FROM Users WHERE role_id = 2')
                 name_expert = query1.record().indexOf('name')
                 valueExpert = 1
                 combobox = QtWidgets.QComboBox()
@@ -231,7 +231,6 @@ class AppWindow(QMainWindow):
             while query5.next():
                 if (titleLine == str(query5.value(titile))):
                     id = str(query5.value(id_com))
-        print("Номер позиции -"+id)
         query = QSqlQuery()
         query.exec(f'DELETE FROM Competition_skills WHERE competition_id = {id}')
         query.next()
@@ -261,7 +260,7 @@ class AppWindow(QMainWindow):
             CountUs = self.ui.competitionTable.item(row1, 3).text()
 
             query2 = QSqlQuery()
-            query2.exec(f'SELECT * FROM Users') 
+            query2.exec(f'SELECT * FROM Users WHERE role_id = 2') 
             id_expert = query2.record().indexOf('id')
             Name_expert = query2.record().indexOf('name')
             while query2.next():
@@ -277,10 +276,19 @@ class AppWindow(QMainWindow):
                     id_competition_str = str(query3.value(id_Competiton))
             
             com_id = id
-            print({com_id}, {id_expert_str}, {id_competition_str}, {CountEx}, {CountUs})
             query1 = QSqlQuery()
             query1.exec(f"INSERT INTO Competition_skills (competition_id, main_expert, skill_id, expert_count, member_count)" f"VALUES ({com_id}, {id_expert_str}, {id_competition_str}, {CountEx}, {CountUs})")
             query1.next()
+            self.reset_on_click_back()
+
+    def Clear_form_competition(self):
+        self.ui.startDateLine.setText("")
+        self.ui.endDateLine.setText("")
+        self.ui.titleLine.setText("")
+        self.ui.Nomer.setText("")
+        while (self.ui.competitionTable.rowCount() > 0):
+            self.ui.competitionTable.setRowCount(0)
+        
 
     def BD_Expert(self):
         query = QSqlQuery()
@@ -353,6 +361,7 @@ class AppWindow(QMainWindow):
     def reset_on_click_back(self):
         self.ui.stackedWidget_1.setCurrentIndex(0)
         self.ui.stackedWidget.setCurrentIndex(0)
+        self.Clear_form_competition()
 
         
     def check_data(self):
