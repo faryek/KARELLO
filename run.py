@@ -22,6 +22,9 @@ class AppWindow(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
+        global C_id
+        C_id = 0
+
         con = QSqlDatabase.addDatabase('QSQLITE')
         con.setDatabaseName('WS.db')
         try: con.open()
@@ -74,7 +77,6 @@ class AppWindow(QMainWindow):
 
 
         self.BD()
-        self.users_find()
 
     def users_find(self):
         combo1_array = []
@@ -102,8 +104,9 @@ class AppWindow(QMainWindow):
 
         
     def users_table(self):
+        global C_id
         query = QSqlQuery()
-        query.exec(f'SELECT * FROM Users JOIN Competition_skills ON Users.comp_skill_id = Competition_skills.id JOIN Skills ON Skills.id = Competition_skills.skill_id JOIN Roles ON Roles.id = Users.role_id JOIN Regions on Regions.id = Users.region_id JOIN Statuses ON Statuses.id = Users.status_id WHERE Roles.role != "Организатор"')
+        query.exec(f'SELECT * FROM Users JOIN Competition_skills ON Users.comp_skill_id = Competition_skills.id JOIN Skills ON Skills.id = Competition_skills.skill_id JOIN Roles ON Roles.id = Users.role_id JOIN Regions on Regions.id = Users.region_id JOIN Statuses ON Statuses.id = Users.status_id JOIN Competitions ON Competitions.id = Competition_skills.competition_id WHERE Roles.role != "Организатор" AND Competitions.id = {C_id}')
         role = query.record().indexOf('Roles.role')
         name = query.record().indexOf('Users.name')
         phone = query.record().indexOf('Users.phone')
@@ -129,9 +132,10 @@ class AppWindow(QMainWindow):
             row+=1
             
 
-    def sort_users(self, c_id = 1):
+    def sort_users(self):
+        global C_id
         query = QSqlQuery()
-        sql_query = f'SELECT * FROM Users JOIN Competition_skills ON Users.comp_skill_id = Competition_skills.id JOIN Skills ON Skills.id = Competition_skills.skill_id JOIN Roles ON Roles.id = Users.role_id JOIN Regions on Regions.id = Users.region_id JOIN Statuses ON Statuses.id = Users.status_id WHERE Roles.role != "Организатор"'
+        sql_query = f'SELECT * FROM Users JOIN Competition_skills ON Users.comp_skill_id = Competition_skills.id JOIN Skills ON Skills.id = Competition_skills.skill_id JOIN Roles ON Roles.id = Users.role_id JOIN Regions on Regions.id = Users.region_id JOIN Statuses ON Statuses.id = Users.status_id JOIN Competitions ON Competitions.id = Competition_skills.competition_id WHERE Roles.role != "Организатор" AND Competitions.id = {C_id}'
         if self.ui.roleCombo.currentIndex() != 0:
             sql_query = sql_query + f' AND Roles.role = "{self.ui.roleCombo.currentText()}"'
         if self.ui.competitionCombo.currentIndex() != 0:
@@ -170,7 +174,9 @@ class AppWindow(QMainWindow):
             Tablerow+=1
             row+=1
 
-
+    def clear_usersTable(self):
+        while self.ui.memberTable.rowCount() > 0:
+            self.ui.memberTable.removeRow(0)
         
     def Open_main_file_btn(self):
         res = QFileDialog.getOpenFileName(self, 'Open File', '','PNG file (*.png)')
@@ -260,6 +266,8 @@ class AppWindow(QMainWindow):
             query.next()
     
     def add_Competitions_Table(self):
+        global C_id
+        C_id = 0
         maxRow = -1
         for row in range(self.ui.competitionTable.rowCount()):
             for col in range(self.ui.competitionTable.columnCount()):
@@ -292,8 +300,10 @@ class AppWindow(QMainWindow):
             combobox1.addItem(str(query5.value(title_Komp)))
             valueExpert+=1
         self.ui.competitionTable.setCellWidget(Tablerow, 1, combobox1)
+        self.users_find()
 
     def changeClick(self):
+        global C_id
         self.ui.stackedWidget_1.setCurrentIndex(1)
         button = self.sender()
         if button:
@@ -305,6 +315,7 @@ class AppWindow(QMainWindow):
             self.ui.endDateLine.setText(Data_end)
             self.ui.titleLine.setText(title)
             id = self.ui.championshipTable.item(row,0).text()
+            C_id = id
             query = QSqlQuery()
             query.exec(f'SELECT * FROM Competition_skills WHERE competition_id = {id}')
             member_count = query.record().indexOf('member_count')
@@ -360,6 +371,7 @@ class AppWindow(QMainWindow):
 
                 Tablerow+=1
                 row+=1
+        self.users_find()
 
     def Save_Champions(self):
         id = self.ui.Nomer.text()
@@ -429,12 +441,13 @@ class AppWindow(QMainWindow):
             self.reset_on_click_back()
 
     def Clear_form_competition(self):
-        self.ui.startDateLine.setText("")
-        self.ui.endDateLine.setText("")
-        self.ui.titleLine.setText("")
-        self.ui.Nomer.setText("")
+        self.ui.startDateLine.setText("Дата начала")
+        self.ui.endDateLine.setText("Дата окончания")
+        self.ui.titleLine.setText("Название чемпионата")
+        self.ui.Nomer.setText("0")
         while (self.ui.competitionTable.rowCount() > 0):
             self.ui.competitionTable.setRowCount(0)
+        
         
 
     def BD_Expert(self):
@@ -664,6 +677,7 @@ class AppWindow(QMainWindow):
         self.ui.stackedWidget_1.setCurrentIndex(0)
         self.ui.stackedWidget.setCurrentIndex(0)
         self.Clear_form_competition()
+        self.clear_usersTable()
 
 
     def check_data(self):
@@ -680,6 +694,7 @@ class AppWindow(QMainWindow):
             return
         role = query.record().indexOf('role_id')
         role = query.value(role)
+        global name
         name = query.record().indexOf('name')
         name = query.value(name)
         cs_id = query.record().indexOf('comp_skill_id')
@@ -718,12 +733,13 @@ class AppWindow(QMainWindow):
 ##        BD_experts(c_id, s_id)
         self.set_titles(c_title, s_title)
         self.mpage_swap(role, name)
+        self.protocol_tables_experts(name)
 
     def check_member(self):
         code = self.ui.memberCodeLine.text()
         query = QSqlQuery()
         try:
-            query.exec(f'SELECT comp_skill_id FROM Users WHERE login = "{code}" AND role_id = 1')
+            query.exec(f'SELECT name, comp_skill_id FROM Users WHERE login = "{code}" AND role_id = 1')
         except:
             self.showMemberError()
             return
@@ -734,6 +750,9 @@ class AppWindow(QMainWindow):
         
         cs_id = query.record().indexOf('comp_skill_id')
         cs_id = query.value(cs_id)
+        global name_member
+        name_member = query.record().indexOf('name')
+        name_member = query.value(name_member)
 
         try: query.exec(f'SELECT competition_id, skill_id FROM Competition_skills WHERE id = {cs_id}')
         except:
@@ -770,6 +789,7 @@ class AppWindow(QMainWindow):
         self.set_titles(c_title, s_title)
         
         self.ui.stackedWidget_2.setCurrentIndex(1)
+        self.protocol_tables_members(name_member)
         
 
     def member_swap(self):
@@ -786,6 +806,98 @@ class AppWindow(QMainWindow):
             self.ui.stackedWidget3.setCurrentIndex(2)
         elif role == 1:
             pass
+
+
+    def protocol_tables_experts(self, name):
+        query = QSqlQuery()
+        query.exec(f'SELECT * FROM Protocols WHERE Protocols.role = "Эксперт" AND users NOT LIKE "%{name}"')
+        if not query.next():
+            while self.ui.protocolTable_2.rowCount() > 0:
+                self.ui.protocolTable_2.removeRow(0)
+            return
+        else:
+            query.finish()
+            query.exec(f'SELECT * FROM Protocols WHERE Protocols.role = "Эксперт" AND users NOT LIKE "%{name}"')
+        title = query.record().indexOf('Protocols.title')
+        desc = query.record().indexOf('Protocols.desc')
+        tr1 = 0
+        row = 1
+        while query.next():
+            self.ui.protocolTable_2.setRowCount(row)
+            self.ui.protocolTable_2.setItem(tr1,0,QtWidgets.QTableWidgetItem(str(query.value(title))))
+            self.ui.protocolTable_2.setItem(tr1,1,QtWidgets.QTableWidgetItem(str(query.value(desc))))
+            pushbutton = QtWidgets.QPushButton()
+            pushbutton.clicked.connect(self.protocols_expert_complete)
+            self.ui.protocolTable_2.setCellWidget(tr1,2,pushbutton)
+            tr1+=1
+            row+=1
+
+
+    def protocols_expert_complete(self):
+        global name
+        query = QSqlQuery()
+        query.exec(f'SELECT * FROM Protocols WHERE Protocols.role = "Эксперт" AND users NOT LIKE "%{name}"')
+        users = query.record().indexOf('Protocols.users')
+        competition = query.record().indexOf('Protocols.title')
+        button = self.sender()
+        if button:
+            row = self.ui.protocolTable_2.indexAt(button.pos()).row()
+        for i in range(row+1):
+            query.next() == True
+        
+        str_experts_complete = query.value(competition)
+
+        zapyataya = ', '
+        query2 = QSqlQuery()
+        query2.exec(f'UPDATE Protocols SET users = "{query.value(users) + zapyataya + name}" WHERE title = "{str_experts_complete}" AND users NOT LIKE "%{name}"')
+
+        self.protocol_tables_experts(name)
+
+
+    def protocol_tables_members(self,name_member):
+        query = QSqlQuery()
+        query.exec(f'SELECT * FROM Protocols WHERE Protocols.role = "Участник" AND users NOT LIKE "%{name_member}"')
+        if not query.next():
+            while self.ui.MembersPage_ProtocolsPage.rowCount() > 0:
+                self.ui.MembersPage_ProtocolsPage.removeRow(0)
+            return
+        else:
+            query.finish()
+            query.exec(f'SELECT * FROM Protocols WHERE Protocols.role = "Участник" AND users NOT LIKE "%{name_member}"')
+        title = query.record().indexOf('Protocols.title')
+        desc = query.record().indexOf('Protocols.desc')
+        tr1 = 0
+        row = 1
+        while query.next():
+            self.ui.MembersPage_ProtocolsPage.setRowCount(row)
+            self.ui.MembersPage_ProtocolsPage.setItem(tr1,0,QtWidgets.QTableWidgetItem(str(query.value(title))))
+            self.ui.MembersPage_ProtocolsPage.setItem(tr1,1,QtWidgets.QTableWidgetItem(str(query.value(desc))))
+            pushbutton = QtWidgets.QPushButton()
+            pushbutton.clicked.connect(self.protocols_members_complete)
+            self.ui.MembersPage_ProtocolsPage.setCellWidget(tr1,2,pushbutton)
+            tr1+=1
+            row+=1
+
+
+    def protocols_members_complete(self):
+        global name_member
+        query = QSqlQuery()
+        query.exec(f'SELECT * FROM Protocols WHERE Protocols.role = "Участник" AND users NOT LIKE "%{name_member}"')
+        users = query.record().indexOf('Protocols.users')
+        competition = query.record().indexOf('Protocols.title')
+        button = self.sender()
+        if button:
+            row = self.ui.MembersPage_ProtocolsPage.indexAt(button.pos()).row()
+        for i in range(row+1):
+            query.next() == True
+        str_experts_complete = query.value(competition)
+
+        zapyataya = ', '
+        query2 = QSqlQuery()
+        query2.exec(f'UPDATE Protocols SET users = "{query.value(users) + zapyataya + name_member}" WHERE title = "{str_experts_complete}" AND users NOT LIKE "%{name_member}"')
+
+        self.protocol_tables_members(name_member)
+
             
     def welcome(self, role, name):
         if role in range(2, 6):
