@@ -733,7 +733,7 @@ class AppWindow(QMainWindow):
 ##        BD_experts(c_id, s_id)
         self.set_titles(c_title, s_title)
         self.mpage_swap(role, name)
-        self.protocol_tables_experts(name)
+        self.protocol_tables_experts(name, c_title)
 
     def check_member(self):
         code = self.ui.memberCodeLine.text()
@@ -770,11 +770,14 @@ class AppWindow(QMainWindow):
 
         query.finish()
 
+        global c_title
         query2 = QSqlQuery()
         query2.exec(f'SELECT title FROM Competitions WHERE id = {c_id}')
         c_title = query2.record().indexOf('title')
         query2.next()
         c_title = query2.value(c_title)
+        global c_title1
+        c_title1 = c_title
         query2.finish()
 
         query3 = QSqlQuery()
@@ -789,7 +792,7 @@ class AppWindow(QMainWindow):
         self.set_titles(c_title, s_title)
         
         self.ui.stackedWidget_2.setCurrentIndex(1)
-        self.protocol_tables_members(name_member)
+        self.protocol_tables_members(name_member,c_title1)
         
 
     def member_swap(self):
@@ -808,18 +811,19 @@ class AppWindow(QMainWindow):
             pass
 
 
-    def protocol_tables_experts(self, name):
+    def protocol_tables_experts(self, name, c_title):
         query = QSqlQuery()
-        query.exec(f'SELECT * FROM Protocols WHERE Protocols.role = "Эксперт" AND users NOT LIKE "%{name}"')
+        query.exec(f'SELECT * FROM Protocols JOIN Competitions ON Protocols.competition = Competitions.id WHERE Protocols.role = "Эксперт" AND Protocols.users NOT LIKE "{name}" AND Competitions.title = "{c_title}"')
         if not query.next():
             while self.ui.protocolTable_2.rowCount() > 0:
                 self.ui.protocolTable_2.removeRow(0)
             return
         else:
             query.finish()
-            query.exec(f'SELECT * FROM Protocols WHERE Protocols.role = "Эксперт" AND users NOT LIKE "%{name}"')
+            query.exec(f'SELECT * FROM Protocols JOIN Competitions ON Protocols.competition = Competitions.id WHERE Protocols.role = "Эксперт" AND Protocols.users NOT LIKE "{name}" AND Competitions.title = "{c_title}"')
         title = query.record().indexOf('Protocols.title')
         desc = query.record().indexOf('Protocols.desc')
+        compet = query.record().indexOf('Competitions.title')
         tr1 = 0
         row = 1
         while query.next():
@@ -835,8 +839,9 @@ class AppWindow(QMainWindow):
 
     def protocols_expert_complete(self):
         global name
+        global c_title
         query = QSqlQuery()
-        query.exec(f'SELECT * FROM Protocols WHERE Protocols.role = "Эксперт" AND users NOT LIKE "%{name}"')
+        query.exec(f'SELECT * FROM Protocols JOIN Competitions ON Protocols.competition = Competitions.id WHERE Protocols.role = "Эксперт" AND users NOT LIKE "%{name}" AND Competitions.title = "{c_title}"')
         users = query.record().indexOf('Protocols.users')
         competition = query.record().indexOf('Protocols.title')
         button = self.sender()
@@ -851,19 +856,19 @@ class AppWindow(QMainWindow):
         query2 = QSqlQuery()
         query2.exec(f'UPDATE Protocols SET users = "{query.value(users) + zapyataya + name}" WHERE title = "{str_experts_complete}" AND users NOT LIKE "%{name}"')
 
-        self.protocol_tables_experts(name)
+        self.protocol_tables_experts(name, c_title)
 
 
-    def protocol_tables_members(self,name_member):
+    def protocol_tables_members(self,name_member,c_title1):
         query = QSqlQuery()
-        query.exec(f'SELECT * FROM Protocols WHERE Protocols.role = "Участник" AND users NOT LIKE "%{name_member}"')
+        query.exec(f'SELECT * FROM Protocols JOIN Competitions ON Protocols.competition = Competitions.id WHERE Protocols.role = "Участник" AND users NOT LIKE "%{name_member}" AND Competitions.title = "{c_title1}"')
         if not query.next():
             while self.ui.MembersPage_ProtocolsPage.rowCount() > 0:
                 self.ui.MembersPage_ProtocolsPage.removeRow(0)
             return
         else:
             query.finish()
-            query.exec(f'SELECT * FROM Protocols WHERE Protocols.role = "Участник" AND users NOT LIKE "%{name_member}"')
+            query.exec(f'SELECT * FROM Protocols JOIN Competitions ON Protocols.competition = Competitions.id WHERE Protocols.role = "Участник" AND users NOT LIKE "%{name_member}" AND Competitions.title = "{c_title1}"')
         title = query.record().indexOf('Protocols.title')
         desc = query.record().indexOf('Protocols.desc')
         tr1 = 0
@@ -881,8 +886,9 @@ class AppWindow(QMainWindow):
 
     def protocols_members_complete(self):
         global name_member
+        global c_title1
         query = QSqlQuery()
-        query.exec(f'SELECT * FROM Protocols WHERE Protocols.role = "Участник" AND users NOT LIKE "%{name_member}"')
+        query.exec(f'SELECT * FROM Protocols JOIN Competitions ON Protocols.competition = Competitions.id WHERE Protocols.role = "Участник" AND users NOT LIKE "%{name_member}" AND Competitions.title = "{c_title1}"')
         users = query.record().indexOf('Protocols.users')
         competition = query.record().indexOf('Protocols.title')
         button = self.sender()
@@ -896,7 +902,7 @@ class AppWindow(QMainWindow):
         query2 = QSqlQuery()
         query2.exec(f'UPDATE Protocols SET users = "{query.value(users) + zapyataya + name_member}" WHERE title = "{str_experts_complete}" AND users NOT LIKE "%{name_member}"')
 
-        self.protocol_tables_members(name_member)
+        self.protocol_tables_members(name_member, c_title1)
 
             
     def welcome(self, role, name):
