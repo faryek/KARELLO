@@ -61,8 +61,11 @@ class AppWindow(QMainWindow):
         self.BD_Championship()
         self.BD_Expert()
         self.BD_Protokols()
+        self.addSity()
 
     def BD_Championship(self):
+        while (self.ui.championshipTable.rowCount() > 0):
+            self.ui.championshipTable.setRowCount(0)
         query = QSqlQuery()
         query.exec(f'SELECT * FROM Competitions')
         id = query.record().indexOf('id')
@@ -112,6 +115,15 @@ class AppWindow(QMainWindow):
             id = query.record().indexOf('main_expert')
             query.next()
     
+    def addSity(self):
+        self.ui.Sity.addItem("Город не выбран")
+        query = QSqlQuery()
+        query.exec(f'SELECT * FROM Cities')
+        title_sity = query.record().indexOf('title')
+        while query.next():
+            self.ui.Sity.addItem(str(query.value(title_sity)))
+        
+
     def add_Competitions_Table(self):
         maxRow = -1
         for row in range(self.ui.competitionTable.rowCount()):
@@ -154,6 +166,14 @@ class AppWindow(QMainWindow):
             Data_start = self.ui.championshipTable.item(row,2).text()
             Data_end = self.ui.championshipTable.item(row,3).text()
             title = self.ui.championshipTable.item(row,1).text()
+            Sity = self.ui.championshipTable.item(row,4).text()
+
+            query6 = QSqlQuery()
+            query6.exec(f"SELECT * FROM Cities WHERE title = '{Sity}'")            
+            id_sity = query6.record().indexOf('id')
+            query6.next()
+            self.ui.Sity.setCurrentIndex(int(query6.value(id_sity)))
+
             self.ui.startDateLine.setText(Data_start)
             self.ui.endDateLine.setText(Data_end)
             self.ui.titleLine.setText(title)
@@ -221,7 +241,15 @@ class AppWindow(QMainWindow):
             data_start = self.ui.startDateLine.text()
             data_end = self.ui.endDateLine.text()
             titleLine = self.ui.titleLine.text()
-            query4.exec(f"INSERT INTO Competitions (title, date_start, date_end)" f"VALUES ('{titleLine}', '{data_start}', '{data_end}')")
+            title_sity = self.ui.Sity.currentText()
+
+            query6 = QSqlQuery()
+            query6.exec(f'SELECT * FROM Cities')
+            id_Sity = query6.record().indexOf('id')
+            query6.next()
+            id_Sity_int = int(query6.value(id_Sity))
+
+            query4.exec(f"INSERT INTO Competitions (title, date_start, date_end, city_id)" f"VALUES ('{titleLine}', '{data_start}', '{data_end}', '{id_Sity_int}')")
             query4.next()
 
             query5 = QSqlQuery()
@@ -286,6 +314,7 @@ class AppWindow(QMainWindow):
         self.ui.endDateLine.setText("")
         self.ui.titleLine.setText("")
         self.ui.Nomer.setText("")
+        self.ui.Sity.setCurrentIndex(0)
         while (self.ui.competitionTable.rowCount() > 0):
             self.ui.competitionTable.setRowCount(0)
         
@@ -361,6 +390,8 @@ class AppWindow(QMainWindow):
     def reset_on_click_back(self):
         self.ui.stackedWidget_1.setCurrentIndex(0)
         self.ui.stackedWidget.setCurrentIndex(0)
+
+        self.BD_Championship()
         self.Clear_form_competition()
 
         
