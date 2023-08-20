@@ -22,6 +22,9 @@ class AppWindow(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
+        global C_id
+        C_id = 0
+
         con = QSqlDatabase.addDatabase('QSQLITE')
         con.setDatabaseName('WS.db')
         try: con.open()
@@ -74,7 +77,6 @@ class AppWindow(QMainWindow):
 
 
         self.BD()
-        self.users_find()
 
     def users_find(self):
         combo1_array = []
@@ -102,8 +104,9 @@ class AppWindow(QMainWindow):
 
         
     def users_table(self):
+        global C_id
         query = QSqlQuery()
-        query.exec(f'SELECT * FROM Users JOIN Competition_skills ON Users.comp_skill_id = Competition_skills.id JOIN Skills ON Skills.id = Competition_skills.skill_id JOIN Roles ON Roles.id = Users.role_id JOIN Regions on Regions.id = Users.region_id JOIN Statuses ON Statuses.id = Users.status_id WHERE Roles.role != "Организатор"')
+        query.exec(f'SELECT * FROM Users JOIN Competition_skills ON Users.comp_skill_id = Competition_skills.id JOIN Skills ON Skills.id = Competition_skills.skill_id JOIN Roles ON Roles.id = Users.role_id JOIN Regions on Regions.id = Users.region_id JOIN Statuses ON Statuses.id = Users.status_id JOIN Competitions ON Competitions.id = Competition_skills.competition_id WHERE Roles.role != "Организатор" AND Competitions.id = {C_id}')
         role = query.record().indexOf('Roles.role')
         name = query.record().indexOf('Users.name')
         phone = query.record().indexOf('Users.phone')
@@ -129,9 +132,10 @@ class AppWindow(QMainWindow):
             row+=1
             
 
-    def sort_users(self, c_id = 1):
+    def sort_users(self):
+        global C_id
         query = QSqlQuery()
-        sql_query = f'SELECT * FROM Users JOIN Competition_skills ON Users.comp_skill_id = Competition_skills.id JOIN Skills ON Skills.id = Competition_skills.skill_id JOIN Roles ON Roles.id = Users.role_id JOIN Regions on Regions.id = Users.region_id JOIN Statuses ON Statuses.id = Users.status_id WHERE Roles.role != "Организатор"'
+        sql_query = f'SELECT * FROM Users JOIN Competition_skills ON Users.comp_skill_id = Competition_skills.id JOIN Skills ON Skills.id = Competition_skills.skill_id JOIN Roles ON Roles.id = Users.role_id JOIN Regions on Regions.id = Users.region_id JOIN Statuses ON Statuses.id = Users.status_id JOIN Competitions ON Competitions.id = Competition_skills.competition_id WHERE Roles.role != "Организатор" AND Competitions.id = {C_id}'
         if self.ui.roleCombo.currentIndex() != 0:
             sql_query = sql_query + f' AND Roles.role = "{self.ui.roleCombo.currentText()}"'
         if self.ui.competitionCombo.currentIndex() != 0:
@@ -170,7 +174,9 @@ class AppWindow(QMainWindow):
             Tablerow+=1
             row+=1
 
-
+    def clear_usersTable(self):
+        while self.ui.memberTable.rowCount() > 0:
+            self.ui.memberTable.removeRow(0)
         
     def Open_main_file_btn(self):
         res = QFileDialog.getOpenFileName(self, 'Open File', '','PNG file (*.png)')
@@ -260,6 +266,8 @@ class AppWindow(QMainWindow):
             query.next()
     
     def add_Competitions_Table(self):
+        global C_id
+        C_id = 0
         maxRow = -1
         for row in range(self.ui.competitionTable.rowCount()):
             for col in range(self.ui.competitionTable.columnCount()):
@@ -292,8 +300,10 @@ class AppWindow(QMainWindow):
             combobox1.addItem(str(query5.value(title_Komp)))
             valueExpert+=1
         self.ui.competitionTable.setCellWidget(Tablerow, 1, combobox1)
+        self.users_find()
 
     def changeClick(self):
+        global C_id
         self.ui.stackedWidget_1.setCurrentIndex(1)
         button = self.sender()
         if button:
@@ -305,6 +315,7 @@ class AppWindow(QMainWindow):
             self.ui.endDateLine.setText(Data_end)
             self.ui.titleLine.setText(title)
             id = self.ui.championshipTable.item(row,0).text()
+            C_id = id
             query = QSqlQuery()
             query.exec(f'SELECT * FROM Competition_skills WHERE competition_id = {id}')
             member_count = query.record().indexOf('member_count')
@@ -360,6 +371,7 @@ class AppWindow(QMainWindow):
 
                 Tablerow+=1
                 row+=1
+        self.users_find()
 
     def Save_Champions(self):
         id = self.ui.Nomer.text()
@@ -429,12 +441,13 @@ class AppWindow(QMainWindow):
             self.reset_on_click_back()
 
     def Clear_form_competition(self):
-        self.ui.startDateLine.setText("")
-        self.ui.endDateLine.setText("")
-        self.ui.titleLine.setText("")
-        self.ui.Nomer.setText("")
+        self.ui.startDateLine.setText("Дата начала")
+        self.ui.endDateLine.setText("Дата окончания")
+        self.ui.titleLine.setText("Название чемпионата")
+        self.ui.Nomer.setText("0")
         while (self.ui.competitionTable.rowCount() > 0):
             self.ui.competitionTable.setRowCount(0)
+        
         
 
     def BD_Expert(self):
@@ -664,6 +677,7 @@ class AppWindow(QMainWindow):
         self.ui.stackedWidget_1.setCurrentIndex(0)
         self.ui.stackedWidget.setCurrentIndex(0)
         self.Clear_form_competition()
+        self.clear_usersTable()
 
 
     def check_data(self):

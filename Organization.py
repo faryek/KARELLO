@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'OrganizeForm.ui'
+# Form implementation generated from reading ui file 'organizeform.ui'
 #
 # Created by: PyQt6 UI code generator 6.4.2
 #
@@ -7,7 +7,7 @@
 
 
 from PyQt6 import QtCore, QtGui, QtWidgets
-
+import logorc
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -67,7 +67,7 @@ class Ui_MainWindow(object):
         self.biglogoLabel = QtWidgets.QLabel(parent=self.organizationMPage)
         self.biglogoLabel.setStyleSheet("")
         self.biglogoLabel.setText("")
-        self.biglogoLabel.setPixmap(QtGui.QPixmap(":/Logos/trash1.png"))
+        self.biglogoLabel.setPixmap(QtGui.QPixmap(":/Logos/DS.png"))
         self.biglogoLabel.setObjectName("biglogoLabel")
         self.horizontalLayout_2.addWidget(self.biglogoLabel)
         spacerItem3 = QtWidgets.QSpacerItem(100, 20, QtWidgets.QSizePolicy.Policy.Fixed, QtWidgets.QSizePolicy.Policy.Minimum)
@@ -1260,7 +1260,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.stackedWidget_4.setCurrentIndex(0)
+        self.stackedWidget_4.setCurrentIndex(3)
         self.stackedWidget_1.setCurrentIndex(1)
         self.stackedWidget3.setCurrentIndex(1)
         self.stackedWidget.setCurrentIndex(0)
@@ -1437,4 +1437,13 @@ class Ui_MainWindow(object):
         self.rememberCheck.setText(_translate("MainWindow", "Запомнить меня"))
         self.memberEnterButton.setText(_translate("MainWindow", "Я участник!"))
         self.enterButton.setText(_translate("MainWindow", "Войти"))
-import logorc
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
+    sys.exit(app.exec())
