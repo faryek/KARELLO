@@ -236,12 +236,12 @@ class AppWindow(QMainWindow):
             self.ui.championshipTable.setItem(Tablerow, 5, QtWidgets.QTableWidgetItem(str(query.value(desc))))
 
             pushButton = QtWidgets.QPushButton()
+            pushButton.setText("Изменить")
             pushButton.clicked.connect(self.changeClick)
-            # pushButton.setStyleSheet('image: url(:Logo/trash1.png);')
             self.ui.championshipTable.setCellWidget(Tablerow, 6, pushButton)
             pushButton1 = QtWidgets.QPushButton()
+            pushButton1.setText("Удалить")
             pushButton1.clicked.connect(self.deleteClicked)
-            # pushButton1.setStyleSheet('image: url(:Logo/galka.png);')
             self.ui.championshipTable.setCellWidget(Tablerow, 7, pushButton1)
 
             Tablerow+=1
@@ -817,6 +817,7 @@ class AppWindow(QMainWindow):
             self.ui.protocolTable_2.setItem(tr1,0,QtWidgets.QTableWidgetItem(str(query.value(title))))
             self.ui.protocolTable_2.setItem(tr1,1,QtWidgets.QTableWidgetItem(str(query.value(desc))))
             pushbutton = QtWidgets.QPushButton()
+            pushbutton.setText("Подписать")
             pushbutton.clicked.connect(self.protocols_expert_complete)
             self.ui.protocolTable_2.setCellWidget(tr1,2,pushbutton)
             tr1+=1
@@ -864,6 +865,7 @@ class AppWindow(QMainWindow):
             self.ui.MembersPage_ProtocolsPage.setItem(tr1,0,QtWidgets.QTableWidgetItem(str(query.value(title))))
             self.ui.MembersPage_ProtocolsPage.setItem(tr1,1,QtWidgets.QTableWidgetItem(str(query.value(desc))))
             pushbutton = QtWidgets.QPushButton()
+            pushbutton.setText("Подписать")
             pushbutton.clicked.connect(self.protocols_members_complete)
             self.ui.MembersPage_ProtocolsPage.setCellWidget(tr1,2,pushbutton)
             tr1+=1
