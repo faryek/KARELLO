@@ -120,7 +120,6 @@ class AppWindow(QMainWindow):
 
         plt.bar(x, y)
         # plt.title('Название')
-        plt.legend()
         plt.savefig(".//Лого//Chart.png")
         pixmap = QPixmap(".//Лого//Chart.png")
         self.ui.Chart.setPixmap(pixmap)
