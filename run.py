@@ -198,7 +198,7 @@ class AppWindow(QMainWindow):
         plt.rcParams.update({'font.size':8})
         plt.bar(x, y)
         plt.title("Подписание протоколов")
-        plt.savefig(".//Лого//Chart.png")
+        plt.savefig(".//Лого//Chart.png", dpi = 150)
         pixmap = QPixmap(".//Лого//Chart.png")
         self.ui.Chart.setPixmap(pixmap)
 
