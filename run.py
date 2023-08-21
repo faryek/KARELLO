@@ -1,5 +1,6 @@
 from Organization import Ui_MainWindow
 import sys
+import matplotlib.pyplot as plt
 from PyQt6 import (QtCore, QtGui, QtWidgets)
 from PyQt6.QtWidgets import (
     QApplication,
@@ -78,6 +79,7 @@ class AppWindow(QMainWindow):
 
 
         self.BD()
+        self.Chart_png()
 
     def users_find(self):
         combo1_array = []
@@ -104,6 +106,25 @@ class AppWindow(QMainWindow):
         self.ui.showUnknownCheck.toggled.connect(self.sort_users)
 
         
+    def Chart_png(self):
+        query = QSqlQuery()
+        query.exec(f'SELECT * FROM Protocols')
+        title = query.record().indexOf('title')
+        users = query.record().indexOf('users')
+        x = []
+        y = []
+        while query.next():
+            x.append(str(query.value(title)))
+            chet = str(query.value(users)).count(',')
+            y.append(chet + 1)
+
+        plt.bar(x, y)
+        # plt.title('Название')
+        plt.legend()
+        plt.savefig(".//Лого//Chart.png")
+        pixmap = QPixmap(".//Лого//Chart.png")
+        self.ui.Chart.setPixmap(pixmap)
+
     def users_table(self):
         global C_id
         query = QSqlQuery()
@@ -178,24 +199,6 @@ class AppWindow(QMainWindow):
     def clear_usersTable(self):
         while self.ui.memberTable.rowCount() > 0:
             self.ui.memberTable.removeRow(0)
-        
-    def Open_main_file_btn(self):
-        res = QFileDialog.getOpenFileName(self, 'Open File', '','PNG file (*.png)')
-        pixmap = QPixmap(res[0])
-        smaller_pixmap = pixmap.scaled(QtCore.QSize(200, 100))
-        self.ui.logoLabel.setPixmap(smaller_pixmap)
-
-
-    def exit_on_main_page(self):
-        self.ui.stackedWidget_2.setCurrentIndex(1)
-        self.ui.stackedWidget_2.setCurrentIndex(0)
-
-
-    def reset_on_click_back(self):
-        self.ui.stackedWidget_1.setCurrentIndex(0)
-        self.ui.stackedWidget.setCurrentIndex(0)
-
-        
 
     def BD(self):
         self.BD_Championship()
