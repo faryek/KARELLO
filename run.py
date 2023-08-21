@@ -63,6 +63,15 @@ class AppWindow(QMainWindow):
         self.BD_Protokols()
         self.addSity()
 
+
+    def BD_members(self, c_id, s_id):
+        self.BD_Members_for_member(c_id, s_id)
+
+    def BD_experts(self, c_id, s_id):
+        self.BD_Members_for_expert(c_id, s_id)
+        self.BD_Experts_for_expert(c_id, s_id)
+
+
     def BD_Championship(self):
         while (self.ui.championshipTable.rowCount() > 0):
             self.ui.championshipTable.setRowCount(0)
@@ -310,11 +319,12 @@ class AppWindow(QMainWindow):
             self.reset_on_click_back()
 
     def Clear_form_competition(self):
-        self.ui.startDateLine.setText("")
-        self.ui.endDateLine.setText("")
-        self.ui.titleLine.setText("")
-        self.ui.Nomer.setText("")
+        self.ui.startDateLine.setText("Дата начала")
+        self.ui.endDateLine.setText("Дата окончания")
+        self.ui.titleLine.setText("Название чемпионата")
+        self.ui.Nomer.setText("0")
         self.ui.Sity.setCurrentIndex(0)
+
         while (self.ui.competitionTable.rowCount() > 0):
             self.ui.competitionTable.setRowCount(0)
         
