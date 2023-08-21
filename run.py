@@ -80,6 +80,7 @@ class AppWindow(QMainWindow):
 
         self.BD()
         self.Chart_png()
+        self.users_find()
 
     def users_find(self):
         combo1_array = []
@@ -105,24 +106,6 @@ class AppWindow(QMainWindow):
         self.ui.competitionCombo.currentTextChanged.connect(self.sort_users)
         self.ui.showUnknownCheck.toggled.connect(self.sort_users)
 
-        
-    def Chart_png(self):
-        query = QSqlQuery()
-        query.exec(f'SELECT * FROM Protocols')
-        title = query.record().indexOf('title')
-        users = query.record().indexOf('users')
-        x = []
-        y = []
-        while query.next():
-            x.append(str(query.value(title)))
-            chet = str(query.value(users)).count(',')
-            y.append(chet + 1)
-
-        plt.bar(x, y)
-        # plt.title('Название')
-        plt.savefig(".//Лого//Chart.png")
-        pixmap = QPixmap(".//Лого//Chart.png")
-        self.ui.Chart.setPixmap(pixmap)
 
     def users_table(self):
         global C_id
@@ -198,6 +181,25 @@ class AppWindow(QMainWindow):
     def clear_usersTable(self):
         while self.ui.memberTable.rowCount() > 0:
             self.ui.memberTable.removeRow(0)
+
+
+    def Chart_png(self):
+        query = QSqlQuery()
+        query.exec(f'SELECT * FROM Protocols')
+        title = query.record().indexOf('title')
+        users = query.record().indexOf('users')
+        x = []
+        y = []
+        while query.next():
+            x.append(str(query.value(title)))
+            chet = str(query.value(users)).count(',')
+            y.append(chet + 1)
+
+        plt.bar(x, y)
+        # plt.title('Название')
+        plt.savefig(".//Лого//Chart.png")
+        pixmap = QPixmap(".//Лого//Chart.png")
+        self.ui.Chart.setPixmap(pixmap)
 
     def BD(self):
         self.BD_Championship()
@@ -392,7 +394,7 @@ class AppWindow(QMainWindow):
 
                 Tablerow+=1
                 row+=1
-        self.users_find()
+        self.users_table()
 
     def Save_Champions(self):
         id = self.ui.Nomer.text()
@@ -485,8 +487,8 @@ class AppWindow(QMainWindow):
         query = QSqlQuery()
         query.exec(f'SELECT * FROM Users WHERE role_id > 1 AND role_id < 6')
         Name = query.record().indexOf('name')
-        Mail = query.record().indexOf('phone')
-        Phone = query.record().indexOf('email')
+        Mail = query.record().indexOf('email')
+        Phone = query.record().indexOf('phone')
         Com_id = query.record().indexOf('comp_skill_id')
 
         Tablerow = 0
@@ -580,8 +582,8 @@ class AppWindow(QMainWindow):
         query.exec(f'SELECT * FROM Users JOIN Competition_skills ON Competition_skills.id = Users.comp_skill_id JOIN Competitions ON Competitions.id = Competition_skills.competition_id JOIN Skills ON Skills.id = Competition_skills.skill_id WHERE Skills.id = {s_id} AND Competitions.id = {c_id} AND role_id = 1')
         Name = query.record().indexOf('name')
         Com_id = query.record().indexOf('comp_skill_id')
-        Mail = query.record().indexOf('email')
-        Phone = query.record().indexOf('phone')
+        Mail = query.record().indexOf('phone')
+        Phone = query.record().indexOf('email')
 
         Tablerow = 0
         row = 1
@@ -620,8 +622,8 @@ class AppWindow(QMainWindow):
         query.exec(f'SELECT * FROM Users JOIN Competition_skills ON Competition_skills.id = Users.comp_skill_id JOIN Competitions ON Competitions.id = Competition_skills.competition_id JOIN Skills ON Skills.id = Competition_skills.skill_id WHERE Skills.id = {s_id} AND Competitions.id = {c_id} AND role_id > 1 AND role_id < 6')
         Name = query.record().indexOf('name')
         Com_id = query.record().indexOf('comp_skill_id')
-        Mail = query.record().indexOf('email')
-        Phone = query.record().indexOf('phone')
+        Mail = query.record().indexOf('phone')
+        Phone = query.record().indexOf('email')
 
         Tablerow = 0
         row = 1
