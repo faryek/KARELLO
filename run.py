@@ -196,7 +196,7 @@ class AppWindow(QMainWindow):
             y.append(chet + 1)
 
         plt.bar(x, y)
-        # plt.title('Название')
+        plt.title("Подписание протоколов")
         plt.savefig(".//Лого//Chart.png")
         pixmap = QPixmap(".//Лого//Chart.png")
         self.ui.Chart.setPixmap(pixmap)
