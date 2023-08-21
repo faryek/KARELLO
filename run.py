@@ -72,7 +72,7 @@ class AppWindow(QMainWindow):
             tables_[d].resizeRowsToContents()
             d+=1
 
-
+        self.ui.championshipTable.verticalHeader().setVisible(False)
         self.ui.enterButton.clicked.connect(self.check_data)
         self.ui.memberEnterButton.clicked.connect(self.member_swap)
         self.ui.okButton.clicked.connect(self.check_member)
@@ -247,11 +247,11 @@ class AppWindow(QMainWindow):
 
             pushButton = QtWidgets.QPushButton()
             pushButton.clicked.connect(self.changeClick)
-            # pushButton.setStyleSheet('image: url(:Logo/trash1.png);')
+            pushButton.setText("Изменить")
             self.ui.championshipTable.setCellWidget(Tablerow, 6, pushButton)
             pushButton1 = QtWidgets.QPushButton()
             pushButton1.clicked.connect(self.deleteClicked)
-            # pushButton1.setStyleSheet('image: url(:Logo/galka.png);')
+            pushButton1.setText("Удалить")
             self.ui.championshipTable.setCellWidget(Tablerow, 7, pushButton1)
 
             Tablerow+=1
