@@ -195,6 +195,7 @@ class AppWindow(QMainWindow):
             chet = str(query.value(users)).count(',')
             y.append(chet + 1)
 
+        plt.rcParams.update({'font.size':8})
         plt.bar(x, y)
         # plt.title('Название')
         plt.savefig(".//Лого//Chart.png")
