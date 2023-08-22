@@ -1,7 +1,10 @@
 from Organization import Ui_MainWindow
 import sys
+
+from PyQt6 import QtCore, QtGui, QtWidgets
+from PyQt6.QtSql import QSqlDatabase, QSqlQuery, QSqlTableModel, QSqlQueryModel
 import matplotlib.pyplot as plt
-from PyQt6 import (QtCore, QtGui, QtWidgets)
+from PyQt6.QtGui import QPixmap
 from PyQt6.QtWidgets import (
     QApplication,
     QMainWindow,
@@ -12,8 +15,7 @@ from PyQt6.QtWidgets import (
     QFileDialog,
     QHeaderView
 )
-from PyQt6.QtGui import QPixmap
-from PyQt6.QtSql import QSqlDatabase, QSqlQuery, QSqlTableModel, QSqlQueryModel
+
 
 
 
@@ -33,14 +35,12 @@ class AppWindow(QMainWindow):
 
         self.ui.stackedWidget_4.setCurrentIndex(3)
         self.ui.stackedWidget_1.setCurrentIndex(0)
-
         self.ui.stackedWidget_2.setCurrentIndex(0)
         self.ui.addChampButton.clicked.connect(lambda: self.ui.stackedWidget_1.setCurrentIndex(1)) 
         self.ui.championshipEditButton.clicked.connect(lambda: self.ui.stackedWidget.setCurrentIndex(0))
         self.ui.memberButton.clicked.connect(lambda: self.ui.stackedWidget.setCurrentIndex(1))
         self.ui.mainExpertButton.clicked.connect(lambda: self.ui.stackedWidget.setCurrentIndex(3))
         self.ui.protocolCButton.clicked.connect(lambda: self.ui.stackedWidget.setCurrentIndex(2))
-        self.ui.backToMainButton.clicked.connect(self.reset_on_click_back)
         self.ui.logoutButton.clicked.connect(lambda: self.ui.stackedWidget_4.setCurrentIndex(3))
         self.ui.logoutButton_2.clicked.connect(lambda: self.ui.stackedWidget_4.setCurrentIndex(3))
         self.ui.memberButton_2.clicked.connect(lambda: self.ui.stackedWidget_3.setCurrentIndex(0))
@@ -56,37 +56,199 @@ class AppWindow(QMainWindow):
         self.ui.backToMainButton_3.clicked.connect(lambda: self.ui.stackedWidget_2.setCurrentIndex(1))
         self.ui.backToMainButton_2.clicked.connect(lambda: self.ui.stackedWidget_2.setCurrentIndex(1))
         self.ui.AnalyseButton.clicked.connect(lambda: self.ui.stackedWidget3.setCurrentIndex(3))
+
+
         self.ui.addCompetitionButton.clicked.connect(self.add_Competitions_Table)
-        self.ui.saveCompetitionButton.clicked.connect(self.Save_Champions)
+        self.ui.saveCompetitionButton.clicked.connect(self.save_Champions)
         self.ui.exitButton_2.clicked.connect(self.exit_on_main_page)
         self.ui.exitButton_3.clicked.connect(self.exit_on_main_page)
-        self.ui.pushButton.clicked.connect(self.Open_main_file_btn)
-
-        tables_ = [self.ui.tableWidget, self.ui.expertTable,self.ui.expertTable_2,self.ui.expertTable,
-                   self.ui.memberTable,self.ui.memberTable_2,self.ui.protocolTable,self.ui.protocolTable_2,self.ui.protocolTable,
-                   self.ui.mainExpertTable,self.ui.competitionTable,self.ui.championshipTable,self.ui.MembersPage_MembersList,self.ui.MembersPage_ProtocolsPage]
-
-        d = 0
-        for i in range(len(tables_)):
-            tables_[d].horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode(1))
-            tables_[d].resizeRowsToContents()
-            d+=1
-
-        self.ui.championshipTable.verticalHeader().setVisible(False)
+        self.ui.pushButton.clicked.connect(self.open_main_file_btn)
+        self.ui.backToMainButton.clicked.connect(self.reset_on_click_back)
         self.ui.enterButton.clicked.connect(self.check_data)
         self.ui.memberEnterButton.clicked.connect(self.member_swap)
         self.ui.okButton.clicked.connect(self.check_member)
 
 
-        self.BD()
-        self.Chart_png()
+        allTables = [self.ui.tableWidget, self.ui.expertTable,self.ui.expertTable_2,self.ui.expertTable,
+                   self.ui.memberTable,self.ui.memberTable_2,self.ui.protocolTable,self.ui.protocolTable_2,self.ui.protocolTable,
+                   self.ui.mainExpertTable,self.ui.competitionTable,self.ui.championshipTable,self.ui.MembersPage_MembersList,self.ui.MembersPage_ProtocolsPage]
+        j = 0
+        for i in range(len(allTables)):
+            allTables[j].horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode(1))
+            allTables[j].resizeRowsToContents()
+            j+=1
+
+        self.ui.championshipTable.verticalHeader().setVisible(False)
+
+
+        self.bd()
+        self.chart_png()
         self.users_find()
+
+
+
+    def check_data(self):
+        login = self.ui.loginLine.text()
+        password = self.ui.passLine.text()
+        
+        query = QSqlQuery()
+        try: query.exec(f'SELECT role_id, name, comp_skill_id FROM Users WHERE login = "{login}" AND password = "{password}"')
+        except:
+            self.showError()
+            return
+        
+        if not query.next():
+            self.showError()
+            return
+        
+        role = query.record().indexOf('role_id')
+        role = query.value(role)
+        global name
+        name = query.record().indexOf('name')
+        name = query.value(name)
+        cs_id = query.record().indexOf('comp_skill_id')
+        cs_id = query.value(cs_id)
+
+        try: query.exec(f'SELECT competition_id, skill_id FROM Competition_skills WHERE id = {cs_id}')
+        except:
+            pass
+        
+        if not query.next():
+            pass
+        
+        c_id = query.record().indexOf('competition_id')
+        c_id = query.value(c_id)
+
+        s_id = query.record().indexOf('skill_id')
+        s_id = query.value(s_id)
+        
+        query.finish()
+
+        query2 = QSqlQuery()
+        query2.exec(f'SELECT title FROM Competitions WHERE id = {c_id}')
+        c_title = query2.record().indexOf('title')
+        query2.next()
+        c_title = query2.value(c_title)
+        query2.finish()
+
+        query3 = QSqlQuery()
+        query3.exec(f'SELECT title FROM Skills WHERE id = {s_id}')
+        s_title = query3.record().indexOf('title')
+        query3.next()
+        s_title = query3.value(s_title)
+        query3.finish()
+
+        self.bd_experts(c_id, s_id)
+        self.set_titles(c_title, s_title)
+        self.mpage_swap(role, name)
+        self.protocol_tables_experts(name, c_title)
+
+    def check_member(self):
+        code = self.ui.memberCodeLine.text()
+        
+        query = QSqlQuery()
+        try:
+            query.exec(f'SELECT name, comp_skill_id FROM Users WHERE login = "{code}" AND role_id = 1')
+        except:
+            self.showMemberError()
+            return
+
+        if not query.next():
+            self.showMemberError()
+            return
+        
+        cs_id = query.record().indexOf('comp_skill_id')
+        cs_id = query.value(cs_id)
+        
+        global name_member
+        name_member = query.record().indexOf('name')
+        name_member = query.value(name_member)
+
+        try: query.exec(f'SELECT competition_id, skill_id FROM Competition_skills WHERE id = {cs_id}')
+        except:
+            self.showMemberError()
+            return
+        
+        if not query.next():
+            self.showMemberError()
+            return
+        
+        c_id = query.record().indexOf('competition_id')
+        c_id = query.value(c_id)
+
+        s_id = query.record().indexOf('skill_id')
+        s_id = query.value(s_id)
+
+        query.finish()
+
+        global c_title
+        query2 = QSqlQuery()
+        query2.exec(f'SELECT title FROM Competitions WHERE id = {c_id}')
+        c_title = query2.record().indexOf('title')
+        query2.next()
+        c_title = query2.value(c_title)
+        global c_title1
+        c_title1 = c_title
+        query2.finish()
+
+        query3 = QSqlQuery()
+        query3.exec(f'SELECT title FROM Skills WHERE id = {s_id}')
+        s_title = query3.record().indexOf('title')
+        query3.next()
+        s_title = query3.value(s_title)
+        query3.finish()
+
+        
+        self.bd_members(c_id, s_id)   
+        self.set_titles(c_title, s_title)
+        self.ui.stackedWidget_2.setCurrentIndex(1)
+        self.protocol_tables_members(name_member,c_title1)
+        
+
+    def member_swap(self):
+        self.ui.stackedWidget_4.setCurrentIndex(1)
+
+    def mpage_swap(self, role, name):
+        if role in range(2, 6):
+            self.welcome(role, name)
+            self.ui.stackedWidget_4.setCurrentIndex(2)
+        elif role == 6:
+            self.welcome(role, name)
+            self.ui.stackedWidget_4.setCurrentIndex(0)
+            self.ui.stackedWidget_1.setCurrentIndex(0)
+            self.ui.stackedWidget3.setCurrentIndex(2)
+        elif role == 1:
+            pass
+
+    def welcome(self, role, name):
+        if role in range(2, 6):
+            self.ui.welcomeExpertLabel.setText(f'Здравствуйте, {name}')
+        elif role == 6:
+            self.ui.welcomeLabel.setText(f'Здравствуйте, {name}')
+
+    def set_titles(self, comp, skill):
+        self.ui.champTitleLabel.setText(comp)
+        self.ui.compTitleLabel.setText(skill)
+        self.ui.champTitleLabel_2.setText(comp)
+        self.ui.compTitleLabel_2.setText(skill)
+        self.ui.champTitleLabel_3.setText(comp)
+        self.ui.compTitleLabel_3.setText(skill)
+        self.ui.champTitleLabel_5.setText(comp)
+        self.ui.compTitleLabel_4.setText(skill)
+
+
+    def showError(self):
+       QMessageBox.about(self, "Ошибка", "Неверный логин или пароль!")
+
+    def showMemberError(self):
+        QMessageBox.about(self, "Ошибка", "Неверный код!")
 
     def users_find(self):
         combo1_array = []
         combo2_array = []
         
         query_combo1 = QSqlQuery()
+        
         query_combo1.exec(f'SELECT title FROM Skills')
         query_combo2 = QSqlQuery()
         title = query_combo1.record().indexOf('title')
@@ -94,6 +256,7 @@ class AppWindow(QMainWindow):
             combo1_array.append(query_combo1.value(title))
         self.ui.competitionCombo.addItem('Любая')
         self.ui.competitionCombo.addItems(combo1_array)
+        
         query_combo2.exec(f'SELECT role FROM Roles')
         role = query_combo2.record().indexOf('role')
         while query_combo2.next():
@@ -101,6 +264,8 @@ class AppWindow(QMainWindow):
         combo2_array.pop(5)
         self.ui.roleCombo.addItem('Любая')
         self.ui.roleCombo.addItems(combo2_array)
+
+        
         self.users_table()
         self.ui.roleCombo.currentTextChanged.connect(self.sort_users)
         self.ui.competitionCombo.currentTextChanged.connect(self.sort_users)
@@ -109,6 +274,7 @@ class AppWindow(QMainWindow):
 
     def users_table(self):
         global C_id
+        
         query = QSqlQuery()
         query.exec(f'SELECT * FROM Users JOIN Competition_skills ON Users.comp_skill_id = Competition_skills.id JOIN Skills ON Skills.id = Competition_skills.skill_id JOIN Roles ON Roles.id = Users.role_id JOIN Regions on Regions.id = Users.region_id JOIN Statuses ON Statuses.id = Users.status_id JOIN Competitions ON Competitions.id = Competition_skills.competition_id WHERE Roles.role != "Организатор" AND Competitions.id = {C_id}')
         role = query.record().indexOf('Roles.role')
@@ -138,6 +304,7 @@ class AppWindow(QMainWindow):
 
     def sort_users(self):
         global C_id
+        
         query = QSqlQuery()
         sql_query = f'SELECT * FROM Users JOIN Competition_skills ON Users.comp_skill_id = Competition_skills.id JOIN Skills ON Skills.id = Competition_skills.skill_id JOIN Roles ON Roles.id = Users.role_id JOIN Regions on Regions.id = Users.region_id JOIN Statuses ON Statuses.id = Users.status_id JOIN Competitions ON Competitions.id = Competition_skills.competition_id WHERE Roles.role != "Организатор" AND Competitions.id = {C_id}'
         if self.ui.roleCombo.currentIndex() != 0:
@@ -183,43 +350,25 @@ class AppWindow(QMainWindow):
             self.ui.memberTable.removeRow(0)
 
 
-    def Chart_png(self):
-        query = QSqlQuery()
-        query.exec(f'SELECT * FROM Protocols')
-        title = query.record().indexOf('title')
-        users = query.record().indexOf('users')
-        x = []
-        y = []
-        while query.next():
-            x.append(str(query.value(title)))
-            chet = str(query.value(users)).count(',')
-            y.append(chet + 1)
-
-        plt.rcParams.update({'font.size':8})
-        plt.bar(x, y)
-        plt.title("Подписание протоколов")
-        plt.savefig(".//Лого//Chart.png", dpi = 150)
-        pixmap = QPixmap(".//Лого//Chart.png")
-        self.ui.Chart.setPixmap(pixmap)
-
-    def BD(self):
-        self.BD_Championship()
-        self.BD_Expert()
-        self.BD_Protokols()
-        self.addSity()
+    def bd(self):
+        self.bd_Championship()
+        self.bd_Expert()
+        self.bd_Protokols()
+        self.addCity()
 
 
-    def BD_members(self, c_id, s_id):
-        self.BD_Members_for_member(c_id, s_id)
+    def bd_members(self, c_id, s_id):
+        self.bd_Members_for_member(c_id, s_id)
 
-    def BD_experts(self, c_id, s_id):
-        self.BD_Members_for_expert(c_id, s_id)
-        self.BD_Experts_for_expert(c_id, s_id)
+    def bd_experts(self, c_id, s_id):
+        self.bd_Members_for_expert(c_id, s_id)
+        self.bd_Experts_for_expert(c_id, s_id)
 
 
-    def BD_Championship(self):
+    def bd_Championship(self):
         while (self.ui.championshipTable.rowCount() > 0):
             self.ui.championshipTable.setRowCount(0)
+        
         query = QSqlQuery()
         query.exec(f'SELECT * FROM Competitions')
         id = query.record().indexOf('id')
@@ -272,8 +421,8 @@ class AppWindow(QMainWindow):
             id = query.record().indexOf('main_expert')
             query.next()
     
-    def addSity(self):
-        self.ui.Sity.addItem("Город не выбран")
+    def addCity(self):
+        self.ui.Sity.addItem("Выберите город")
         query = QSqlQuery()
         query.exec(f'SELECT * FROM Cities')
         title_sity = query.record().indexOf('title')
@@ -284,6 +433,7 @@ class AppWindow(QMainWindow):
     def add_Competitions_Table(self):
         global C_id
         C_id = 0
+        
         maxRow = -1
         for row in range(self.ui.competitionTable.rowCount()):
             for col in range(self.ui.competitionTable.columnCount()):
@@ -308,19 +458,22 @@ class AppWindow(QMainWindow):
 
         query5 = QSqlQuery()
         query5.exec(f'SELECT * FROM Skills')
-        title_Komp = query5.record().indexOf('title')
+        title_Comp = query5.record().indexOf('title')
         valueExpert = 1
         combobox1 = QtWidgets.QComboBox()
         combobox1.addItem(" ")
         while query5.next():
-            combobox1.addItem(str(query5.value(title_Komp)))
+            combobox1.addItem(str(query5.value(title_Comp)))
             valueExpert+=1
         self.ui.competitionTable.setCellWidget(Tablerow, 1, combobox1)
+        
         self.users_find()
 
     def changeClick(self):
         global C_id
+        
         self.ui.stackedWidget_1.setCurrentIndex(1)
+        
         button = self.sender()
         if button:
             row = self.ui.championshipTable.indexAt(button.pos()).row() # type: ignore
@@ -338,8 +491,10 @@ class AppWindow(QMainWindow):
             self.ui.startDateLine.setText(Data_start)
             self.ui.endDateLine.setText(Data_end)
             self.ui.titleLine.setText(title)
+            
             id = self.ui.championshipTable.item(row,0).text()
             C_id = id
+            
             query = QSqlQuery()
             query.exec(f'SELECT * FROM Competition_skills WHERE competition_id = {id}')
             member_count = query.record().indexOf('member_count')
@@ -387,18 +542,19 @@ class AppWindow(QMainWindow):
                     if str(query5.value(title_Komp)) ==  str(query2.value(title_Komp)):
                         combobox1.setCurrentIndex(valueExpert)
                     valueExpert+=1
+                
                 self.ui.competitionTable.setCellWidget(Tablerow, 1, combobox1)
-
                 self.ui.competitionTable.setItem(Tablerow, 2, QtWidgets.QTableWidgetItem(str(query.value(expert_count))))
-
                 self.ui.competitionTable.setItem(Tablerow, 3, QtWidgets.QTableWidgetItem(str(query.value(member_count))))
 
                 Tablerow+=1
                 row+=1
+                
         self.users_table()
 
-    def Save_Champions(self):
+    def save_Champions(self):
         id = self.ui.Nomer.text()
+        
         if (id == ""):
             query4 = QSqlQuery()
             data_start = self.ui.startDateLine.text()
@@ -422,6 +578,7 @@ class AppWindow(QMainWindow):
             while query5.next():
                 if (titleLine == str(query5.value(titile))):
                     id = str(query5.value(id_com))
+            
         query = QSqlQuery()
         query.exec(f'DELETE FROM Competition_skills WHERE competition_id = {id}')
         query.next()
@@ -434,6 +591,7 @@ class AppWindow(QMainWindow):
                     continue
                 maxRow = row
         row = maxRow + 1
+        
         for row1 in range(row):
             Main_expert = ""
             Competiton = ""
@@ -470,9 +628,10 @@ class AppWindow(QMainWindow):
             query1 = QSqlQuery()
             query1.exec(f"INSERT INTO Competition_skills (competition_id, main_expert, skill_id, expert_count, member_count)" f"VALUES ({com_id}, {id_expert_str}, {id_competition_str}, {CountEx}, {CountUs})")
             query1.next()
+            
             self.reset_on_click_back()
 
-    def Clear_form_competition(self):
+    def clear_form_competition(self):
         self.ui.startDateLine.setText("Дата начала")
         self.ui.endDateLine.setText("Дата окончания")
         self.ui.titleLine.setText("Название чемпионата")
@@ -484,7 +643,7 @@ class AppWindow(QMainWindow):
         
         
 
-    def BD_Expert(self):
+    def bd_Expert(self):
         query = QSqlQuery()
         query.exec(f'SELECT * FROM Users WHERE role_id > 1 AND role_id < 6')
         Name = query.record().indexOf('name')
@@ -515,8 +674,8 @@ class AppWindow(QMainWindow):
             query3.exec(f'SELECT * FROM Skills WHERE id = {query1.value(skill_id)}')
             title = query3.record().indexOf('title')
             query3.next()
+            
             self.ui.expertTable.setItem(Tablerow, 2, QtWidgets.QTableWidgetItem(str(query3.value(title))))
-
             self.ui.expertTable.setItem(Tablerow, 4, QtWidgets.QTableWidgetItem(str(query.value(Phone))))
             self.ui.expertTable.setItem(Tablerow, 3, QtWidgets.QTableWidgetItem(str(query.value(Mail))))
 
@@ -524,7 +683,7 @@ class AppWindow(QMainWindow):
             row+=1
         query.finish()
 
-    def BD_Protokols(self):
+    def bd_Protokols(self):
         query = QSqlQuery()
         query.exec(f'SELECT * FROM Protocols')
         title = query.record().indexOf('title')
@@ -542,7 +701,7 @@ class AppWindow(QMainWindow):
             row+=1
         query.finish()
 
-    def BD_Members_for_member(self, c_id, s_id):
+    def bd_Members_for_member(self, c_id, s_id):
         query = QSqlQuery()
         query.exec(f'SELECT * FROM Users JOIN Competition_skills ON Competition_skills.id = Users.comp_skill_id JOIN Competitions ON Competitions.id = Competition_skills.competition_id JOIN Skills ON Skills.id = Competition_skills.skill_id WHERE Skills.id = {s_id} AND Competitions.id = {c_id} AND role_id = 1')
         Name = query.record().indexOf('name')
@@ -578,7 +737,7 @@ class AppWindow(QMainWindow):
         query.finish()
 
 
-    def BD_Members_for_expert(self, c_id, s_id):
+    def bd_Members_for_expert(self, c_id, s_id):
         query = QSqlQuery()
         query.exec(f'SELECT * FROM Users JOIN Competition_skills ON Competition_skills.id = Users.comp_skill_id JOIN Competitions ON Competitions.id = Competition_skills.competition_id JOIN Skills ON Skills.id = Competition_skills.skill_id WHERE Skills.id = {s_id} AND Competitions.id = {c_id} AND role_id = 1')
         Name = query.record().indexOf('name')
@@ -618,7 +777,7 @@ class AppWindow(QMainWindow):
             row+=1
         query.finish()
 
-    def BD_Experts_for_expert(self, c_id, s_id):
+    def bd_Experts_for_expert(self, c_id, s_id):
         query = QSqlQuery()
         query.exec(f'SELECT * FROM Users JOIN Competition_skills ON Competition_skills.id = Users.comp_skill_id JOIN Competitions ON Competitions.id = Competition_skills.competition_id JOIN Skills ON Skills.id = Competition_skills.skill_id WHERE Skills.id = {s_id} AND Competitions.id = {c_id} AND role_id > 1 AND role_id < 6')
         Name = query.record().indexOf('name')
@@ -658,13 +817,6 @@ class AppWindow(QMainWindow):
             row+=1
         query.finish()
 
-    
-
-    def Open_main_file_btn(self):
-        res = QFileDialog.getOpenFileName(self, 'Open File', '','PNG file (*.png)')
-        pixmap = QPixmap(res[0])
-        smaller_pixmap = pixmap.scaled(QtCore.QSize(200, 100))
-        self.ui.logoLabel.setPixmap(smaller_pixmap)
 
 
     def exit_on_main_page(self):
@@ -681,133 +833,30 @@ class AppWindow(QMainWindow):
         self.clear_usersTable()
 
 
-    def check_data(self):
-        login = self.ui.loginLine.text()
-        password = self.ui.passLine.text()
-        
+    def open_main_file_btn(self):
+        res = QFileDialog.getOpenFileName(self, 'Open File', '','PNG file (*.png)')
+        pixmap = QPixmap(res[0])
+        smaller_pixmap = pixmap.scaled(QtCore.QSize(200, 100))
+        self.ui.logoLabel.setPixmap(smaller_pixmap)
+
+    def chart_png(self):
         query = QSqlQuery()
-        try: query.exec(f'SELECT role_id, name, comp_skill_id FROM Users WHERE login = "{login}" AND password = "{password}"')
-        except:
-            self.showError()
-            return
-        if not query.next():
-            self.showError()
-            return
-        role = query.record().indexOf('role_id')
-        role = query.value(role)
-        global name
-        name = query.record().indexOf('name')
-        name = query.value(name)
-        cs_id = query.record().indexOf('comp_skill_id')
-        cs_id = query.value(cs_id)
+        query.exec(f'SELECT * FROM Protocols')
+        title = query.record().indexOf('title')
+        users = query.record().indexOf('users')
+        x = []
+        y = []
+        while query.next():
+            x.append(str(query.value(title)))
+            chet = str(query.value(users)).count(',')
+            y.append(chet + 1)
 
-        try: query.exec(f'SELECT competition_id, skill_id FROM Competition_skills WHERE id = {cs_id}')
-        except:
-            pass
-        if not query.next():
-            pass
-        
-        c_id = query.record().indexOf('competition_id')
-        c_id = query.value(c_id)
-
-        s_id = query.record().indexOf('skill_id')
-        s_id = query.value(s_id)
-        
-        query.finish()
-
-        query2 = QSqlQuery()
-        query2.exec(f'SELECT title FROM Competitions WHERE id = {c_id}')
-        c_title = query2.record().indexOf('title')
-        query2.next()
-        c_title = query2.value(c_title)
-        query2.finish()
-
-        query3 = QSqlQuery()
-        query3.exec(f'SELECT title FROM Skills WHERE id = {s_id}')
-        s_title = query3.record().indexOf('title')
-        query3.next()
-        s_title = query3.value(s_title)
-        query3.finish()
-
-        self.BD_experts(c_id, s_id)
-        self.set_titles(c_title, s_title)
-        self.mpage_swap(role, name)
-        self.protocol_tables_experts(name, c_title)
-
-    def check_member(self):
-        code = self.ui.memberCodeLine.text()
-        query = QSqlQuery()
-        try:
-            query.exec(f'SELECT name, comp_skill_id FROM Users WHERE login = "{code}" AND role_id = 1')
-        except:
-            self.showMemberError()
-            return
-
-        if not query.next():
-            self.showMemberError()
-            return
-        
-        cs_id = query.record().indexOf('comp_skill_id')
-        cs_id = query.value(cs_id)
-        global name_member
-        name_member = query.record().indexOf('name')
-        name_member = query.value(name_member)
-
-        try: query.exec(f'SELECT competition_id, skill_id FROM Competition_skills WHERE id = {cs_id}')
-        except:
-            self.showMemberError()
-            return
-        if not query.next():
-            self.showMemberError()
-            return
-        
-        c_id = query.record().indexOf('competition_id')
-        c_id = query.value(c_id)
-
-        s_id = query.record().indexOf('skill_id')
-        s_id = query.value(s_id)
-
-
-        query.finish()
-
-        global c_title
-        query2 = QSqlQuery()
-        query2.exec(f'SELECT title FROM Competitions WHERE id = {c_id}')
-        c_title = query2.record().indexOf('title')
-        query2.next()
-        c_title = query2.value(c_title)
-        global c_title1
-        c_title1 = c_title
-        query2.finish()
-
-        query3 = QSqlQuery()
-        query3.exec(f'SELECT title FROM Skills WHERE id = {s_id}')
-        s_title = query3.record().indexOf('title')
-        query3.next()
-        s_title = query3.value(s_title)
-        query3.finish()
-
-        
-        self.BD_members(c_id, s_id)   
-        self.set_titles(c_title, s_title)
-        self.ui.stackedWidget_2.setCurrentIndex(1)
-        self.protocol_tables_members(name_member,c_title1)
-        
-
-    def member_swap(self):
-        self.ui.stackedWidget_4.setCurrentIndex(1)
-
-    def mpage_swap(self, role, name):
-        if role in range(2, 6):
-            self.welcome(role, name)
-            self.ui.stackedWidget_4.setCurrentIndex(2)
-        elif role == 6:
-            self.welcome(role, name)
-            self.ui.stackedWidget_4.setCurrentIndex(0)
-            self.ui.stackedWidget_1.setCurrentIndex(0)
-            self.ui.stackedWidget3.setCurrentIndex(2)
-        elif role == 1:
-            pass
+        plt.rcParams.update({'font.size':8})
+        plt.bar(x, y)
+        plt.title("Подписание протоколов")
+        plt.savefig(".//Лого//Chart.png", dpi = 150)
+        pixmap = QPixmap(".//Лого//Chart.png")
+        self.ui.Chart.setPixmap(pixmap)
 
 
     def protocol_tables_experts(self, name, c_title):
@@ -904,28 +953,6 @@ class AppWindow(QMainWindow):
         self.protocol_tables_members(name_member, c_title1)
 
             
-    def welcome(self, role, name):
-        if role in range(2, 6):
-            self.ui.welcomeExpertLabel.setText(f'Здравствуйте, {name}')
-        elif role == 6:
-            self.ui.welcomeLabel.setText(f'Здравствуйте, {name}')
-
-    def set_titles(self, comp, skill):
-        self.ui.champTitleLabel.setText(comp)
-        self.ui.compTitleLabel.setText(skill)
-        self.ui.champTitleLabel_2.setText(comp)
-        self.ui.compTitleLabel_2.setText(skill)
-        self.ui.champTitleLabel_3.setText(comp)
-        self.ui.compTitleLabel_3.setText(skill)
-        self.ui.champTitleLabel_5.setText(comp)
-        self.ui.compTitleLabel_4.setText(skill)
-
-
-    def showError(self):
-       QMessageBox.about(self, "Ошибка", "Неверный логин или пароль!")
-
-    def showMemberError(self):
-        QMessageBox.about(self, "Ошибка", "Неверный код!")
 
 
 if __name__ == '__main__':
