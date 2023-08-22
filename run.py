@@ -88,6 +88,8 @@ class AppWindow(QMainWindow):
 
 
     def check_data(self):
+        global c_title
+        global name
         login = self.ui.loginLine.text()
         password = self.ui.passLine.text()
         
@@ -103,7 +105,6 @@ class AppWindow(QMainWindow):
         
         role = query.record().indexOf('role_id')
         role = query.value(role)
-        global name
         name = query.record().indexOf('name')
         name = query.value(name)
         cs_id = query.record().indexOf('comp_skill_id')
@@ -144,6 +145,9 @@ class AppWindow(QMainWindow):
         self.protocol_tables_experts(name, c_title)
 
     def check_member(self):
+        global c_title
+        global c_title1
+        global name_member
         code = self.ui.memberCodeLine.text()
         
         query = QSqlQuery()
@@ -160,7 +164,6 @@ class AppWindow(QMainWindow):
         cs_id = query.record().indexOf('comp_skill_id')
         cs_id = query.value(cs_id)
         
-        global name_member
         name_member = query.record().indexOf('name')
         name_member = query.value(name_member)
 
@@ -181,13 +184,11 @@ class AppWindow(QMainWindow):
 
         query.finish()
 
-        global c_title
         query2 = QSqlQuery()
         query2.exec(f'SELECT title FROM Competitions WHERE id = {c_id}')
         c_title = query2.record().indexOf('title')
         query2.next()
         c_title = query2.value(c_title)
-        global c_title1
         c_title1 = c_title
         query2.finish()
 
@@ -632,9 +633,9 @@ class AppWindow(QMainWindow):
             self.reset_on_click_back()
 
     def clear_form_competition(self):
-        self.ui.startDateLine.setText("Дата начала")
-        self.ui.endDateLine.setText("Дата окончания")
-        self.ui.titleLine.setText("Название чемпионата")
+        self.ui.startDateLine.setText("")
+        self.ui.endDateLine.setText("")
+        self.ui.titleLine.setText("")
         self.ui.Nomer.setText("0")
         self.ui.Sity.setCurrentIndex(0)
 
@@ -828,8 +829,8 @@ class AppWindow(QMainWindow):
         self.ui.stackedWidget_1.setCurrentIndex(0)
         self.ui.stackedWidget.setCurrentIndex(0)
 
-        self.BD_Championship()
-        self.Clear_form_competition()
+        self.bd_Championship()
+        self.clear_form_competition()
         self.clear_usersTable()
 
 
@@ -861,14 +862,14 @@ class AppWindow(QMainWindow):
 
     def protocol_tables_experts(self, name, c_title):
         query = QSqlQuery()
-        query.exec(f'SELECT * FROM Protocols JOIN Competitions ON Protocols.competition = Competitions.id WHERE Protocols.role = "Эксперт" AND Protocols.users NOT LIKE "{name}" AND Competitions.title = "{c_title}"')
+        query.exec(f'SELECT * FROM Protocols JOIN Competitions ON Protocols.competition = Competitions.id WHERE Protocols.role = "Эксперт" AND Protocols.users NOT LIKE "%{name}" AND Competitions.title = "{c_title}"')
         if not query.next():
             while self.ui.protocolTable_2.rowCount() > 0:
                 self.ui.protocolTable_2.removeRow(0)
             return
         else:
             query.finish()
-            query.exec(f'SELECT * FROM Protocols JOIN Competitions ON Protocols.competition = Competitions.id WHERE Protocols.role = "Эксперт" AND Protocols.users NOT LIKE "{name}" AND Competitions.title = "{c_title}"')
+            query.exec(f'SELECT * FROM Protocols JOIN Competitions ON Protocols.competition = Competitions.id WHERE Protocols.role = "Эксперт" AND Protocols.users NOT LIKE "%{name}" AND Competitions.title = "{c_title}"')
         title = query.record().indexOf('Protocols.title')
         desc = query.record().indexOf('Protocols.desc')
         compet = query.record().indexOf('Competitions.title')
@@ -900,9 +901,9 @@ class AppWindow(QMainWindow):
         
         str_experts_complete = query.value(competition)
 
-        zapyataya = ', '
+        #zapyataya = ', '
         query2 = QSqlQuery()
-        query2.exec(f'UPDATE Protocols SET users = "{query.value(users) + zapyataya + name}" WHERE title = "{str_experts_complete}" AND users NOT LIKE "%{name}"')
+        query2.exec(f'UPDATE Protocols SET users = "{query.value(users)}, {name}" WHERE title = "{str_experts_complete}" AND users NOT LIKE "%{name}"')
 
         self.protocol_tables_experts(name, c_title)
 
@@ -946,9 +947,9 @@ class AppWindow(QMainWindow):
             query.next() == True
         str_experts_complete = query.value(competition)
 
-        zapyataya = ', '
+        #zapyataya = ', '
         query2 = QSqlQuery()
-        query2.exec(f'UPDATE Protocols SET users = "{query.value(users) + zapyataya + name_member}" WHERE title = "{str_experts_complete}" AND users NOT LIKE "%{name_member}"')
+        query2.exec(f'UPDATE Protocols SET users = "{query.value(users)}, {name_member}" WHERE title = "{str_experts_complete}" AND users NOT LIKE "%{name_member}"')
 
         self.protocol_tables_members(name_member, c_title1)
 
