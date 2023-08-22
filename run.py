@@ -72,7 +72,7 @@ class AppWindow(QMainWindow):
             tables_[d].resizeRowsToContents()
             d+=1
 
-
+        self.ui.championshipTable.verticalHeader().setVisible(False)
         self.ui.enterButton.clicked.connect(self.check_data)
         self.ui.memberEnterButton.clicked.connect(self.member_swap)
         self.ui.okButton.clicked.connect(self.check_member)
@@ -195,6 +195,7 @@ class AppWindow(QMainWindow):
             chet = str(query.value(users)).count(',')
             y.append(chet + 1)
 
+        plt.rcParams.update({'font.size':8})
         plt.bar(x, y)
         # plt.title('Название')
         plt.savefig(".//Лого//Chart.png")
@@ -250,10 +251,12 @@ class AppWindow(QMainWindow):
             pushButton = QtWidgets.QPushButton()
             pushButton.setText("Изменить")
             pushButton.clicked.connect(self.changeClick)
+            pushButton.setText("Изменить")
             self.ui.championshipTable.setCellWidget(Tablerow, 6, pushButton)
             pushButton1 = QtWidgets.QPushButton()
             pushButton1.setText("Удалить")
             pushButton1.clicked.connect(self.deleteClicked)
+            # pushButton1.setStyleSheet('image: url(:Logo/galka.png);')
             self.ui.championshipTable.setCellWidget(Tablerow, 7, pushButton1)
 
             Tablerow+=1

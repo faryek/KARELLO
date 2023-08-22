@@ -224,6 +224,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_32 = QtWidgets.QVBoxLayout(self.page_4)
         self.verticalLayout_32.setObjectName("verticalLayout_32")
         self.Chart = QtWidgets.QLabel(parent=self.page_4)
+        self.Chart.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.Chart.setObjectName("Chart")
         self.verticalLayout_32.addWidget(self.Chart)
         self.stackedWidget3.addWidget(self.page_4)
